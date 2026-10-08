@@ -84,14 +84,23 @@ def private_file(path: Path, value: str) -> None:
         output.write(value + "\n")
 
 
-def initialize_control(root: Path, directory: Path, *, fixture: bool, port: int = 8000) -> Path:
+def initialize_control(
+    root: Path,
+    directory: Path,
+    *,
+    fixture: bool,
+    port: int = 8000,
+    model_profile: Path | None = None,
+) -> Path:
     root, directory = root.resolve(), directory.resolve()
     settings = ControlSettings(
         mode="authored_fixture" if fixture else "fresh_local_inference",
         root=root,
         database=directory / "state.sqlite3",
         suite=root / "scenarios/dev/suite-v5.json",
-        model_profile=root / "config/model-mac-small.json",
+        model_profile=(root / model_profile).resolve()
+        if model_profile is not None
+        else root / "config/model-mac-small.json",
         sandbox_manifest=root / "artifacts/sandbox/manifest.json",
         port=port,
     )

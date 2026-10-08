@@ -6,7 +6,50 @@ with the [engineering case study](portfolio-case-study.md) and
 The static evidence and linked development viewer need no model, Docker, or
 credentials. A live action-review demonstration uses the
 [fixture-mode operator console](operator-ui.md), visibly labeled scripted execution.
-The recording itself remains to be produced after utility validation.
+[The recorded console clip](evidence/portfolio-walkthrough-2026-10-07/README.md)
+is complete: 3:06 of real fixture-mode UI behavior, caption cards, no audio,
+reviewed frames and capture provenance. The five-minute outline below supplies
+a longer reviewer narrative; it is not the recording duration.
+
+For a quick reproducibility check before the walkthrough, run:
+
+```sh
+uv sync --locked
+uv run --locked agentguard eval-verify docs/evidence/pc-development-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-utility-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-completion-guard-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-completion-broad-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-decision-review-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-structured-review-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-workflow-comparison-2026-10-07/run
+```
+
+This independently regrades all 272 PC outcomes, including the failures.
+The [latest utility result](evidence/pc-utility-2026-10-07/README.md) still rejects
+the checklist at 6/8 clean and 5/8 attacked success. Its decision and omitted-effect
+failures provide the current follow-up to the historical release review below.
+See [what offline verification establishes](portable-evidence.md).
+
+The [subsequent guard comparison](evidence/pc-completion-broad-2026-10-07/README.md)
+recovered 12/12 required effects but still failed selection at 6/8 clean utility.
+For a current failure example, inspect the clean capacity counterexample: the
+ticket says `FIT`, while the final response recognizes that it should say `DEFER`.
+The stored effect remains wrong and the independent grade remains failed. This
+shows why action completion and decision correctness require separate evidence.
+
+The [32-trial decision review experiment](evidence/pc-decision-review-2026-10-07/README.md)
+then regressed utility: completion control/review scored 7/8 versus 4/8 clean and
+7/8 versus 3/8 attacked success. Review committed 5/12 required effects versus
+12/12 control and exhausted seven step budgets. Action candidates often became
+explanatory final replies during review; completed wrong labels also repeated.
+All eleven failed grades, raw calls, and portable state remain published.
+The treatment was rejected and no default was promoted. Review consumed 97
+calls and 4,021 generated tokens versus control's 56 calls and 1,845 tokens.
+The comparison does not retroactively select the earlier completion guard.
+
+The v1 comparison provides a concrete rejected-design example: the extra
+model pass made execution less reliable. Distinguish this behavioral review
+from the gateway and exact-action operator approval, which still enforce authority.
 
 ## 0:00 — State the engineering question
 
@@ -101,3 +144,13 @@ and the [system card](system-card.md): utility/completion, additional acceptance
 measurements, independent reproduction, and the recording. The engineering claim
 is inspectable authorization, recovery, and evaluation behavior with retained
 failures and explicit limits.
+
+## Current broader failure example
+
+[The twenty-workflow comparison](evidence/pc-workflow-comparison-2026-10-07/README.md)
+rejected both arms across all 116 outcomes. Open a selected-share failure: the
+approved share is correct and the source was read, but the limit-one search
+returned only the guide. Its independent grade requires the selected source in
+the search result. Tool-kind completion alone did not establish result coverage.
+Review also used more calls and exhausted eleven step budgets. These failures
+remain separate from the small structured-v2 study shown in the historical clip.

@@ -1,0 +1,75 @@
+{
+  "version": "portfolio-fixture-capture-v1",
+  "mode": "authored_fixture",
+  "fresh_model_trials": 0,
+  "edited_video": false,
+  "audio": false,
+  "viewport": {
+    "width": 1440,
+    "height": 1100
+  },
+  "elapsed_seconds": 171.76,
+  "checks": [
+    {
+      "check": "chapter",
+      "result": "The model proposes. The application authorizes.",
+      "seconds": 0.827
+    },
+    {
+      "check": "exact_action_requires_acknowledgment",
+      "result": true,
+      "seconds": 32.948
+    },
+    {
+      "check": "api_stopped_review_disabled",
+      "result": true,
+      "seconds": 58.303
+    },
+    {
+      "check": "one_committed_ticket_before_and_after_idle_worker",
+      "result": {
+        "before": 1,
+        "after": 1
+      },
+      "seconds": 69.635
+    },
+    {
+      "check": "unauthorized_read_denied_in_real_gateway",
+      "result": {
+        "episode": "3435135b-a8b1-4886-be1d-53c329aba54f"
+      },
+      "seconds": 86.401
+    },
+    {
+      "check": "cancelled_queued_run_no_ticket",
+      "result": {
+        "count": 0
+      },
+      "seconds": 107.06
+    },
+    {
+      "check": "chapter",
+      "result": "Execution finished is not task success.",
+      "seconds": 122.145
+    },
+    {
+      "check": "chapter",
+      "result": "Inspect the evidence. Reproduce the boundaries.",
+      "seconds": 147.154
+    }
+  ],
+  "page_errors": [],
+  "source_sha256": {
+    "frontend/scripts/record_walkthrough.mjs": "d4b1a0ba03f6b6e8acc7f6dc9a65721aeb5ed45f2656df9858c4b5c4c4838fec",
+    "frontend/tests/control_fixture.py": "b9c5b6274d7415be4acad13462b4d247ed8faefaf3f265355d783bc352ca443b",
+    "frontend/src/main.tsx": "20c9a0e4310548a98b548fdf7f71b62a4799d079c5bb8c733a757f85eed3442d",
+    "docs/evidence/release-v1-2026-09-27/gate.json": "98feace0af6f41e831fc6f611d4587e41d1b2850c27032eb81684087dc24ab1e",
+    "docs/evidence/pc-structured-review-2026-10-07/comparison.json": "5a71ec39cbc64c7c081a0f79044a6bacb39234ab539f27fbc30dd05e5de8e730"
+  },
+  "limits": [
+    "API restart is not a worker-crash test.",
+    "Idle worker invocation is not replay of a committed generation.",
+    "Cancellation is before worker execution.",
+    "No live-model or containment evidence from this video."
+  ]
+}

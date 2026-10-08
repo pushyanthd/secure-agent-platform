@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-07",
+  "environment": "Separate Ubuntu/WSL2 checkout and fresh locked Python environment on the same PC",
+  "independent_external_reproduction": false,
+  "python_tests_passed": 696,
+  "portable_evidence_tests": 17,
+  "lint": "PASS",
+  "format": "PASS",
+  "strict_typing": "PASS (45 source files)",
+  "published_state_grades_verified": [
+    20,
+    32
+  ],
+  "fixture_replay": "PASS (4 authored episodes, zero model trials)",
+  "fixture_durable_recovery": "PASS (7 checks, zero model trials)",
+  "frontend_changed_in_this_followup": false,
+  "prior_pc_browser_tests": 16,
+  "prior_pc_containment_probes": 24,
+  "commands": [
+    "uv sync --locked",
+    "make check",
+    "agentguard eval-verify docs/evidence/pc-development-2026-10-07/run",
+    "agentguard eval-verify docs/evidence/pc-utility-2026-10-07/run",
+    "agentguard demo-replay",
+    "agentguard demo-durable"
+  ]
+}

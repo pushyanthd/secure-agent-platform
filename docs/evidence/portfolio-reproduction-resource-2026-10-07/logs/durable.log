@@ -1,0 +1,15 @@
+# Durable execution demonstration
+
+Authored replay; **zero model trials**. In-process synthetic tools.
+
+An exact-action reviewer approves the persisted request. An injected interruption occurs after the ticket commit. A reopened store recovers the saved response after simulated lease expiry and completes without duplicating the ticket.
+
+- PASS: approval_wait_persisted
+- PASS: effect_committed_before_interruption
+- PASS: no_duplicate_effect_after_restart
+- PASS: approval_consumed_once
+- PASS: completed_after_restart
+- PASS: independent_task_grade_passed
+- PASS: one_saved_response_per_authored_turn
+
+Report and database: artifacts/durable/62f05367-79e2-4c97-85c4-042a5d30bc8c

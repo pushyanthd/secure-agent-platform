@@ -10,9 +10,13 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
+from pydantic import ValidationError
+
 from agentguard import benchmark
+from agentguard.completion import CompletionPlan
 from agentguard.computation import Computer, ToolFailure
 from agentguard.contracts import Profile, digest
+from agentguard.decision_review import ReviewVersion
 from agentguard.live import atomic_json
 from agentguard.model import LocalModel
 from agentguard.policy import POLICY_VERSION
@@ -143,6 +147,9 @@ def run_suite(
     stop_requested: Callable[[], bool] | None = None,
     max_episodes: int | None = None,
     release_freeze: dict[str, Any] | None = None,
+    decision_review_tasks: tuple[str, ...] = (),
+    decision_review_version: ReviewVersion = "independent-v1",
+    completion_plans: dict[str, CompletionPlan] | None = None,
 ) -> Path:
     if max_episodes is not None and max_episodes < 1:
         raise ValueError("Session episode limit must be positive")
@@ -153,6 +160,20 @@ def run_suite(
     if model is not None and model_evidence is None:
         raise ValueError("Live evaluation requires pinned model evidence")
     suite, fixtures = load_suite(suite_path, allow_held_out=release_freeze is not None)
+    if len(set(decision_review_tasks)) != len(decision_review_tasks) or not set(
+        decision_review_tasks
+    ) <= {task.id for _, _, task in fixtures}:
+        raise ValueError("Decision review requires distinct known task IDs")
+    if decision_review_version not in ("independent-v1", "structured-v2"):
+        raise ValueError("Unknown decision review version")
+    if completion_plans is not None and (
+        not completion_plans
+        or not set(completion_plans) <= {task.id for _, _, task in fixtures}
+        or not all(isinstance(plan, CompletionPlan) for plan in completion_plans.values())
+    ):
+        raise ValueError("Completion plans require known task IDs and typed requirements")
+    if release_freeze is not None and (decision_review_tasks or completion_plans):
+        raise ValueError("Development review cannot alter a frozen release protocol")
     if release_freeze is not None:
         from agentguard.release import protocol, verify_suite
 
@@ -259,6 +280,14 @@ def run_suite(
         manifest["validation_sha256"] = release_freeze["protocol"]["validation_sha256"]
         verify_manifest(release_freeze, manifest)
         atomic_json(run_dir / "suite_freeze.json", release_freeze)
+    if decision_review_tasks or completion_plans:
+        treatments: dict[str, dict[str, Any]] = {
+            task_id: {"decision_review": decision_review_version}
+            for task_id in decision_review_tasks
+        }
+        for task_id, plan in (completion_plans or {}).items():
+            treatments.setdefault(task_id, {})["completion_plan"] = plan.model_dump(mode="json")
+        manifest["runtime_treatments"] = treatments
     atomic_json(run_dir / "manifest.json", manifest)
     with benchmark.exclusive_run(run_dir):
         benchmark.initialize(store, manifest)
@@ -337,6 +366,26 @@ def resume_suite(
     return run_dir
 
 
+def valid_treatment(setting: Any) -> bool:
+    if (
+        not isinstance(setting, dict)
+        or not setting
+        or not set(setting) <= {"decision_review", "completion_plan"}
+    ):
+        return False
+    if "decision_review" in setting and setting["decision_review"] not in (
+        "independent-v1",
+        "structured-v2",
+    ):
+        return False
+    if "completion_plan" in setting:
+        try:
+            CompletionPlan.model_validate(setting["completion_plan"])
+        except ValidationError:
+            return False
+    return True
+
+
 def _continue_suite(
     run_dir: Path,
     store: Store,
@@ -350,6 +399,13 @@ def _continue_suite(
 ) -> None:
     schedule = manifest["schedule"]
     budgets = Budgets.model_validate(manifest["budgets"])
+    treatments = manifest.get("runtime_treatments", {})
+    if (
+        not isinstance(treatments, dict)
+        or not set(treatments) <= set(tasks)
+        or any(not valid_treatment(setting) for setting in treatments.values())
+    ):
+        raise ValueError("Invalid frozen runtime treatment")
     rows = benchmark.recorded(store, manifest)
     # Completed evidence is immutable; a redundant resume is a no-op.
     if len(rows) == len(schedule) and (run_dir / "checksums.json").is_file():
@@ -373,6 +429,7 @@ def _continue_suite(
             tasks[scheduled["task_id"]],
             scheduled.get("attack_id", "primary" if scheduled["attacked"] else None),
         )
+        task_budgets = Budgets.model_validate(budgets.model_dump() | treatments.get(task.id, {}))
         reviewer = (
             ExactActionReviewer(task.contract, task.review_contract)
             if manifest["simulated_approvals"]
@@ -391,9 +448,9 @@ def _continue_suite(
                     (time.time(), scheduled["episode_id"]),
                 )
         if interrupted:
-            result = benchmark.interrupted_result(store, scheduled, task, budgets)
+            result = benchmark.interrupted_result(store, scheduled, task, task_budgets)
         elif model is not None:
-            result = Runtime(store, model, budgets, reviewer=reviewer).run(
+            result = Runtime(store, model, task_budgets, reviewer=reviewer).run(
                 scheduled["episode_id"], task.task
             )
         else:

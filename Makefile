@@ -3,7 +3,9 @@ export UV_CACHE_DIR ?= $(CURDIR)/artifacts/uv-cache
 
 .PHONY: setup check doctor demo-replay sandbox-build sandbox-smoke demo-isolated models-fetch model-serve eval-smoke
 PROFILE ?= mac-small
-NODE_BIN := $(CURDIR)/artifacts/runtime/node-v24.21.0-darwin-arm64/bin
+NODE_OS := $(shell uname -s | tr A-Z a-z)
+NODE_ARCH := $(shell uname -m | sed -e 's/x86_64/x64/' -e 's/aarch64/arm64/')
+NODE_BIN := $(CURDIR)/artifacts/runtime/node-v24.21.0-$(NODE_OS)-$(NODE_ARCH)/bin
 export PATH := $(NODE_BIN):$(PATH)
 export npm_config_cache ?= $(CURDIR)/artifacts/npm-cache
 
@@ -94,7 +96,7 @@ setup:
 check:
 	$(UV) run --locked ruff check .
 	$(UV) run --locked ruff format --check .
-	$(UV) run --locked mypy src scripts/compare_receipt_pilot.py scripts/report_release.py scripts/utility_pilot.py scripts/model_pilot.py scripts/screen_model_pilot.py scripts/completion_pilot.py
+	$(UV) run --locked mypy src scripts/compare_receipt_pilot.py scripts/report_release.py scripts/utility_pilot.py scripts/model_pilot.py scripts/screen_model_pilot.py scripts/completion_pilot.py scripts/completion_broad.py scripts/decision_review.py scripts/decision_structured.py scripts/workflow_comparison.py scripts/resource_completion.py scripts/portfolio_check.py
 	$(UV) run --locked pytest
 
 doctor:
@@ -194,3 +196,69 @@ model-screen-declare:
 
 model-screen-start:
 	$(UV) run --locked python scripts/screen_model_pilot.py run --session "$(MODEL_PILOT_SESSION)"
+
+.PHONY: decision-prepare decision-start decision-status decision-report
+DECISION_SESSION ?= artifacts/pc-wsl/decision-review-v1
+DECISION_PROFILE ?= artifacts/pc-wsl/model-profile.json
+DECISION_SANDBOX ?= artifacts/sandbox/manifest.json
+decision-prepare:
+	$(UV) run --locked python scripts/decision_review.py prepare --session "$(DECISION_SESSION)" --model-profile "$(DECISION_PROFILE)" --sandbox-manifest "$(DECISION_SANDBOX)"
+
+decision-start:
+	$(UV) run --locked python scripts/decision_review.py run --session "$(DECISION_SESSION)" $(if $(EPISODES),--max-episodes $(EPISODES),)
+
+decision-status:
+	$(UV) run --locked python scripts/decision_review.py status --session "$(DECISION_SESSION)"
+
+decision-report:
+	$(UV) run --locked python scripts/decision_review.py report --session "$(DECISION_SESSION)"
+
+.PHONY: portfolio-check
+portfolio-check:
+	$(UV) run --locked python scripts/portfolio_check.py
+
+.PHONY: structured-prepare structured-start structured-status structured-report
+STRUCTURED_SESSION ?= artifacts/pc-wsl/decision-structured-v2
+structured-prepare:
+	$(UV) run --locked python scripts/decision_structured.py prepare --session "$(STRUCTURED_SESSION)" --model-profile "$(DECISION_PROFILE)" --sandbox-manifest "$(DECISION_SANDBOX)"
+
+structured-start:
+	$(UV) run --locked python scripts/decision_structured.py run --session "$(STRUCTURED_SESSION)" $(if $(EPISODES),--max-episodes $(EPISODES),)
+
+structured-status:
+	$(UV) run --locked python scripts/decision_structured.py status --session "$(STRUCTURED_SESSION)"
+
+structured-report:
+	$(UV) run --locked python scripts/decision_structured.py report --session "$(STRUCTURED_SESSION)"
+
+.PHONY: workflows-prepare workflows-start workflows-status workflows-report
+WORKFLOW_SESSION ?= artifacts/pc-wsl/workflow-comparison-v1
+workflows-prepare:
+	$(UV) run --locked python scripts/workflow_comparison.py prepare --session "$(WORKFLOW_SESSION)" --model-profile "$(DECISION_PROFILE)" --sandbox-manifest "$(DECISION_SANDBOX)"
+
+workflows-start:
+	$(UV) run --locked python scripts/workflow_comparison.py run --session "$(WORKFLOW_SESSION)" $(if $(EPISODES),--max-episodes $(EPISODES),)
+
+workflows-status:
+	$(UV) run --locked python scripts/workflow_comparison.py status --session "$(WORKFLOW_SESSION)"
+
+workflows-report:
+	$(UV) run --locked python scripts/workflow_comparison.py report --session "$(WORKFLOW_SESSION)"
+
+.PHONY: ui-record
+ui-record:
+	cd frontend && node scripts/record_walkthrough.mjs $(if $(RECORDING_OUTPUT),"$(RECORDING_OUTPUT)",)
+
+.PHONY: resources-prepare resources-start resources-status resources-report
+RESOURCE_SESSION ?= artifacts/pc-wsl/resource-completion-v1
+resources-prepare:
+	$(UV) run --locked python scripts/resource_completion.py prepare --session "$(RESOURCE_SESSION)" --model-profile "$(DECISION_PROFILE)" --sandbox-manifest "$(DECISION_SANDBOX)"
+
+resources-start:
+	$(UV) run --locked python scripts/resource_completion.py run --session "$(RESOURCE_SESSION)" $(if $(EPISODES),--max-episodes $(EPISODES),)
+
+resources-status:
+	$(UV) run --locked python scripts/resource_completion.py status --session "$(RESOURCE_SESSION)"
+
+resources-report:
+	$(UV) run --locked python scripts/resource_completion.py report --session "$(RESOURCE_SESSION)"

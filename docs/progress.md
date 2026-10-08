@@ -1,8 +1,64 @@
 # Implementation status
 
-Updated September 28, 2026. The architecture plan remains the target design.
+Updated October 7, 2026. The architecture plan remains the target design.
 
-## Current work: completion obligations before release
+## Current PC follow-up and portfolio reproduction
+
+The complete PC/WSL application stack and pinned Windows CUDA inference are
+verified. The [ten-task development schedule](evidence/pc-development-2026-10-07/README.md)
+resumed at 2/20 and finished all 20 outcomes: 10/10 clean, 9/10 attacked success,
+zero observed wins, and no unfinished episodes. Its failed required read attempt
+is preserved. The separate [32-trial PC checklist study](evidence/pc-utility-2026-10-07/README.md)
+retained control/checklist clean 5/8 versus 6/8 and attacked 2/8 versus 5/8;
+all attacks reached requests and all outcomes completed. The treatment missed
+the unchanged selection rule and remains unselected.
+
+`eval-export` and `eval-verify` now support offline state/output regrading of
+synthetic benchmark extracts without publishing operational approvals/nonces or
+SQLite databases. Both PC publications include every saved outcome, portable
+state, original extract checksums, full failure review, offline viewer, and
+runtime diagnostics. CI verifies both publications. This closes state/output
+reproduction for these new studies; it does not reconstruct the full gate or
+retroactively add state to historical extracts.
+
+The [new eight-trial PC guard study](evidence/pc-completion-guard-2026-10-07/README.md)
+qualified with 4/4 exact guard successes versus 3/4 control. Both attacked guarded
+trials recovered after a premature final response. The subsequent
+[32-trial broader comparison](evidence/pc-completion-broad-2026-10-07/README.md)
+recovered 12/12 effects versus 9/12, with control/guard attacked success 5/8 versus
+6/8. Clean success stayed 6/8 and missed the 7/8 threshold, so the broader
+candidate was rejected. All 40 new outcomes and every failure are preserved.
+The scripts now freeze explicit PC profile selection, matched task obligations,
+comparison helpers, and bounded pause/resume. All 711 Python tests, lint,
+formatting, and strict types passed in a separate same-PC checkout.
+
+The [32-trial decision review experiment](evidence/pc-decision-review-2026-10-07/README.md)
+then regressed utility: completion control/review scored 7/8 versus 4/8 clean and
+7/8 versus 3/8 attacked success. Review committed 5/12 required effects versus
+12/12 control and exhausted seven step budgets. Action candidates often became
+explanatory final replies during review; completed wrong labels also repeated.
+All eleven failed grades, raw calls, and portable state remain published.
+The treatment was rejected and no default was promoted. Review consumed 97
+calls and 4,021 generated tokens versus control's 56 calls and 1,845 tokens.
+The comparison does not retroactively select the earlier completion guard.
+
+Next: make the mutation-review protocol unambiguous and measure deterministic
+calculation on grounded, authorized facts. Any claimed correction must change
+stored state. A useful candidate, broader validation, and a new declared release
+evaluation are still required.
+The original 400-trial FAIL gate and earlier rejected studies remain unchanged.
+The README is now a concise portfolio entry point, with detailed workflows in
+`project-guide.md`. `make portfolio-check` reproduces checks and all portable
+evidence in a fresh source/environment snapshot. Runtime review configuration
+is persisted with job settings, keeping frozen authorization contracts unchanged.
+Validation covered 735 distinct Python tests, formatting, lint, and strict types.
+The [fresh-environment reproduction](evidence/portfolio-reproduction-2026-10-07/README.md)
+then passed the complete 735-test suite and all five publications' 124 portable
+grades, corpus validation, and fixture demos without inference or operational
+state. The first attempt's executable-discovery failure is retained separately.
+The sections below describe historical increments.
+
+## September 28 status: completion obligations before release
 
 The first 400-trial evaluation and 32-trial checklist study are complete and
 failed their selection objectives. The updated 4B model stopped after 19/32
@@ -500,3 +556,91 @@ recovery/isolation checks; frozen held-out benchmark; portfolio recording and re
 Direct `Store.review()` remains a trusted library call; authentication applies to
 the HTTP review endpoint. Authored replay recovery is not evidence that a model
 can recover after a denied call.
+
+## Structured follow-up and broader development (October 7)
+
+- [x] Restrict pending mutation reviews to the same tool type and independently reject wrong-kind replacements.
+- [x] Apply completion feedback before final review, retaining v1 behavior for frozen studies.
+- [x] Complete all 32 frozen structured-v2 trials and independently regrade/publish every outcome.
+- [x] Preserve matched 7/8 clean and 7/8 attacked success at higher cost; qualify only for broader development.
+- [x] Declare a twenty-workflow, 116-trial comparison and selection rule before generation.
+- [x] Complete and publish every outcome; neither arm qualified, so no candidate was selected.
+
+The six PC publications retain 156 outcomes. The earlier clean reproduction
+remains evidence for its 735-test, 124-outcome snapshot; final reproduction must
+include the subsequent source and publications.
+
+## Recorded console walkthrough (October 7)
+
+- [x] Capture the real fixture console, API restart, exact approval, denied read and queued cancellation.
+- [x] Assert committed-effect counts and zero browser page errors during capture.
+- [x] Decode the unedited 3:06 video and visually inspect eight full-resolution frames.
+- [x] Publish only allowlisted clip/screenshots, source hashes, capture controller and playback metadata.
+- [x] Run all sixteen current browser tests; frontend type/format checks also passed.
+
+[Recording and limits](evidence/portfolio-walkthrough-2026-10-07/README.md): caption
+cards, no audio, visibly scripted fixtures, zero fresh-model evaluation trials.
+Its fixture evidence does not replace live crash/cancellation or containment tests.
+
+## Complete twenty-workflow comparison (October 7)
+
+Control scored 18/20 clean and 31/38 attacked; review scored 16/20 and 23/38
+with eleven step-budget terminations. Both had zero observed wins, zero unresolved
+attack grades and all 38 payloads exposed. All 116 outcomes were independently
+regraded. [Full failure analysis](evidence/pc-workflow-comparison-2026-10-07/README.md).
+The seven PC inference publications now retain 272 outcomes, without pooling
+study scores. Resource-level search coverage and read attempts are the next
+completion increment; the original release remains FAIL. Current PC containment
+probes also passed [24/24](evidence/pc-sandbox-2026-10-07/README.md).
+
+## Refreshed clean source/environment reproduction (October 7)
+
+[The broader snapshot](evidence/portfolio-reproduction-broad-2026-10-07/README.md)
+passes all 766 tests, lint/format/types, corpus validation, authored demos and
+independent state regrading of all 272 PC outcomes. The fresh source, virtual
+environment and dependency cache have retained hashes and all check logs.
+Same-author reproduction is verified; independent external review remains open.
+The broader utility selection still rejects both configurations. Completion
+checks for required read attempts and search coverage remain the next feature.
+
+## Resource-level completion treatment (October 7)
+
+- [x] Declare typed reads/read attempts, search/list breadth and explicit result IDs, update targets, distinct creation counts and source/destination shares.
+- [x] Present legitimate workflow requirements initially and remind only missing observations at final proposals.
+- [x] Persist exact plans with durable job settings; replay committed effects without duplication.
+- [x] Reject a plan whose conservative call minimum exceeds its existing step budget before generation.
+- [x] Keep default prompt/budget bytes and authorization/grader/storage readers unchanged.
+- [x] Pass 34 new tests and the complete 800-test Python/lint/format/type suite.
+- [x] Declare the unchanged-graded twenty-workflow, 116-trial comparison and selection rule before generation.
+- [x] Complete and publish the fresh-model comparison; resource completion qualified under the frozen rule.
+
+[Resource plan runbook and limits](resource-completion.md). Requirements contain
+no expected decision labels or replacement bodies. Search/list breadth policy
+is separate from actual declared result-ID coverage and independent grading.
+The original release remains FAIL and no default is promoted by implementation.
+
+## Resource-completion comparison completed (October 7)
+
+[All 116 frozen outcomes](evidence/pc-resource-completion-2026-10-07/README.md)
+were independently regraded. Resource completion qualified at 19/20 clean and
+37/38 attacked success versus control's 18/20 and 32/38. Both had zero observed
+attacker wins, zero unresolved attacks and no noncompleted trials, with all 38
+payloads present in requests. Guard used 235 calls/7,552 generated tokens versus
+260/8,641 control, with no extra model review calls or completion reminders.
+The guard's two failures retain the original exact ticket-body punctuation
+expectation. All ten failed grades remain published. This selects an opt-in
+development candidate for a newly declared release study; no application default
+or original release gate changes. The original release remains FAIL.
+
+## Final reproduction and pause (October 7)
+
+[Fresh source/environment validation](evidence/portfolio-reproduction-resource-2026-10-07/README.md)
+passed all 800 tests, lint/format/types, corpus validation and authored demos, and
+independently regraded all eight PC publications' 388 outcomes. Exact source hashes
+and thirteen check logs are retained. This publication and later editorial links
+are outside the checked snapshot; Python implementation and grading states did
+not change. Same-author/same-PC reproduction does not close external review.
+
+The current comparison and wrap-up are complete. The user requested a pause; no
+new release study, Git commit/push or GitHub release was started. Resume with the
+[V1 checklist](release-readiness.md). The original release gate remains FAIL.

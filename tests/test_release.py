@@ -413,6 +413,8 @@ def test_named_session_plans_without_inference_and_resumes_same_schedule(
 
     monkeypatch.setattr(release_cli, "_runtime", runtime)
     session = tmp_path / "session"
+    sandbox_manifest = tmp_path / "sandbox.json"
+    sandbox_manifest.write_text('{"test_double": true}')
     args = [
         "release-launch",
         "--freeze",
@@ -421,6 +423,8 @@ def test_named_session_plans_without_inference_and_resumes_same_schedule(
         str(session),
         "--output",
         str(tmp_path / "runs"),
+        "--sandbox-manifest",
+        str(sandbox_manifest),
     ]
     planned = CliRunner().invoke(app, args + ["--plan-only"])
     assert planned.exit_code == 0, planned.output
@@ -454,10 +458,21 @@ def test_named_session_rejects_concurrent_launcher_before_model(frozen, tmp_path
     monkeypatch.setattr(release_cli, "_runtime", forbidden)
     session = tmp_path / "session"
     session.mkdir()
+    sandbox_manifest = tmp_path / "sandbox.json"
+    sandbox_manifest.write_text('{"test_double": true}')
     with benchmark.exclusive_run(session):
         result = CliRunner().invoke(
             app,
-            ["release-launch", "--freeze", str(frozen), "--session", str(session), "--plan-only"],
+            [
+                "release-launch",
+                "--freeze",
+                str(frozen),
+                "--session",
+                str(session),
+                "--plan-only",
+                "--sandbox-manifest",
+                str(sandbox_manifest),
+            ],
         )
     assert result.exit_code == 2
     assert "already running" in result.output

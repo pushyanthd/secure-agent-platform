@@ -21,6 +21,7 @@ from agentguard.control_smoke import run_control_smoke
 from agentguard.diagnostics import write_diagnostics
 from agentguard.doctor import inventory
 from agentguard.durable_demo import run_durable_demo
+from agentguard.evidence import export_evidence, verify_evidence
 from agentguard.live import prepare_local_model, run_live_smoke
 from agentguard.model import inference_environment
 from agentguard.model_setup import fetch_models, serve_command
@@ -59,10 +60,13 @@ def control_init(
     directory: Annotated[Path, typer.Option()] = Path("artifacts/control"),
     fixture: Annotated[bool, typer.Option("--fixture")] = False,
     port: Annotated[int, typer.Option(min=1024, max=65535)] = 8000,
+    model_profile: Annotated[Path | None, typer.Option(exists=True, dir_okay=False)] = None,
 ) -> None:
     """Create private local credentials and settings. Explicit --fixture needs no services."""
     try:
-        path = initialize_control(Path.cwd(), directory, fixture=fixture, port=port)
+        path = initialize_control(
+            Path.cwd(), directory, fixture=fixture, port=port, model_profile=model_profile
+        )
     except (ValueError, OSError) as exc:
         raise typer.BadParameter(str(exc)) from exc
     typer.echo(f"Settings: {path}")
@@ -132,6 +136,32 @@ def demo_durable(
     typer.echo(f"Report and database: {directory}")
     if not json.loads((directory / "report.json").read_text())["passed"]:
         raise typer.Exit(1)
+
+
+@app.command()
+def eval_export(
+    run_directory: Annotated[Path, typer.Argument(exists=True, file_okay=False)],
+    output: Annotated[Path, typer.Option()],
+) -> None:
+    """Export synthetic benchmark state for offline regrading without approval credentials."""
+    try:
+        result = export_evidence(run_directory, output)
+    except (ValueError, OSError, KeyError, TypeError, sqlite3.Error) as exc:
+        raise typer.BadParameter(f"Unusable benchmark evidence: {exc}") from exc
+    typer.echo(f"Portable evidence: {result}")
+    typer.echo("Includes synthetic model/tool content; review before publishing.")
+
+
+@app.command()
+def eval_verify(
+    run_directory: Annotated[Path, typer.Argument(exists=True, file_okay=False)],
+) -> None:
+    """Independently regrade portable evidence offline, with no inference or tool execution."""
+    try:
+        result = verify_evidence(run_directory)
+    except (ValueError, OSError, KeyError, TypeError, sqlite3.Error) as exc:
+        raise typer.BadParameter(f"Unusable portable evidence: {exc}") from exc
+    typer.echo(json.dumps(result, indent=2))
 
 
 @app.command()

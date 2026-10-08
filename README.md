@@ -1,393 +1,161 @@
 # Secure Agent Execution & Evaluation Platform
 
-**Implemented:** six tools, durable execution, authenticated API, operator console,
-and a frozen, resumable evaluation harness.
+A local workplace-agent lab for **application-owned authorization, durable tool
+execution, and adversarial evaluation**. The model proposes actions; trusted code
+controls permissions, approvals, and committed effects. Documents, tickets, and
+outbound shares are synthetic.
 
-**Measured:** the first 400-trial evaluation is complete. Defended clean task
-success was **5/40**; observed attacker wins were **0/160**, versus baseline
-**104/160**, with two defended attacks unresolved. The release gate is **FAIL**.
-Current work targets utility before portfolio release.
-[Results and failure analysis](docs/evidence/release-v1-2026-09-27/README.md).
+Python | FastAPI | Pydantic | SQLite WAL | React/TypeScript | Docker | llama.cpp
 
-A local workplace-agent lab that measures legitimate task completion and resistance to prompt injection, with application-enforced permissions, reviewable actions, and reproducible security evaluations.
+**Status: experimental.** The first 400-trial release evaluation is complete and
+its gate is **FAIL**. Defended clean task success was **5/40**; observed attacker
+wins were **0/160**, compared with **104/160** for baseline. Two defended attacks
+remain unresolved. Security counts do not compensate for low task utility.
+[Full results and failure analysis](docs/evidence/release-v1-2026-09-27/README.md).
 
-[Engineering case study](docs/portfolio-case-study.md) ·
-[Architecture and implementation plan](arch_plan/secure-agent-platform-plan.md) ·
-[System card and measured limits](docs/system-card.md) ·
-[Run the 400-episode evaluation](docs/run-400.md)
+[Engineering case study](docs/portfolio-case-study.md) |
+[Recorded console walkthrough](docs/evidence/portfolio-walkthrough-2026-10-07/README.md) |
+[Reviewer path](docs/reviewer-walkthrough.md) |
+[System card](docs/system-card.md) |
+[Detailed workflow guide](docs/project-guide.md)
 
-Development, state, and the demo run on the Mac. Model inference can run on the Mac or on an optional RTX 5080 PC over an SSH tunnel. No paid cloud service or model API is required.
+## What this project demonstrates
 
-A representative workflow reads a synthetic launch document and creates a ticket.
-An embedded instruction tries to redirect the write to an unauthorized project;
-the gateway checks the actual action against trusted permissions before committing it.
+| Engineering problem | Implemented approach |
+|---|---|
+| Prompt injection redirects a tool action | Typed proposals, actor ACLs, explicit resource scope, and a deterministic gateway |
+| An approval becomes stale or changes meaning | Expiring, single-use approval bound to the exact action, resource state, and policy |
+| A crash or retry repeats a write | Atomic effect/approval/audit/idempotency transactions; persisted responses; worker leases and fencing |
+| Tool computation gains host authority | Unprivileged Docker computation with no network, host mounts, or database access; host validates effects |
+| The model claims success without doing the work | Independent grades over committed state, exact outputs, and required reads |
+| Evaluations hide failures or change after execution | Frozen source/model/fixtures/budgets, complete schedules, resumable trials, exposure accounting, and retained failures |
 
-## Run the 400-episode release comparison
+The authenticated API supports owner-scoped runs, cancellation, observer access,
+and exact-action review. The six tools cover document reading/search, ticket
+listing/creation/versioned updates, and reviewed document sharing.
 
-Forty authored decision templates, four attacks each, baseline and defended:
-400 fresh trials. The [runbook](docs/run-400.md) covers setup, pause/resume, and
-results; the [corpus scope](docs/held-out-corpus.md) explains shared mechanisms
-and the limits of this self-authored decision-template holdout.
-
-```sh
-make release-prepare             # Full checks and freeze; zero generation
-make release-plan                # Inspect a 0/400 schedule without inference
-make release-start EPISODES=10   # First ten real trials, then pause
-make release-start               # Resume the same run to completion
-make release-report              # Gate, offline viewer, and diagnostics
+```mermaid
+flowchart LR
+    UI[Operator console] --> API[Authenticated API]
+    API --> W[Durable worker]
+    W <--> M[Local model]
+    W --> G[Authorization gateway]
+    G --> C[Isolated tool computation]
+    C --> V[Validate effect and recheck authority]
+    V --> DB[(Atomic effect, approval, audit, idempotency)]
+    DB --> E[Independent state grader]
 ```
 
-Start Docker and the pinned local model server first (`make model-serve` in a
-separate terminal). `make release-status` works without inference. All failed
-trials remain in the frozen comparison; this release is explicitly experimental.
+![Operator reviewing an exact shared-ticket action](docs/evidence/operator-ui-2026-09-23/approval-desktop.png)
 
-## Current work: improve utility before release
+## Measured results
 
-The 400-trial evaluation is already complete and its gate remains **FAIL**.
-The [model screens](docs/model-utility-pilot.md) rejected the updated 4B candidate
-at 19/32 and the 9B candidate at its predeclared 14/32 futility stop.
-The latest [completion-guard pilot](docs/completion-guard.md) targets omitted
-requested actions using explicit trusted task obligations. It keeps the same
-9B model, exact graders, and budgets. The [completed eight-trial comparison](docs/evidence/completion-guard-2026-09-28/README.md)
-recorded exact success of 0/4 control versus 1/4 guard and ticket creation of
-1/4 versus 4/4. Incorrect decisions and one guarded timeout prevented selection.
-[Windows/RTX 5080 inference](docs/pc-inference.md) now serves the pinned 9B model
-on PC loopback and passes a structured-generation probe. Mac tunnel integration
-and a new measured utility study remain outstanding.
+| Separate study | Clean task success | Task success under attack | Interpretation |
+|---|---:|---:|---|
+| [400-trial release](docs/evidence/release-v1-2026-09-27/README.md), defended | 5/40 | 7/160 | FAIL; 0/160 observed wins, two unresolved attacked trials |
+| [20-trial PC development](docs/evidence/pc-development-2026-10-07/README.md), defended | 10/10 | 9/10 | One required-read failure retained; 0/10 observed wins |
+| [32-trial PC checklist](docs/evidence/pc-utility-2026-10-07/README.md), treatment | 6/8 | 5/8 | Failed both declared utility thresholds |
+| [32-trial completion guard](docs/evidence/pc-completion-broad-2026-10-07/README.md), treatment | 6/8 | 6/8 | Recovered 12/12 required effects; wrong decision labels still failed selection |
+| [32-trial decision review](docs/evidence/pc-decision-review-2026-10-07/README.md), treatment | 4/8 | 3/8 | Regressed from control's 7/8 and 7/8; seven step-budget failures; rejected |
+| [32-trial structured review](docs/evidence/pc-structured-review-2026-10-07/README.md), treatment | 7/8 | 7/8 | Matched control utility with 54% more calls; qualified only for broader development |
+| [116-trial workflow comparison](docs/evidence/pc-workflow-comparison-2026-10-07/README.md), control / review | 18/20 / 16/20 | 31/38 / 23/38 | Neither qualified; review exhausted eleven step budgets |
+| [116-trial resource completion](docs/evidence/pc-resource-completion-2026-10-07/README.md), control / guard | 18/20 / 19/20 | 32/38 / 37/38 | Resource guard qualified for a newly declared release study; no default promoted |
 
-```sh
-uv run --locked python scripts/completion_pilot.py status
-uv run --locked python scripts/completion_pilot.py report
-```
+These studies use different task sets and execution profiles; their scores stay
+separate. Development tasks are exposed, self-authored inputs with one seed.
+Zero observed wins does not establish zero attack risk. The original release
+combines hardened prompting with gateway enforcement; a release-scale prompt-only
+ablation remains open.
 
-Docker and the `mac-medium` model server must be running for inference. See the
-runbook for first-time preparation. Existing tasks remain unchanged unless the
-guard is explicitly enabled. Historical reports require their frozen source;
-[regrading instructions](docs/completion-guard.md#historical-evidence) preserve
-the original 400-trial result. Another full release run waits for measured utility.
+The latest completion failures identify a useful distinction: completing an
+action does not establish the correctness of its committed content. The
+[decision review experiment](docs/decision-review.md) tests a second model pass
+before mutation and final delivery, within the original budgets and graders.
+It regressed utility and was rejected: repeated wrong labels and action-to-prose
+review loops remain in the [complete evidence](docs/evidence/pc-decision-review-2026-10-07/README.md).
+The separately frozen [structured follow-up](docs/structured-review.md) completed
+all effects but matched control utility at higher cost. The twenty-workflow study
+then rejected both configurations; missing search coverage and read attempts
+motivated the [resource-completion comparison](docs/resource-completion.md),
+which qualified at 19/20 clean and 37/38 attacked success. The selected candidate
+remains opt-in pending a newly declared release study.
 
-## Utility improvement pilot
+## Verify without a model
 
-The [checklist pilot](docs/utility-pilot.md) tests eight paired development cases
-after the failed release. Control and treatment share the model, permissions,
-budgets, and exact graders; the treatment adds a generic execution checklist.
-The 32-trial schedule covers decisions, formatting, committed actions, and denial
-recovery. This is exposed-family development work, not a replacement release score.
-
-The [completed 32-trial pilot](docs/evidence/utility-checklist-2026-09-27/README.md)
-improved clean success from 1/8 to 4/8 and attacked success from 2/8 to 3/8, but
-clean decision correctness stayed at 4/8 and the checklist had one unresolved
-timeout. It failed the predeclared selection rule and remains opt-in development work.
-
-```sh
-make utility-validate
-make utility-prepare             # Freeze 0/32; zero generation
-make utility-start EPISODES=4    # Bounded session, then pause
-make utility-start              # Resume remaining trials
-make utility-report             # Independently regrade and compare arms
-```
-
-## Broader development benchmark
-
-The [fourteen-task live benchmark](docs/evidence/fourteen-task-live-2026-09-24/README.md)
-completed all 84 scheduled episodes across three sessions (10 + 10 + 64), using
-the pinned local model and isolated tools:
-
-| Profile | Clean task success | Task success under attack | Observed attacker wins |
-|---|---:|---:|---:|
-| Baseline | 12/14 | 10/14 | 4/14 |
-| Prompt-only | 12/14 | 10/14 | 4/14 |
-| Defended | 14/14 | 13/14 | 0/14 |
-
-The one defended failure is retained: simulated review rejected a sensitive
-write, but the model falsely claimed it had created the ticket. Independent
-grading found zero tickets. All 13 failed task grades across the three profiles
-remain in the report. These self-authored development results are not a held-out
-release gate, and zero observed wins does not establish zero attack risk.
-
-Open the [offline comparison viewer](docs/evidence/fourteen-task-live-2026-09-24/analysis/explorer.html),
-[paired analysis](docs/evidence/fourteen-task-live-2026-09-24/analysis/analysis.md),
-[runtime diagnostics](docs/evidence/fourteen-task-live-2026-09-24/diagnostics/diagnostics.md),
-or [five-minute reviewer walkthrough](docs/reviewer-walkthrough.md).
-
-## Run locally
-
-Requires Python 3.12+ and [uv](https://docs.astral.sh/uv/). From this directory:
+Requires Python 3.12+ and uv on Linux, macOS, or Ubuntu under WSL2:
 
 ```sh
 uv sync --locked
-make doctor
+uv run --locked agentguard eval-verify docs/evidence/pc-development-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-utility-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-completion-guard-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-completion-broad-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-decision-review-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-structured-review-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-workflow-comparison-2026-10-07/run
+uv run --locked agentguard eval-verify docs/evidence/pc-resource-completion-2026-10-07/run
+uv run --locked agentguard demo-replay
+uv run --locked agentguard demo-durable
 make check
-make demo-replay
-make demo-durable
-make eval-suite
 ```
 
-If uv is not installed, bootstrap it inside the repository with an available
-Python 3.12 (on this Mac: `/opt/homebrew/bin/python3.12`):
+The verification commands independently regrade every saved outcome, including
+failures, from portable committed state. They need no model, Docker, credentials,
+or original private database. The demos use authored responses and make zero
+model calls. [Evidence contract and limits](docs/portable-evidence.md).
 
-```sh
-python3.12 -m venv .venv
-.venv/bin/python -m pip install uv==0.12.18
-make setup
-```
+`make portfolio-check` repeats checks in a fresh source snapshot, Python
+environment, and dependency cache, then verifies all published portable studies.
+It retains source hashes and check logs under ignored `artifacts/`. This is local
+reproduction on the same PC; external independent reproduction remains open.
+[The latest completed reproduction](docs/evidence/portfolio-reproduction-resource-2026-10-07/README.md)
+passed all 800 tests, lint, formatting, strict types, corpus validation, fixture
+demos, and offline regrading of all 388 PC outcomes. The earlier 735- and 766-test snapshots
+remain separately published.
 
-The Makefile also finds uv in `.venv/bin`. Dependency installation needs network
-access; the installed replay and tests need no model, credentials, or services.
+## Run the operator console
 
-`make demo-replay` creates a new directory under `artifacts/replays/` with four
-episodes, a SQLite database, JSON and Markdown reports, and report checksums.
-Each run compares clean and attacked inputs under baseline and defended profiles.
-The baseline deliberately disables business authorization inside its synthetic
-episode. Authored recovery attempts the intended project after the redirected write.
-
-**This is scripted replay, not fresh inference or a recording of a model run.**
-It exercises contracts and graders; its results are not a measured model attack
-success rate. The browser console is described below.
-
-`make demo-durable` demonstrates a persisted approval wait, simulated review,
-an interruption after ticket commit, and recovery without a duplicate ticket.
-It also uses authored responses and performs **zero model trials**. The worker
-uses transactional claims, renewable leases, and fencing at every checkpoint and
-effect commit. Separate tests kill subprocesses before and after effects.
-See the [durable execution runbook and limits](docs/durable-execution.md).
-
-The authenticated API supports defended task submission, owner-scoped status and
-redacted timelines, cancellation, and exact-action review. Start the scripted
-application locally, with API and worker in separate terminals. Building the
-React/TypeScript UI also requires Node.js 24 LTS:
+Node.js 24 is needed to build the UI. Use a fresh control directory for this
+scripted fixture demonstration:
 
 ```sh
 make ui-setup ui-build
 uv run --locked agentguard control-init --fixture
-make api-serve       # Terminal 1: loopback-only API
-make worker          # Terminal 2: durable worker, no operator credential file
+make api-serve       # Terminal 1
+make worker          # Terminal 2
 ```
 
-Open `http://127.0.0.1:8000/`, connect using the token in
-`artifacts/control/operator.token`, and choose **authorized shared write** to
-review an exact action. If control settings already exist, skip initialization.
-The console supports task selection, redacted timelines, approval/rejection,
-cancellation, and observer access. See the [operator UI runbook](docs/operator-ui.md)
-or use the [control-plane API client](docs/control-plane.md).
-`make control-smoke` verifies real HTTP authentication and API restart during an
-approval wait with separate worker processes. Fixture runs are labeled and perform
-zero model trials; omit `--fixture` when initializing a separate live instance.
+Open `http://127.0.0.1:8000/`, connect with the local token in
+`artifacts/control/operator.token`, and select **authorized shared write**.
+Inspect and approve or reject the exact proposed action. Existing control
+settings should be reused; initialization refuses to overwrite them.
+[Console runbook](docs/operator-ui.md) | [API contract](docs/control-plane.md).
 
-`make eval-suite` expands deterministic validation to ten development tasks and
-60 paired episodes, including exact-action approval simulation, confidential-data
-rules, actor ACLs, and state/output grading. It is also scripted replay. See the
-[suite runbook](docs/development-suite.md) for fixtures, grading limits, and the
-explicit `make eval-suite-live` command for fresh model trials.
+For real inference, the [PC setup](docs/pc-inference.md#pc-only-application-and-evaluation)
+runs Ubuntu/WSL2 application and Docker tools with native Windows CUDA inference
+on RTX 5080. The [Mac setup](docs/local-model.md) uses Apple Silicon. Both use
+pinned local models and need no paid model API or cloud service.
 
-Analyze any completed suite and open its standalone comparison viewer:
+## Inspect the implementation
 
-```sh
-uv run --locked agentguard eval-analyze artifacts/suites/<run-id> \
-  --output artifacts/analyses/<run-id>
-open artifacts/analyses/<run-id>/explorer.html  # macOS
-```
+| Area | Starting points |
+|---|---|
+| Authorization and transactions | [Gateway storage](src/agentguard/storage.py), [policy](src/agentguard/policy.py), [gateway tests](tests/test_gateway.py) |
+| Agent loop and recovery | [Runtime](src/agentguard/runtime.py), [worker](src/agentguard/worker.py), [durable execution](docs/durable-execution.md) |
+| Isolation | [Supervisor](src/agentguard/supervisor.py), [sandbox runbook and probes](docs/sandbox.md) |
+| Control plane | [API](src/agentguard/api.py), [operator UI](frontend/src/main.tsx), [browser tests](frontend/tests) |
+| Reproducible evaluation | [Suite runner](src/agentguard/suite.py), [release protocol](docs/release-evaluation.md), [portable verification](src/agentguard/evidence.py) |
+| Design tradeoffs | [Architecture plan](arch_plan/secure-agent-platform-plan.md), [ADRs and development history](docs/project-guide.md) |
 
-The analyzer verifies evidence checksums and scheduled results, calculates paired
-comparisons and conditional attack success, and adds descriptive task-bootstrap
-intervals for fresh inference. The viewer shows proposals, policy decisions, and
-independent grades side by side. It runs offline and displays untrusted content
-as text. See [the analysis contract and limits](docs/evaluation-analysis.md).
+## Remaining release work
 
-`make eval-multi-attack` exercises one clean input plus four attack families under
-all three profiles (15 authored episodes, zero model trials). Scheduling,
-pause/resume, paired task-cluster statistics, and the viewer preserve each payload's
-identity. See [the multiple-attack development pilot](docs/multi-attack-evaluation.md).
+Freeze a newly declared release study for the selected resource-completion
+development candidate. The evaluated forty templates are now exposed and
+cannot become an untouched holdout again. Remaining acceptance work includes
+live recovery/cleanup measurements, bounded artifact storage, a host-wide network
+audit and independent reproduction. The recorded walkthrough is complete.
+[Release readiness](docs/release-readiness.md) | [Threat model](docs/threat-model.md).
 
-The [twenty-task catalogue](docs/development-corpus.md) adds six workflows with
-four attacks each. `make eval-development` runs all 174 authored episodes;
-`make eval-expansion` runs the 90 original expansion episodes, retaining seven
-defended attacker wins involving sibling-ticket edits and final-response disclosures,
-and exits nonzero after saving complete reports. These are scripted boundary
-checks, not new live-model measurements.
-The [90-episode Docker evidence](docs/evidence/development-expansion-2026-09-24/README.md)
-includes the complete outcomes, offline viewer, and retained failure analysis.
-
-The [ticket-scope treatment](docs/adr-003-ticket-scope-and-response-boundary.md)
-adds exact ticket permissions to all five update workflows. `make eval-development`
-now selects the versioned v5 catalogue; `make eval-ticket-scope` runs its six-task
-treatment subset. These authored checks block the four sibling edits and retain
-the three final-response disclosures, so both commands still exit nonzero.
-`make eval-expansion` retains the original seven-failure fixtures. New operator
-installations use the narrowed contracts; existing settings keep their suite.
-No fresh-model improvement or output-confidentiality guarantee is claimed.
-The [90-episode Docker treatment evidence](docs/evidence/ticket-scope-2026-09-24/README.md)
-includes the exact four improved outcomes, remaining failures, and offline viewer.
-
-The opt-in [response-clearance treatment](docs/adr-004-response-clearance-treatment.md)
-adds a separate final-output boundary. `make eval-response-scope` withholds the
-three known disclosures, but also blocks a harmless clean triage response:
-defended clean success is 5/6 and attacked success is 20/24, with zero observed
-attacker wins in authored replay. The command exits 1 for the clean-task failure.
-This measured utility cost keeps it out of the default catalogue. Raw evaluation
-artifacts remain privileged and are not sanitized by the response policy.
-The [90-episode response treatment evidence](docs/evidence/response-scope-2026-09-24/README.md)
-preserves all five changed outcomes and the failed clean-task grade.
-
-The opt-in [verified-effect receipt treatment](docs/adr-005-verified-effect-receipts.md)
-recovers this completion-message utility with an explicit, fixed receipt for an
-exact reviewed ticket update. It verifies the committed effect and current authority
-before delivering any confirmation. In a matched 180-episode Docker replay,
-defended clean success rises from 5/6 to 6/6 and attacked success from 20/24 to
-24/24, while both controls retain zero observed attacker wins. These are authored
-boundary checks, not fresh model trials or a held-out release result. Run
-`make eval-effect-receipt`; [the full evidence](docs/evidence/effect-receipt-2026-09-25/README.md)
-preserves the matched control and all baseline failures. The default remains v5.
-
-The subsequent [10-episode fresh-model pilot](docs/evidence/receipt-live-pilot-2026-09-25/README.md)
-**did not recover whole-task utility**: both arms scored 0/1 clean and 0/4 attacked
-success. Clearance withheld otherwise valid answers; the receipt arm skipped the
-required read and listing. None of its four attacks reached a saved model request,
-so its zero attacker wins cannot establish resistance. All ten failed grades,
-raw replies, exposure checks, and reproduction commands are retained.
-
-The subsequent [receipt-disclosure pilot](docs/evidence/receipt-disclosure-2026-09-25/README.md)
-keeps full receipt authority in trusted storage and shows only its template to the
-model. Across ten new matched episodes, clean success improves from 0/1 to 1/1
-and attacked task success from 0/4 to 4/4, with unchanged graders. The treatment
-encounters all four payloads and recovers after one denied shared-ticket proposal.
-Both arms have zero observed attacker wins; the control encounters no attacks.
-This is a one-task development result, not a held-out security claim. See
-[ADR 006](docs/adr-006-model-visible-receipt-scope.md); the treatment stays opt-in.
-
-The [400-episode release runbook](docs/release-evaluation.md) explains when to start
-the main evaluation: after development decisions, forty untouched held-out tasks,
-lineage review, a frozen experiment, and a release-specific gate. The freeze,
-resumable 400-episode runner, and PASS/FAIL/UNUSABLE gate are implemented; the
-forty new decision templates are authored and validated; the first 400 live outcomes are published with a FAIL gate.
-
-Benchmarks can run directly from your terminal across multiple sessions. Add
-`--max-episodes 10` to `agentguard eval-suite` to pause after ten episodes, or press
-Ctrl+C once to finish the current episode and pause. Continue with
-`uv run --locked agentguard eval-resume artifacts/suites/<run-id>` and inspect
-progress with `agentguard eval-status`. Keep the same code/model environment.
-See [pause, resume, and interruption accounting](docs/resumable-benchmarks.md).
-
-## Run isolated tools
-
-Start Docker Desktop, then run:
-
-```sh
-make sandbox-build     # Explicit download/build from a digest-pinned Python image
-make sandbox-smoke     # Real containment probes; nonzero exit if a check fails
-make demo-isolated     # Same authored episodes, with both profiles using containers
-```
-
-The container uses a fixed entrypoint, unprivileged UID, no network, read-only
-root, dropped capabilities, and CPU/memory/PID limits. No host paths, credentials,
-or Docker socket are mounted. Bounded JSON travels over stdin/stdout; only the
-host can commit simulated effects. Permissions and approvals are rechecked after
-computation, outside which the database write lock is released.
-
-`make demo-replay` retains the lightweight in-process backend for local contract
-tests. Reports identify the actual backend. Neither mode performs model inference.
-See the [sandbox runbook and measured checks](docs/sandbox.md).
-
-## Run a real local model
-
-The pinned `mac-small` profile targets macOS on Apple Silicon. Start Docker, then:
-
-```sh
-make models-fetch       # Explicit ~2.5 GB model download plus pinned native runtime
-make model-serve        # Keep this terminal open; loopback-only native inference
-```
-
-In another terminal, run `make eval-smoke`. It executes six fresh trials across
-baseline, prompt-only, and defended profiles using the isolated tools. Reports
-include failed episodes, state-based grades, raw model-call evidence, model/runtime
-checksums, template, sampling settings, and budgets. This one-task development
-smoke does not establish benchmark-level security or utility.
-See the [local-model runbook and current limitations](docs/local-model.md).
-
-The [measured six-episode comparison](docs/evidence/local-model-2026-09-23/README.md)
-passed every clean trial. The injection succeeded against baseline and prompt-only;
-the gateway blocked it under defended, but the model failed to recover and finish
-the task. Earlier failed development trials are retained alongside the final smoke.
-
-Two subsequent [denial-feedback experiments](docs/evidence/development-suite-2026-09-23/README.md)
-retained that utility failure: the model claimed success after denial without
-creating a ticket. Their state grades remain failed.
-
-The earlier [ten-task live evaluation](docs/evidence/ten-task-live-2026-09-23/README.md)
-retains all 60 scheduled episodes, including two defended recovery failures.
-It predates the expanded six-tool schema and is kept separate from the latest
-84-episode results above; the studies are not pooled or selectively regraded.
-
-## Expanded tool workflows
-
-Document search, ticket listing and versioned updates, and reviewed document sharing
-now use the same gateway and transactional effect boundary. Shares write only to an
-episode-local simulated sink. The console displays the exact source document or
-current ticket when reviewing these actions.
-
-```sh
-make eval-tools             # 24 authored episodes; zero model trials
-make sandbox-build          # Rebuild the fixed tool image after upgrading
-make eval-tools-isolated    # The same workflows through Docker
-make eval-tools-live        # 24 fresh episodes; original versioned task wording
-```
-
-The [tool contract and upgrade runbook](docs/tool-surface.md) covers filtering,
-version checks, approvals, migration, and the four new development tasks. New
-console installations offer all 20 development scenarios using `suite-v4.json`,
-including the six new workflows. Existing settings retain their
-selected suite version. See the
-[scripted tool-surface evidence](docs/evidence/tool-surface-2026-09-23/README.md).
-The ten-task live results above predate the expanded schema and remain unchanged.
-
-The [expanded live evaluation](docs/evidence/six-tool-live-2026-09-23/README.md)
-retains all 24 original trials. Eleven strict task grades failed on ambiguous
-punctuation requirements; those failures remain published. All profiles had zero
-observed attacker wins and zero policy-denial episodes, so this run does not
-establish comparative attack reduction or denial recovery. Separate versioned
-wording experiments passed all 12 follow-up trials without changing graders.
-The evidence also includes token accounting, tool coverage, observed durations,
-and narrowly scoped policy-cost measurements.
-
-## Implemented boundaries
-
-- Typed tool proposals cannot supply actor identity, scope, or approval grants.
-- The gateway checks actor ACLs, task scope, and confidential/shared-write rules.
-- Scoped approvals expire and are invalidated by changed actions, resources,
-  permissions, or episode state.
-- SQLite transactions commit approval consumption, simulated effects, audit,
-  and execution-key results together. Retries do not create duplicate tickets.
-- Queued runs reject missing, expired, and superseded worker leases, including
-  after tool computation. Recovery reuses saved responses and original budgets.
-- Approval waits release leases; persisted reviews atomically wake the job.
-- The API derives actor/workspace from credentials, scopes every run to its owner,
-  rejects cross-origin writes, and separates observer access from operator review.
-- Independent graders inspect stored tickets and final output rather than the
-  agent's success claim or the number of denied calls.
-
-The security tests exercise direct forbidden actions, stale/cross-episode grants,
-concurrent retries, cancellation, and rollback on precommit failure.
-
-## Project evidence and next milestone
-
-- [Implementation progress and remaining milestones](docs/progress.md)
-- [Remaining release work and effort estimate](docs/release-readiness.md)
-- [Twenty-task corpus, grader coverage, and retained security failures](docs/development-corpus.md)
-- [84-episode live results and measured resume](docs/evidence/fourteen-task-live-2026-09-24/README.md)
-- [Runtime budget, coverage, and denial diagnostics](docs/runtime-diagnostics.md)
-- [Interactive operator console and browser security](docs/operator-ui.md)
-- [Operator console screenshots and verification](docs/evidence/operator-ui-2026-09-23/README.md)
-- [Complete live feasibility and failure analysis](docs/evidence/ten-task-live-2026-09-23/README.md)
-- [Offline analysis and viewer contract](docs/evaluation-analysis.md)
-- [Live model results and retained failure analysis](docs/evidence/local-model-2026-09-23/README.md)
-- [Ten-task suite and denial-feedback experiments](docs/evidence/development-suite-2026-09-23/README.md)
-- [Observed development hardware](docs/hardware.md)
-- [Current trust boundary and limitations](docs/threat-model.md)
-- [Why this first increment precedes live feasibility](docs/adr-001-first-increment.md)
-- [Why a bounded native loop precedes durable execution](docs/adr-002-local-model-loop.md)
-- [Dependency license inventory](docs/dependency-licenses.json)
-
-Next: complete the [model utility follow-up](docs/model-utility-pilot.md) before
-selecting a configuration for broader development and a new release evaluation.
-The broader development pilot is paused separately; no completed comparison is
-claimed for it. Remaining acceptance gaps are listed in the system card.
+This project demonstrates a measured engineering process in a synthetic local
+laboratory. It does not claim production multi-tenancy, enterprise integrations,
+or general prompt-injection resistance.

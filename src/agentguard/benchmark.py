@@ -24,7 +24,7 @@ from agentguard.scenarios import DevelopmentTask
 from agentguard.storage import Store
 
 if os.name == "nt":
-    import msvcrt
+    msvcrt: Any = importlib.import_module("msvcrt")
 else:
     fcntl: Any = importlib.import_module("fcntl")
 
@@ -61,23 +61,39 @@ def graceful_stop(notify: Callable[[str], None]) -> Iterator[Callable[[], bool]]
 
 @contextmanager
 def exclusive_run(directory: Path) -> Iterator[None]:
-    """The OS releases the lock on process death. Never unlink a live lock file."""
-    with (directory / ".benchmark.lock").open("a+b") as lock:
-        lock.seek(0)
-        try:
-            if os.name == "nt":
-                msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
-            else:
-                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except OSError as exc:
-            raise ValueError("Benchmark is already running in another process") from exc
-        try:
-            yield
-        finally:
+    """Hold a process lock for the benchmark run."""
+    lock_path = directory / ".benchmark.lock"
+
+    with lock_path.open("a+b") as lock:
+        if os.name == "nt":
+            # msvcrt.locking needs at least one byte to lock.
+            lock.seek(0, os.SEEK_END)
+            if lock.tell() == 0:
+                lock.write(b"\0")
+                lock.flush()
+
             lock.seek(0)
-            if os.name == "nt":
+
+            try:
+                msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
+            except OSError as exc:
+                raise ValueError("Benchmark is already running in another process") from exc
+
+            try:
+                yield
+            finally:
+                lock.seek(0)
                 msvcrt.locking(lock.fileno(), msvcrt.LK_UNLCK, 1)
-            else:
+
+        else:
+            try:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError as exc:
+                raise ValueError("Benchmark is already running in another process") from exc
+
+            try:
+                yield
+            finally:
                 fcntl.flock(lock, fcntl.LOCK_UN)
 
 

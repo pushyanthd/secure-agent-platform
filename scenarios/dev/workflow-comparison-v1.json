@@ -1,0 +1,250 @@
+{
+  "version": "workflow-comparison-v1",
+  "prior_knowledge": "All workflows and attacks are exposed, self-authored development inputs. First fourteen use development-v5; final six use receipt-broad-v1. Five change only response_scope; confidential-response-triage uses the existing template-only task, receipt, final-output and attack version. No original fixture or expectation is overwritten.",
+  "cases": [
+    {
+      "id": "launch-scope",
+      "file": "suite/launch-scope.json",
+      "completion_tools": [
+        "documents.read",
+        "tickets.create"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "oncall-acl",
+      "file": "suite/oncall-acl.json",
+      "completion_tools": [
+        "documents.read",
+        "tickets.create"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "read-only-summary",
+      "file": "suite/read-only-summary.json",
+      "completion_tools": [
+        "documents.read"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "two-document-synthesis",
+      "file": "suite/two-document-synthesis.json",
+      "completion_tools": [
+        "documents.read",
+        "tickets.create"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "two-ticket-batch",
+      "file": "suite/two-ticket-batch.json",
+      "completion_tools": [
+        "documents.read",
+        "tickets.create"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "authorized-shared-write",
+      "file": "suite/authorized-shared-write.json",
+      "completion_tools": [
+        "documents.read",
+        "tickets.create"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "confidential-internal-review",
+      "file": "suite/confidential-internal-review.json",
+      "completion_tools": [
+        "documents.read",
+        "tickets.create"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "confidential-shared-refusal",
+      "file": "suite/confidential-shared-refusal.json",
+      "completion_tools": [
+        "documents.read"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "unauthorized-read",
+      "file": "suite/unauthorized-read.json",
+      "completion_tools": [
+        "documents.read"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "missing-document",
+      "file": "suite/missing-document.json",
+      "completion_tools": [
+        "documents.read"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "search-scope",
+      "file": "tools/search-scope.json",
+      "completion_tools": [
+        "documents.read",
+        "documents.search",
+        "tickets.create"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "ticket-maintenance",
+      "file": "ticket-scope/ticket-maintenance.json",
+      "completion_tools": [
+        "documents.read",
+        "tickets.list",
+        "tickets.update"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "reviewed-document-share",
+      "file": "tools/reviewed-document-share.json",
+      "completion_tools": [
+        "documents.read",
+        "shares.request"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "confidential-search-refusal",
+      "file": "tools/confidential-search-refusal-v2.json",
+      "completion_tools": [
+        "documents.read",
+        "documents.search"
+      ],
+      "attack_ids": [
+        "primary"
+      ]
+    },
+    {
+      "id": "search-backed-maintenance",
+      "file": "response-scope/search-backed-maintenance.json",
+      "completion_tools": [
+        "documents.read",
+        "documents.search",
+        "tickets.list",
+        "tickets.update"
+      ],
+      "attack_ids": [
+        "primary",
+        "instruction-override",
+        "authority-spoofing",
+        "data-disclosure"
+      ]
+    },
+    {
+      "id": "reader-ticket-summary",
+      "file": "response-scope/reader-ticket-summary.json",
+      "completion_tools": [
+        "documents.read",
+        "tickets.list"
+      ],
+      "attack_ids": [
+        "primary",
+        "authority-spoofing",
+        "action-redirection",
+        "data-disclosure"
+      ]
+    },
+    {
+      "id": "reviewed-ticket-correction",
+      "file": "response-scope/reviewed-ticket-correction.json",
+      "completion_tools": [
+        "documents.read",
+        "tickets.list",
+        "tickets.update"
+      ],
+      "attack_ids": [
+        "primary",
+        "instruction-override",
+        "authority-spoofing",
+        "data-disclosure"
+      ]
+    },
+    {
+      "id": "search-selected-share",
+      "file": "response-scope/search-selected-share.json",
+      "completion_tools": [
+        "documents.read",
+        "documents.search",
+        "shares.request"
+      ],
+      "attack_ids": [
+        "primary",
+        "instruction-override",
+        "authority-spoofing",
+        "data-disclosure"
+      ]
+    },
+    {
+      "id": "update-and-publish-handoff",
+      "file": "response-scope/update-and-publish-handoff.json",
+      "completion_tools": [
+        "documents.read",
+        "tickets.list",
+        "tickets.update",
+        "shares.request",
+        "tickets.create"
+      ],
+      "attack_ids": [
+        "primary",
+        "instruction-override",
+        "authority-spoofing",
+        "data-disclosure"
+      ]
+    },
+    {
+      "id": "confidential-response-triage",
+      "file": "effect-receipt/confidential-response-triage-template-only.json",
+      "completion_tools": [
+        "documents.read",
+        "tickets.list",
+        "tickets.update"
+      ],
+      "attack_ids": [
+        "primary",
+        "instruction-override",
+        "authority-spoofing",
+        "action-redirection"
+      ]
+    }
+  ]
+}

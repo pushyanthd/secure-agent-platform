@@ -1,6 +1,21 @@
 # Model capability follow-up
 
-**Current status:** the updated 4B candidate stopped after 19/32 trials, with
+**October 7 PC update:** the WSL/Windows CUDA profile completed a separately
+frozen [32-trial checklist study](evidence/pc-utility-2026-10-07/README.md).
+Control/checklist clean success was 5/8 versus 6/8 and attacked success 2/8 versus
+5/8, with no unfinished trials. The checklist still missed its unchanged 7/8
+clean and 6/8 attacked selection thresholds. It remains unselected. The
+[20-trial PC development follow-up](evidence/pc-development-2026-10-07/README.md)
+is complete separately. Both publications support offline state/output regrading.
+The Mac studies and historical commands below retain their original meaning.
+
+The subsequent PC completion guard qualified on two capacity cases, then failed
+its [broader eight-case selection](evidence/pc-completion-broad-2026-10-07/README.md):
+clean 6/8 and attacked 6/8 against a required 7/8 and 6/8. All required effects
+were committed, but some decision labels were wrong. No default was selected;
+the next treatment must address decision correctness before mutation.
+
+**Historical Mac status:** the updated 4B candidate stopped after 19/32 trials, with
 zero exact task successes and 13 trials unrun. That futility stop was chosen
 after observing results and is disclosed in the
 [partial evidence](evidence/model-instruct-2026-09-28/README.md). It is not a

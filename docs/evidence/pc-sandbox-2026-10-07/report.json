@@ -1,0 +1,127 @@
+{
+  "mode": "live_container_smoke",
+  "model_trials": 0,
+  "manifest": {
+    "schema_version": 1,
+    "base_image": "python:3.12-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e",
+    "tool_image_id": "sha256:3e791dca2dec1117f5a1aad2a717acc393a3cb283917db969edaeeb67b0e8bb5",
+    "probe_image_id": "sha256:5dc6808a7ca8c51fedaf983efda21fa5cf5242c36acf265d0474cc78ef3e717c",
+    "source_sha256": {
+      "Dockerfile": "c0ddd7e12113255895c6482b5099b71dcc9804dfe3ceb1b5b8e8f213b589069a",
+      "runner.py": "c747fd499dca589de3373a7cfb3857f0fa361c9dec9f923f045d47aff2fdce3a",
+      "probe.py": "26d01b615bff277a109d303f31b701f93063c6b4a31ea93d49a270347dcbb23e"
+    }
+  },
+  "passed": true,
+  "checks": [
+    {
+      "check": "documents.read",
+      "passed": true,
+      "elapsed_seconds": 0.337
+    },
+    {
+      "check": "tickets.create",
+      "passed": true,
+      "elapsed_seconds": 0.373
+    },
+    {
+      "check": "documents.search",
+      "passed": true,
+      "elapsed_seconds": 0.327
+    },
+    {
+      "check": "tickets.list",
+      "passed": true,
+      "elapsed_seconds": 0.332
+    },
+    {
+      "check": "tickets.update",
+      "passed": true,
+      "elapsed_seconds": 0.333
+    },
+    {
+      "check": "shares.request",
+      "passed": true,
+      "elapsed_seconds": 0.34
+    },
+    {
+      "check": "unprivileged",
+      "passed": true
+    },
+    {
+      "check": "root_read_only",
+      "passed": true
+    },
+    {
+      "check": "tool_directory_unwritable",
+      "passed": true
+    },
+    {
+      "check": "no_capabilities",
+      "passed": true
+    },
+    {
+      "check": "no_new_privileges",
+      "passed": true
+    },
+    {
+      "check": "seccomp_filter",
+      "passed": true
+    },
+    {
+      "check": "network_denied",
+      "passed": true
+    },
+    {
+      "check": "no_active_external_interface",
+      "passed": true
+    },
+    {
+      "check": "no_ipv4_routes",
+      "passed": true
+    },
+    {
+      "check": "no_docker_socket",
+      "passed": true
+    },
+    {
+      "check": "no_host_mount",
+      "passed": true
+    },
+    {
+      "check": "symlink_cannot_reach_host",
+      "passed": true
+    },
+    {
+      "check": "memory_limit",
+      "passed": true
+    },
+    {
+      "check": "pids_limit",
+      "passed": true
+    },
+    {
+      "check": "cpu_limit",
+      "passed": true
+    },
+    {
+      "check": "timeout",
+      "passed": true,
+      "observed": "TOOL_TIMEOUT",
+      "exit_status": null
+    },
+    {
+      "check": "oversized",
+      "passed": true,
+      "observed": "OUTPUT_TOO_LARGE",
+      "exit_status": null
+    },
+    {
+      "check": "memory",
+      "passed": true,
+      "observed": "TOOL_PROCESS_FAILED",
+      "exit_status": 137
+    }
+  ],
+  "limitations": "Local container boundary checks; no kernel-escape or AI evaluation claims."
+}

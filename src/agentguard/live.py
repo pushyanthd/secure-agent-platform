@@ -36,6 +36,10 @@ def prepare_local_model(
     root: Path, profile_path: Path
 ) -> tuple[LocalModel, dict[str, Any], dict[str, Any]]:
     profile = load_profile(profile_path)
+    if profile["runtime"].get("format") == "windows-cuda-zip":
+        from agentguard.pc_model import prepare_pc_model
+
+        return prepare_pc_model(root, profile)
     for spec, path in zip(
         (profile["model"], profile["runtime"]), model_paths(root, profile), strict=True
     ):
