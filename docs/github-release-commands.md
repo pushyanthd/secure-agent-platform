@@ -1,102 +1,114 @@
 # Publish V1 yourself
 
-The agent prepared the local release and did not push, create a remote tag or
-publish a release. These commands perform all GitHub activity under your control.
-Run them in PowerShell. The GitHub CLI is already installed in Ubuntu WSL;
-Windows Git uses your existing credential manager. No administrator window is needed.
+The agent fixed and reproduced the storage CI permissions issue locally. It did
+not push, tag, merge or publish. Run these PowerShell commands yourself; the same
+commands are provided directly in the chat. No administrator window is needed.
 
-## Review, commit and push the source
+They require all four jobs to pass on the exact release commit, download that
+run's package and storage artifacts, preserve original downloaded checksums,
+and publish a normal V1 release with the reviewed fixture video and fresh asset
+checksums. Only allowlisted root files are uploaded; downloaded raw controller
+reports remain private in ignored subdirectories.
+
+The final PR updates the default branch's README and preserves dev. Inspect its
+checks before merging. If v1.0.0 or a release PR already exists, stop and inspect
+it; do not overwrite the version or create a duplicate PR. If no PR checks are
+reported immediately, repeat the checks command once they are registered.
 
 ```powershell
+$ErrorActionPreference = 'Stop'
 Set-Location 'C:\Users\pushy\OneDrive\Desktop\Code\github-projects\secure-agent-platform'
-git status --short
-git diff --check
-git add --all
-git commit -m "Ship V1 local agent platform and measured release evidence"
-if ($LASTEXITCODE -ne 0) { throw 'Commit failed; inspect the output.' }
-$releaseCommit = (git rev-parse HEAD).Trim()
-git push origin dev
-if ($LASTEXITCODE -ne 0) { throw 'Push failed; inspect the output.' }
-```
 
-Only commit the intended source and evidence. Local databases, credentials,
-model weights and release assets are ignored. The original frozen evidence
-is retained. This does not merge `dev` into `main`.
-
-## Authenticate and wait for the exact commit's CI
-
-```powershell
-function Invoke-PortfolioGh {
-    & wsl.exe -d Ubuntu -- gh @args
-    if ($LASTEXITCODE -ne 0) { throw 'GitHub CLI failed; inspect the output.' }
+function Invoke-Git {
+    & git @args
+    if ($LASTEXITCODE -ne 0) { throw 'Git failed; stop and inspect its output.' }
 }
-$githubRepository = 'pushyanthd/secure-agent-platform'
-Invoke-PortfolioGh auth login --hostname github.com --git-protocol https --web
+function Invoke-Gh {
+    & wsl.exe -d Ubuntu -- gh @args
+    if ($LASTEXITCODE -ne 0) { throw 'GitHub CLI failed; stop and inspect its output.' }
+}
+$repo = 'pushyanthd/secure-agent-platform'
+if ((Invoke-Git branch --show-current).Trim() -ne 'dev') { throw 'Expected branch dev.' }
+Invoke-Git diff --check
+Invoke-Git add .github/workflows/ci.yml docs/artifact-storage.md docs/release-packaging.md docs/github-release-commands.md docs/evidence/v1-ci-storage-fix-2026-10-08
+Invoke-Git commit -m 'Fix fresh-checkout storage CI permissions'
+$releaseCommit = (Invoke-Git rev-parse HEAD).Trim()
+Invoke-Git push origin dev
 
+& wsl.exe -d Ubuntu -- gh auth status
+if ($LASTEXITCODE -ne 0) {
+    Invoke-Gh auth login --hostname github.com --git-protocol https --web
+}
 $deadline = (Get-Date).AddMinutes(5)
-$runId = ''
+$runId = $null
 while (-not $runId -and (Get-Date) -lt $deadline) {
-    $runId = (Invoke-PortfolioGh run list --repo $githubRepository --branch dev --commit $releaseCommit --workflow ci.yml --event push --limit 1 --json databaseId --jq '.[0].databaseId' | Out-String).Trim()
+    $runs = Invoke-Gh run list --repo $repo --branch dev --commit $releaseCommit --workflow ci.yml --event push --limit 1 --json databaseId | ConvertFrom-Json
+    $runId = $runs.databaseId
     if (-not $runId) { Start-Sleep -Seconds 5 }
 }
-if (-not $runId) { throw 'No CI run found. Check the Actions tab before continuing.' }
-Invoke-PortfolioGh run watch $runId --repo $githubRepository --exit-status
-$ciResult = Invoke-PortfolioGh api "repos/$githubRepository/actions/runs/$runId" | ConvertFrom-Json
-if ($ciResult.head_sha -ne $releaseCommit -or $ciResult.conclusion -ne 'success') {
-    throw 'The exact release commit has not passed hosted CI.'
+if (-not $runId) { throw 'No CI run appeared. Stop before tagging.' }
+Invoke-Gh run watch $runId --repo $repo --exit-status
+$ci = Invoke-Gh api "repos/$repo/actions/runs/$runId" | ConvertFrom-Json
+if ($ci.head_sha -ne $releaseCommit -or $ci.conclusion -ne 'success') { throw 'Exact release commit has not passed CI.' }
+$jobs = (Invoke-Gh api "repos/$repo/actions/runs/$runId/jobs?per_page=100" | ConvertFrom-Json).jobs
+foreach ($expected in @('contracts', 'operator-ui', 'artifact-storage', 'package')) {
+    if (@($jobs | Where-Object { $_.name -eq $expected -and $_.conclusion -eq 'success' }).Count -ne 1) {
+        throw "Required CI job did not pass: $expected"
+    }
 }
-```
 
-Authentication is unnecessary if `gh auth status` already succeeds. All four
-jobs must pass: contracts/Docker/portable outcomes, operator UI, real artifact
-storage and installed package. If a job fails, stop before tagging and retain
-the failed run. Fix the concrete problem and repeat with the new source commit.
-
-## Verify local assets, tag and publish a normal V1 release
-
-```powershell
-$assetDirectory = Join-Path (Get-Location) 'artifacts\v1-final-release-assets-2026-10-08'
-$checksums = Get-Content (Join-Path $assetDirectory 'SHA256SUMS.json') -Raw | ConvertFrom-Json
-foreach ($entry in $checksums.PSObject.Properties) {
-    $actual = (Get-FileHash -LiteralPath (Join-Path $assetDirectory $entry.Name) -Algorithm SHA256).Hash.ToLowerInvariant()
-    if ($actual -ne $entry.Value) { throw "Checksum mismatch: $($entry.Name)" }
+$bundleName = 'v1.0.0-release-' + (Get-Date -Format 'yyyyMMdd-HHmmss')
+$assets = Join-Path (Get-Location) "artifacts\$bundleName"
+$wslAssets = '/mnt/c/Users/pushy/OneDrive/Desktop/Code/github-projects/secure-agent-platform/artifacts/' + $bundleName
+$utf8 = [System.Text.UTF8Encoding]::new($false)
+New-Item -ItemType Directory -Path $assets | Out-Null
+Invoke-Gh run download $runId --repo $repo --name v1-package --dir "$wslAssets/ci-package"
+Invoke-Gh run download $runId --repo $repo --name authored-storage-measurement --dir "$wslAssets/ci-storage"
+$package = Join-Path $assets 'ci-package'
+$packageHashes = Get-Content "$package\SHA256SUMS.json" -Raw | ConvertFrom-Json
+foreach ($entry in $packageHashes.PSObject.Properties) {
+    $actual = (Get-FileHash -LiteralPath (Join-Path $package $entry.Name) -Algorithm SHA256).Hash.ToLowerInvariant()
+    if ($actual -ne $entry.Value) { throw "CI package checksum mismatch: $($entry.Name)" }
 }
-if ((git rev-parse HEAD).Trim() -ne $releaseCommit) { throw 'Source changed after CI.' }
-if (git status --porcelain) { throw 'Working tree changed after CI.' }
-git tag -a v1.0.0 $releaseCommit -m "Secure Agent Platform V1"
-if ($LASTEXITCODE -ne 0) { throw 'Tag creation failed. Do not overwrite an existing tag.' }
-git push origin v1.0.0
-if ($LASTEXITCODE -ne 0) { throw 'Tag push failed.' }
+foreach ($name in @('agentguard-1.0.0-py3-none-any.whl', 'agentguard-1.0.0.tar.gz')) {
+    Copy-Item -LiteralPath (Join-Path $package $name) -Destination $assets
+}
+$prepared = Join-Path (Get-Location) 'artifacts\v1-final-release-assets-2026-10-08'
+Copy-Item -LiteralPath "$prepared\RELEASE_NOTES.md" -Destination $assets
+Copy-Item -LiteralPath "$prepared\v1-walkthrough.webm" -Destination $assets
+$prior = Get-Content "$prepared\RELEASE_MANIFEST.json" -Raw | ConvertFrom-Json
+$storage = Get-Content "$assets\ci-storage\report.json" -Raw | ConvertFrom-Json
+if (-not $storage.passed -or @($storage.checks.PSObject.Properties | Where-Object { $_.Value -ne $true }).Count) {
+    throw 'Hosted storage measurement did not pass every check.'
+}
+$storageSummary = [ordered]@{ mode = $storage.mode; fresh_model_calls = $storage.fresh_model_calls; checks = $storage.checks; passed = $storage.passed }
+[System.IO.File]::WriteAllText("$assets\STORAGE_CHECKS.json", ($storageSummary | ConvertTo-Json -Depth 10), $utf8)
+$manifest = [ordered]@{
+    release = 'v1.0.0'; source_commit = $releaseCommit
+    hosted_ci = [ordered]@{ run_id = $runId; url = $ci.html_url; conclusion = $ci.conclusion }
+    ci_package_checksums = $packageHashes
+    candidate_regression = $prior.candidate_regression
+    recording = $prior.recording
+    runtime_source_sha256 = $prior.local_validation.runtime_source_sha256
+    storage_checks_passed = @($storage.checks.PSObject.Properties).Count
+}
+[System.IO.File]::WriteAllText("$assets\RELEASE_MANIFEST.json", ($manifest | ConvertTo-Json -Depth 15), $utf8)
+$hashes = [ordered]@{}
+Get-ChildItem -LiteralPath $assets -File | Sort-Object Name | ForEach-Object {
+    $hashes[$_.Name] = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+}
+[System.IO.File]::WriteAllText("$assets\SHA256SUMS.json", ($hashes | ConvertTo-Json), $utf8)
+if ((Invoke-Git rev-parse HEAD).Trim() -ne $releaseCommit -or (Invoke-Git status --porcelain)) { throw 'Source changed after CI.' }
+Invoke-Git tag -a v1.0.0 $releaseCommit -m 'Secure Agent Platform V1'
+Invoke-Git push origin v1.0.0
+$uploadPaths = @(Get-ChildItem -LiteralPath $assets -File | ForEach-Object { "$wslAssets/$($_.Name)" })
+Invoke-Gh release create v1.0.0 @uploadPaths --repo $repo --verify-tag --title 'Secure Agent Platform V1' --notes-file "$wslAssets/RELEASE_NOTES.md" --latest
+Invoke-Gh release view v1.0.0 --repo $repo
 
-$wslAssetDirectory = '/mnt/c/Users/pushy/OneDrive/Desktop/Code/github-projects/secure-agent-platform/artifacts/v1-final-release-assets-2026-10-08'
-$assetPaths = @(Get-ChildItem -LiteralPath $assetDirectory -File | ForEach-Object { "$wslAssetDirectory/$($_.Name)" })
-Invoke-PortfolioGh release create v1.0.0 @assetPaths --repo $githubRepository --verify-tag --title 'Secure Agent Platform V1' --notes-file "$wslAssetDirectory/RELEASE_NOTES.md" --latest
-Invoke-PortfolioGh release view v1.0.0 --repo $githubRepository
+# Make the V1 README visible on the default branch; keep dev.
+Invoke-Gh pr create --repo $repo --base main --head dev --title 'Ship Secure Agent Platform V1' --body-file "$wslAssets/RELEASE_NOTES.md"
+Start-Sleep -Seconds 10
+Invoke-Gh pr checks dev --repo $repo --watch
+Invoke-Gh pr merge dev --repo $repo --merge
+
 ```
-
-This creates a normal release, with no prerelease flag, at the CI-verified
-`dev` commit. The assets include the 1.0.0 wheel, source distribution, release
-notes, reviewed fixture walkthrough, validation manifest and SHA-256 checksums.
-Frozen experimental protocol names and prior grades inside the evidence remain
-unchanged. The public release page and Actions run become the publication record.
-
-If release creation fails after the tag push, keep the tag and fix the reported
-problem. Do not rerun tag creation or overwrite the immutable version. Inspect
-`gh release view` before attempting a release retry. No GitHub publication is
-claimed by the local preparation record.
-
-## Optional: make V1 visible on the repository's main page
-
-The repository's default branch is `main`; publishing a tag from `dev` does
-not update its front-page README. To present the V1 story on the default branch,
-open and merge a PR yourself after reviewing its changes and passing checks:
-
-```powershell
-Invoke-PortfolioGh pr create --repo $githubRepository --base main --head dev --title 'Ship Secure Agent Platform V1' --body-file "$wslAssetDirectory/RELEASE_NOTES.md"
-Invoke-PortfolioGh pr checks dev --repo $githubRepository --watch
-Invoke-PortfolioGh pr merge dev --repo $githubRepository --merge
-```
-
-This preserves the `dev` branch and existing historical evidence. If an open
-PR already exists, inspect it instead of creating a duplicate. A normal merge
-keeps the tagged release commit in history; do not force-push or move `v1.0.0`.

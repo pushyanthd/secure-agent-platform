@@ -51,3 +51,11 @@ The prepared package is unpublished until the tagged revision's hosted checks
 pass. The agent has not pushed, created a remote tag or published a release.
 The public release page is the authoritative publication record after the user
 executes those steps.
+
+The first hosted V1 run passed contracts/Docker/portable verification, browser
+tests and installed packaging. Its fresh-checkout storage permissions issue is
+fixed and [reproduced locally with 18/18 checks](evidence/v1-ci-storage-fix-2026-10-08/README.md).
+The corrected hosted run must pass after the user's next push. For publication,
+download the `v1-package` artifact from that exact successful run and add the
+reviewed video and a new release manifest. This binds the uploaded package to
+the tagged source commit without rewriting any earlier local package.

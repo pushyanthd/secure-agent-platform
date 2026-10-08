@@ -1,0 +1,106 @@
+{
+  "version": "ci-storage-permissions-reproduction-v1",
+  "mode": "authored_fixture",
+  "original_error_reproduced": true,
+  "original_parent_uid": 0,
+  "fixed_parent_uid": 1000,
+  "volume_capacity_before_mib": 64,
+  "volume_capacity_after_mib": 96,
+  "fresh_model_calls": 0,
+  "checks": {
+    "file_write_rejected_enospc": true,
+    "checkpoint_rejected_sqlite_full": true,
+    "one_effect_retained_after_failed_checkpoint": true,
+    "over_limit_effect_rolled_back": true,
+    "over_limit_audit_rolled_back": true,
+    "job_retained_for_recovery": true,
+    "responses_saved_before_effect": true,
+    "sqlite_integrity_at_exhaustion": true,
+    "capacity_explicitly_increased": true,
+    "retained_evidence_unchanged": true,
+    "filler_preserved_not_deleted": true,
+    "saved_calls_reused_exactly": true,
+    "no_duplicate_effects": true,
+    "only_remaining_authored_calls_added": true,
+    "recovered_to_completed": true,
+    "independent_grade_passed": true,
+    "sqlite_integrity_after_recovery": true,
+    "full_snapshot_preserved": true
+  },
+  "checks_passed": 18,
+  "checks_total": 18,
+  "both_volumes_unmounted": true,
+  "operations": [
+    {
+      "operation": "prepare-fresh-workspaces",
+      "privileged": false,
+      "exit_code": 0
+    },
+    {
+      "operation": "prepare-workspace-roots",
+      "privileged": false,
+      "exit_code": 0
+    },
+    {
+      "operation": "original-create",
+      "privileged": true,
+      "exit_code": 0
+    },
+    {
+      "operation": "original-parent-owner",
+      "privileged": false,
+      "exit_code": 0
+    },
+    {
+      "operation": "original-exhaust",
+      "privileged": false,
+      "exit_code": 1
+    },
+    {
+      "operation": "original-unmount",
+      "privileged": true,
+      "exit_code": 0
+    },
+    {
+      "operation": "fixed-prepare-runner-owned-artifacts",
+      "privileged": false,
+      "exit_code": 0
+    },
+    {
+      "operation": "fixed-create",
+      "privileged": true,
+      "exit_code": 0
+    },
+    {
+      "operation": "fixed-parent-owner",
+      "privileged": false,
+      "exit_code": 0
+    },
+    {
+      "operation": "fixed-exhaust",
+      "privileged": false,
+      "exit_code": 0
+    },
+    {
+      "operation": "fixed-grow",
+      "privileged": true,
+      "exit_code": 0
+    },
+    {
+      "operation": "fixed-recover",
+      "privileged": false,
+      "exit_code": 0
+    },
+    {
+      "operation": "fixed-read-report",
+      "privileged": false,
+      "exit_code": 0
+    },
+    {
+      "operation": "fixed-unmount",
+      "privileged": true,
+      "exit_code": 0
+    }
+  ],
+  "hosted_ci_for_fix": "pending_user_push"
+}

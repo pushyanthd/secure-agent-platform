@@ -33,6 +33,7 @@ the administration commands without changing the runtime's identity.
 
 ```sh
 cd /home/pushy/secure-agent-platform
+mkdir -p artifacts  # Run as the ordinary user before privileged volume creation.
 sudo .venv/bin/python scripts/artifact_volume.py create \
   --directory "$PWD/artifacts/runtime-volume-v1" --size-mib 256 --owner-uid "$(id -u)"
 .venv/bin/uv run --locked agentguard control-init \
