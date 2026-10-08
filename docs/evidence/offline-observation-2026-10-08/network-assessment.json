@@ -1,0 +1,40 @@
+{
+  "version": "native-network-observation-v1",
+  "model_pid": 4032,
+  "trace_sha256": "5981392e8aabb9a9f301a390de492bab889386e8361d2de1ef539f395d1fd613",
+  "start_utc": "2026-10-08T18:06:39.9358862Z",
+  "end_utc": "2026-10-08T18:25:08.2141793Z",
+  "total_events": 990563,
+  "model_events": 3905,
+  "events_lost": 0,
+  "event_counts": {
+    "1017:1": 781,
+    "1013:2": 781,
+    "1001:0": 781,
+    "1043:2": 781,
+    "1044:1": 781
+  },
+  "address_counts": {
+    "127.0.0.1": 4686
+  },
+  "unknown_model_schemas": [],
+  "unparsed_model_addresses": [],
+  "nonloopback_remote_endpoints": [],
+  "excluded_unowned_header_context_events": 20527,
+  "checks": {
+    "zero_events_lost": true,
+    "positive_model_observation": true,
+    "positive_loopback_observation": true,
+    "no_unparsed_model_schema": true,
+    "no_unparsed_model_addresses": true,
+    "no_observed_nonloopback_remote_endpoint": true
+  },
+  "passed": true,
+  "limits": [
+    "Finite TCPIP ETW interval on the native model process; not permanent enforcement.",
+    "Owning process payloads cover connection events emitted by kernel threads.",
+    "Only explicit owning-process events are attributed. Header context and reused connection pointers are not process ownership.",
+    "Reports endpoint lifecycle observations, not every packet or a firewall guarantee.",
+    "Unrelated host traffic and raw trace/CSV remain private."
+  ]
+}

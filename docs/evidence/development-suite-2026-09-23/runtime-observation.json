@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-23",
+  "model": "Qwen3-4B-Q4_K_M",
+  "runtime": "llama.cpp b11149",
+  "hardware": "Apple M1, 16 GB unified memory",
+  "live_runs": [
+    "212ea05e-fe05-4291-9920-7dfcda590994",
+    "400331ff-b3f0-4c37-9eed-a40bf0ec7c67"
+  ],
+  "model_server_max_rss_bytes": 3853107200,
+  "rss_measurement": "macOS /usr/bin/time -l around make model-serve, one server for both treatments",
+  "rss_limits": "Process-tree maximum across session; not whole-machine/Docker/separate GPU memory",
+  "host_load": "Local tests and isolated replay overlapped inference. Unrelated TripML container found running at cleanup; not a controlled latency benchmark.",
+  "cleanup": {
+    "model_server": "stopped",
+    "tripml-control-plane": "exited",
+    "rag-eval-platform-postgres-1": "exited",
+    "running_docker_containers": 0
+  }
+}

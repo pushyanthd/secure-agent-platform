@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": "receipt-disclosure-treatment-v1",
+  "split": "development",
+  "tasks": [
+    "effect-receipt/confidential-response-triage-template-only.json"
+  ]
+}

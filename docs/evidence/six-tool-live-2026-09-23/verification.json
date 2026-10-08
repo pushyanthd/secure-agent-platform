@@ -1,0 +1,14 @@
+{
+  "command": "make check",
+  "exit_code": 0,
+  "python_tests_passed": 333,
+  "ruff_lint": "passed",
+  "ruff_format": "passed",
+  "mypy_strict": "passed",
+  "clarified_catalogue_replay": "clarified-catalogue-replay.json",
+  "fresh_model_trials_from_automated_tests": 0,
+  "frontend_changed": false,
+  "limits": [
+    "Browser scenarios and container containment probes were not rerun in this increment; previous published evidence remains separate."
+  ]
+}

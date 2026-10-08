@@ -1,0 +1,19 @@
+{
+  "full_python_suite_passed": 445,
+  "focused_response_tests_passed_after_deadline_regression": 22,
+  "distinct_python_tests_covered": 446,
+  "ruff_check": "passed",
+  "ruff_format": "passed",
+  "mypy_strict": "passed",
+  "frontend_type_and_format_checks": "passed",
+  "frontend_build": "passed",
+  "chrome_scenarios_passed": 15,
+  "docker_scheduled": 90,
+  "docker_completed": 90,
+  "docker_cli_exit_code": 1,
+  "exit_reason": "Retained defended clean-task utility failure",
+  "all_grades_rechecked": true,
+  "fresh_model_trials": 0,
+  "default_catalogue_changed": false,
+  "release_gate_passed": false
+}

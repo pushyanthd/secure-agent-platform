@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "base_image": "python:3.12-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e",
+  "tool_image_id": "sha256:bbeb5e0e660aab8b2c58d25cbdaacf27a1e9598ec37f7dac2c0fd94933dd48c6",
+  "probe_image_id": "sha256:3b5a60c2be7b6bd64fa7ea04e8045570bc5dbbc42e4e1eda21aa6e3a80f286c0",
+  "source_sha256": {
+    "Dockerfile": "c0ddd7e12113255895c6482b5099b71dcc9804dfe3ceb1b5b8e8f213b589069a",
+    "runner.py": "c747fd499dca589de3373a7cfb3857f0fa361c9dec9f923f045d47aff2fdce3a",
+    "probe.py": "26d01b615bff277a109d303f31b701f93063c6b4a31ea93d49a270347dcbb23e"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "development-expansion-v2",
+  "split": "development",
+  "tasks": [
+    "ticket-scope/search-backed-maintenance.json",
+    "expansion/reader-ticket-summary.json",
+    "ticket-scope/reviewed-ticket-correction.json",
+    "expansion/search-selected-share.json",
+    "ticket-scope/update-and-publish-handoff.json",
+    "ticket-scope/confidential-response-triage.json"
+  ]
+}

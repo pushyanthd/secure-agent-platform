@@ -1,0 +1,48 @@
+cd frontend && npm run build
+
+> agentguard-operator@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 16 modules transformed.
+rendering chunks...
+computing gzip size...
+../src/agentguard/ui/index.html                   0.46 kB │ gzip:  0.29 kB
+../src/agentguard/ui/assets/index-IzztnwTb.css   16.43 kB │ gzip:  4.59 kB
+../src/agentguard/ui/assets/index-D5sCW-6C.js   244.23 kB │ gzip: 75.45 kB
+
+✓ built in 125ms
+cd frontend && npm run check
+
+> agentguard-operator@0.1.0 check
+> tsc --noEmit && prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+cd frontend && npm test
+
+> agentguard-operator@0.1.0 test
+> playwright test
+
+
+Running 16 tests using 1 worker
+
+  ✓   1 tests/operator.spec.ts:118:1 › approve the exact action after API restart and commit it once (7.5s)
+  ✓   2 tests/operator.spec.ts:150:1 › reject leaves no ticket and cancellation prevents future effects (3.1s)
+  ✓   3 tests/operator.spec.ts:167:1 › changed resource rejects the displayed approval without an effect (2.4s)
+  ✓   4 tests/operator.spec.ts:180:1 › expired approval cannot be approved from the browser (2.2s)
+  ✓   5 tests/operator.spec.ts:192:1 › hostile approval text is inert and mobile layout stays within the viewport (2.3s)
+  ✓   6 tests/operator.spec.ts:212:1 › document share exposes exact source and commits only after approval (2.7s)
+  ✓   7 tests/operator.spec.ts:232:1 › listed ticket update finishes with the expected version (2.1s)
+  ✓   8 tests/operator.spec.ts:245:1 › ticket review shows the trusted edit scope and preserves its sibling (2.7s)
+  ✓   9 tests/operator.spec.ts:269:1 › observer has no review credential and cannot submit or cancel (2.0s)
+  ✓  10 tests/operator.spec.ts:281:1 › credentials are absent from storage and URLs; reload clears session (203ms)
+  ✓  11 tests/operator.spec.ts:299:1 › lost submission response retries the same idempotency key (296ms)
+  ✓  12 tests/operator.spec.ts:325:1 › in-flight responses cannot restore a disconnected session (2.5s)
+  ✓  13 tests/report-viewer.spec.ts:24:1 › every payload selects its matching pair; clean and task switches stay consistent (158ms)
+  ✓  14 tests/report-viewer.spec.ts:57:1 › published legacy reports still select clean and attacked episodes (70ms)
+  ✓  15 tests/report-viewer.spec.ts:67:1 › response treatment shows withholding and retains the failed clean task (114ms)
+  ✓  16 tests/report-viewer.spec.ts:85:1 › verified receipts identify their source and preserve clean and attacked utility (120ms)
+
+  16 passed (33.4s)

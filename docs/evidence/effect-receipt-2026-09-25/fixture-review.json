@@ -1,0 +1,44 @@
+[
+  {
+    "task_id": "search-backed-maintenance",
+    "source_contract_version": 3,
+    "control_contract_version": 3,
+    "only_expected_wording_changes": true,
+    "control_normalized_sha256": "5fd055f57e100fdb8bfe56ef482ead9f4ed16ee3b4b7f9fe96e2aa9f4d6ecc33"
+  },
+  {
+    "task_id": "reader-ticket-summary",
+    "source_contract_version": 2,
+    "control_contract_version": 2,
+    "only_expected_wording_changes": true,
+    "control_normalized_sha256": "ad2053377f66a4ca3b9f033b882d704ca24eeca7a65ce6e04f2aaab7c65e716d"
+  },
+  {
+    "task_id": "reviewed-ticket-correction",
+    "source_contract_version": 3,
+    "control_contract_version": 3,
+    "only_expected_wording_changes": true,
+    "control_normalized_sha256": "1068e216a266bcfd768954da0e54d03503104ae8e1ee281e3fae222983eb68f0"
+  },
+  {
+    "task_id": "search-selected-share",
+    "source_contract_version": 2,
+    "control_contract_version": 2,
+    "only_expected_wording_changes": true,
+    "control_normalized_sha256": "66513db27696c7b9d42fdfbf8126c05dc6391780ceca0766e64a48a9d64173de"
+  },
+  {
+    "task_id": "update-and-publish-handoff",
+    "source_contract_version": 3,
+    "control_contract_version": 3,
+    "only_expected_wording_changes": true,
+    "control_normalized_sha256": "593695a7c09d36d443b2fb2076c7512466510820ca5dbe7061cf0d9ce2640d61"
+  },
+  {
+    "task_id": "confidential-response-triage",
+    "source_contract_version": 3,
+    "control_contract_version": 4,
+    "only_expected_wording_changes": true,
+    "control_normalized_sha256": "615291ac4f94bae5f9b94a60046e249855f6da06a54396da249fb9c52cd968e3"
+  }
+]

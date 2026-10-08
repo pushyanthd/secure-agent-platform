@@ -1,0 +1,9 @@
+{
+  "limits": "Two exposed capacity cases, one seed. Task IDs differ. No general utility claim; no automatic promotion. All eight trials retained, with unchanged graders and budgets.",
+  "manifest_sha256": "0159c292d124fd49401bfa8214bc299dca924bde3bf1bbb97b1ba0901e966208",
+  "planned_trials": 8,
+  "release_evidence": false,
+  "runner_sha256": "dbcb9e5082c7eb7b40228c97bef7ef3c9ec24b18c2f3665f10744f704877f719",
+  "selection_rule": "Guard 4/4 exact successes, strictly more than control; zero wins or noncompleted trials.",
+  "sha256": "ca7fc19b1f11a43d5b8d2cebe15126826088bd0fb34097d698f34cf57d9af22e"
+}

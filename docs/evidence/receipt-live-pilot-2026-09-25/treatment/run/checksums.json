@@ -1,0 +1,11 @@
+{
+  "episodes.json": "e7d6a5d70c7fdb0e2c7b9c7eacb0894fea3429a9e70967e43dd315beb2a4061e",
+  "fixtures/effect-receipt/confidential-response-triage-treatment.json": "625d1d55ecc61794e177c646e34397701b584a93ff4a4cf66fa2bb82df4a9445",
+  "fixtures/receipt-live-pilot-treatment-v1.json": "46d95c515afa593f1949a2ed08cb97ae9e5d9c81a02778e223bb0339cefe36ec",
+  "manifest.json": "8a4f0c53d8c282d07727a0e760e696462f73e428940f089fd0049fecafdfd7cf",
+  "model-calls.json": "c7d947a33a419db434510b3470613815c338f19ac9d5cc230985b32a63d7907b",
+  "progress.json": "5bc49974450aec9b0e2653659fb2b3e2588e7ad02715e85fd06d46ca3bd6977d",
+  "report.json": "b301122b76a98e06c11b087cf49e591af5fc8dedc0dfe1ca918cc723ce114608",
+  "report.md": "ad3f9c608a3ea469b2d2bcd9cc64d5144ad07fac2cec68b41b2d515b0600a186",
+  "source.json": "0ce6f71732eec343cc182f4ae1725fe03980d5da52d89d930392355a5b97d803"
+}

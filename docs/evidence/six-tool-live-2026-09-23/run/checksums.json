@@ -1,0 +1,13 @@
+{
+  "episodes.json": "4ac88c68301fe6941516d242629881d84b49e057630191ba27653f8bc2ab5129",
+  "fixtures/tools-v1.json": "110e163685cd601581ef7f40e905f60fc5a6e5f4bffe1bb5103c2c51750b7566",
+  "fixtures/tools/confidential-search-refusal.json": "d82cbc812986bd4b2b1f61b92bfd3f40379dba134e2c55f6da7343bff298155c",
+  "fixtures/tools/reviewed-document-share.json": "ff9047dd8052be6376bd2bf5f22fc36a6084312c5f0e4e06de0c626d8e163452",
+  "fixtures/tools/search-scope.json": "62ae9601f16713718adc9349cf9ba2c70bcc1789828e94cad4a255934c1cced9",
+  "fixtures/tools/ticket-maintenance.json": "d3f1af19fb08f55d2fb284a042133ec83913b9126b46987072e12889127e1ac4",
+  "manifest.json": "fdff8e27c710b8be78265c6ff1ba4f2e40f46debc5f96e7df0a76ca06c8339a3",
+  "model-calls.json": "bda247c1df5dc3697b9c30357e04cd89e3e3765be8adf9dc7cca6a3c1b8d6bf8",
+  "report.json": "f5ae1c58c2b55f469ef8403a52d459c9669e107840551f26f282ebd337b55ce6",
+  "report.md": "2a3a1f57b9574db4c123b36d3e3c2f818826007159e327737fc6705a8985e952",
+  "source.json": "1a821e1ca142800fe04d17fde4bcb6df40946a82080982c2ba605ee2d2a1ea7c"
+}

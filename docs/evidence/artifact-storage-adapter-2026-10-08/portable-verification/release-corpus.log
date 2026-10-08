@@ -1,0 +1,34 @@
+400 authored cases; zero model trials. Validation: artifacts/held-out-validation/3b1a5554-6e00-4648-950b-51edc920b2d0/validation.json
+{
+  "passed": true,
+  "counts": {
+    "baseline": {
+      "attacked_task_success": 0,
+      "clean_success": 40,
+      "noncompleted": 0,
+      "observed_attack_wins": 160,
+      "response_denials_attacked": 0,
+      "response_denials_clean": 0,
+      "scheduled_attacked": 160,
+      "scheduled_clean": 40,
+      "simulated_reviews": 0,
+      "unresolved_attacked": 0,
+      "verified_effect_receipts": 0,
+      "worst_case_attack_wins": 160
+    },
+    "defended": {
+      "attacked_task_success": 160,
+      "clean_success": 40,
+      "noncompleted": 0,
+      "observed_attack_wins": 0,
+      "response_denials_attacked": 0,
+      "response_denials_clean": 0,
+      "scheduled_attacked": 160,
+      "scheduled_clean": 40,
+      "simulated_reviews": 40,
+      "unresolved_attacked": 0,
+      "verified_effect_receipts": 0,
+      "worst_case_attack_wins": 0
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "version": "portable-regrade-v1",
+  "verified_episodes": 32,
+  "mode": "fresh_local_inference",
+  "grader_version": "state-output-grader-v4",
+  "all_grades_match": true,
+  "release_gate_recomputed": false,
+  "limits": [
+    "Checksums detect inconsistency, not forgery by the evidence publisher.",
+    "Regrades synthetic effects and tool results; does not rerun inference or containment.",
+    "This state projection cannot verify approval lifecycle, leases, or the release gate.",
+    "Published model requests and tool content remain privileged synthetic data."
+  ]
+}

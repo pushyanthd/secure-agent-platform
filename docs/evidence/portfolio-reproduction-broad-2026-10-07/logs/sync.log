@@ -1,0 +1,47 @@
+Using CPython 3.12.14
+Creating virtual environment at: .venv
+Resolved 34 packages in 3ms
+   Building agentguard @ file:///home/pushy/secure-agent-platform/artifacts/portfolio-reproduction-2026-10-07-v3/checkout
+Downloading pydantic-core (2.0MiB)
+Downloading pygments (1.2MiB)
+Downloading ruff (9.8MiB)
+Downloading mypy (14.1MiB)
+ Downloaded pygments
+ Downloaded pydantic-core
+ Downloaded ruff
+      Built agentguard @ file:///home/pushy/secure-agent-platform/artifacts/portfolio-reproduction-2026-10-07-v3/checkout
+ Downloaded mypy
+Prepared 32 packages in 653ms
+Installed 32 packages in 80ms
+ + agentguard==0.1.0 (from file:///home/pushy/secure-agent-platform/artifacts/portfolio-reproduction-2026-10-07-v3/checkout)
+ + annotated-doc==0.0.5
+ + annotated-types==0.8.0
+ + anyio==4.15.1
+ + click==8.5.0
+ + fastapi==0.141.1
+ + h11==0.16.0
+ + httpcore2==2.13.1
+ + httpx2==2.13.1
+ + idna==3.20
+ + iniconfig==2.3.0
+ + librt==0.15.0
+ + markdown-it-py==4.2.0
+ + mdurl==0.1.2
+ + mypy==1.20.2
+ + mypy-extensions==1.1.0
+ + packaging==26.3
+ + pathspec==1.1.1
+ + pluggy==1.6.0
+ + pydantic==2.13.5
+ + pydantic-core==2.46.5
+ + pygments==2.21.0
+ + pytest==9.1.1
+ + rich==15.0.0
+ + ruff==0.16.8
+ + shellingham==1.5.4
+ + starlette==1.7.0
+ + truststore==0.10.4
+ + typer==0.27.2
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.4
+ + uvicorn==0.53.0

@@ -1,0 +1,21 @@
+{
+  "run_id": "9a464fdf-26df-4db9-87c7-5ced3b4feee6",
+  "original_study_sha256": "d0f2fa2ddbaaf261fb65e17dac4a4f2c761403989700ad088cee0788d95ed03f",
+  "freeze_sha256": "1c72c8c55c93b284bd8df20d789204b7da6f982b169a8e511b1a4a855d91a251",
+  "source_sha256": "4371a77fc96d5241ab525090b99eada7e94ea636023e957ccdc0c3e0d8ada449",
+  "original_run_checksums_sha256": "31f04e88493262437bcd61abbc6aef860cf637c0764fa475b2bd183f70eea43c",
+  "excluded_files": [
+    "evidence.sqlite3"
+  ],
+  "excluded_reason": "Databases and reviewer nonces remain in ignored local artifacts. Copied run checksums cover the review extract only. Original checksums are retained separately.",
+  "declaration_note": "Declaration extract omits local runtime file paths and the original session pointer. It is not a replacement for the original frozen study.json.",
+  "verification": {
+    "independent_state_regrading": 32,
+    "original_journal_and_calls_reconciled": true,
+    "python_tests_passed": 629,
+    "ruff_lint_and_format_passed": true,
+    "strict_mypy_passed": true,
+    "original_release_gate": "FAIL unchanged"
+  },
+  "runtime_note": "The pinned local server was started for this study and stopped after all trials. Docker remains running. Early trials overlapped regression tests; timings are observations under uncontrolled host load."
+}

@@ -1,0 +1,18 @@
+{
+  "fixtures/suite/authorized-shared-write.json": "b35d76c64727a281d1a92dd729d6f7b92f9dab6d60558625da6294f583da8aef",
+  "fixtures/suite/confidential-internal-review.json": "e9cb75273e3c46065c666be2f0dc8933a7089efe806e1dc0edbba51f0414b83c",
+  "fixtures/suite/confidential-shared-refusal.json": "b238685f1086c351a29fcdd5a3ba69901b2bad2ce54c313237dd15b612cc31e7",
+  "fixtures/suite/launch-scope.json": "c406358b2488e793313f1d273286dfe29ac9176c2511ab3e4a6fa5b97a1f59f8",
+  "fixtures/suite/missing-document.json": "bbf7a6ccd718bcabbfc8f404506854108d429c281e763295d0ae3301b959082c",
+  "fixtures/suite/oncall-acl.json": "726708e8dd2e5a92abe6d21874b3e11bb1b40684760ad2b955de6211ac79e4a8",
+  "fixtures/suite/read-only-summary.json": "9b6556967ed2c5333c1b1f90ddd079ebe6739d476f8e8d1eb21091f0637bd432",
+  "fixtures/suite/two-document-synthesis.json": "c8c9ecbdd1f2db4fc3605f860d66e146695bd379ba746d7d471cc006f1f8fc83",
+  "fixtures/suite/two-ticket-batch.json": "37d478b555b49fc6eb1fc494220d3801b650a7462214d6277021bedef1ae5258",
+  "fixtures/suite/unauthorized-read.json": "70636f869b2e8cb707a88f0fca34c912858cdb0579df9443791c5fdb17bd1946",
+  "fixtures/suite-v1.json": "157958a80809d002fc9c9f5cb75f75fc126399d3650e4306f954b4ea8d0c1863",
+  "manifest.json": "80beaf29b055989e401c4339d122365a33625aa65e1bfd2762c0bfd6b6ca7fee",
+  "model-calls.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+  "report.json": "ab39c32d8dd146ca82e5d94dc541ece22781c6f9928a2b6ebdf2603ff4bd204c",
+  "report.md": "644b0731783a502769241f51a94cc190ccf54058d29ec573c13ad6ef7347e961",
+  "source.json": "f530ef1f13c85d240e11c2bb6e288bfd8f5621dd4a4432414d1b6c90eb5c1ae7"
+}

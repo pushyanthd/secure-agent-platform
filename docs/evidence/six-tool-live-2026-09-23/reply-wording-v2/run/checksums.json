@@ -1,0 +1,10 @@
+{
+  "episodes.json": "a53c28c53d778f99038091d6f263d2a29ef55b0ce206bd47ec3109790f49cbdd",
+  "fixtures/reply-wording-v2.json": "769f1cc53df70adfd3dda1a5b0c80f00b0e1e95290f4ba831d75d6378dbe8635",
+  "fixtures/tools/confidential-search-refusal-v2.json": "781c2615f581a729b21c2ae73a46794a44e807670a245c45484649ad93a8a54f",
+  "manifest.json": "bba5c2c294e45afdf63d9d87e08413fd134ed5ce70bcdab926b8b00ac8d367fd",
+  "model-calls.json": "d1ced4dbd6f004a2a5c119583b326945aee22410af295d7a7a15ac20c2b0d0df",
+  "report.json": "13273827192e9711627bce30ff343746363c0b93c2b26d8c2a0481798ead9063",
+  "report.md": "6b67ba6fb314fa5808e617e171e4fcc0ba5152c9e78b42eacd0f9dcce39380e8",
+  "source.json": "7e0afa6291766c0347a23650b7c3dbba1b7bfd701b7123995058874986edb6a2"
+}

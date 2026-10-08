@@ -1,0 +1,11 @@
+{
+  "run_id": "9a897f8d-43b0-42ca-a235-b9330872a6b3",
+  "source_sha256": "4371a77fc96d5241ab525090b99eada7e94ea636023e957ccdc0c3e0d8ada449",
+  "independently_regraded": 14,
+  "checkpoint_sqlite_sha256": "6da4f929baa6d5ccbed4735964ce8cff03ac12b1f2694dee1de745081f9567d2",
+  "recorded": 14,
+  "not_run": 18,
+  "complete_comparison": false,
+  "release_evidence": false,
+  "limits": "Exposed development inputs, one seed; partial predeclared futility screen. SQLite and reviewer nonces remain in local artifacts."
+}

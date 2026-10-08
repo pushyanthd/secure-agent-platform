@@ -1,0 +1,14 @@
+{
+  "python_tests_passed": 528,
+  "command": "make check",
+  "ruff_lint": "passed",
+  "ruff_format": "passed",
+  "mypy": "passed",
+  "mypy_source_files": 34,
+  "frontend_source_changed": false,
+  "published_browser_checks": "browser-checks.json",
+  "all_saved_grades_rechecked": true,
+  "all_recorded_model_scopes_verified": true,
+  "historical_pilot_comparison": "passed",
+  "check_log_sha256": "e8cad4358e4953257115fc2c524b34c87ee488ab65b7d3459ce8c3afc8539e88"
+}

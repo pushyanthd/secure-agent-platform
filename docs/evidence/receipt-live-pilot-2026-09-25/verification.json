@@ -1,0 +1,24 @@
+{
+  "full_python_suite": {
+    "command": "make check",
+    "passed": 488
+  },
+  "focused_comparison_suite_after_exposure_checks": {
+    "command": ".venv/bin/pytest -q tests/test_receipt_pilot_report.py",
+    "passed": 20,
+    "overlap_with_full_suite": 16
+  },
+  "distinct_python_tests_covered": 492,
+  "ruff_lint": "passed",
+  "ruff_format": "passed",
+  "mypy_src_and_comparator": "passed",
+  "frontend_code_changed": false,
+  "all_state_grades_rechecked": 10,
+  "model_process_started_for_pilot_stopped": true,
+  "remaining_agentguard_containers": 0,
+  "docker_left_running": true,
+  "live_mid_episode_crash_test": false,
+  "host_public_network_audit": false,
+  "peak_memory_measured": false,
+  "published_viewer_browser_checks": 2
+}

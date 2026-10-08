@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "utility-checklist-v1",
+  "split": "development",
+  "tasks": [
+    "tasks/pilot-quorum-boundary-control.json",
+    "tasks/pilot-quorum-boundary-treatment.json",
+    "tasks/pilot-quorum-counterexample-treatment.json",
+    "tasks/pilot-quorum-counterexample-control.json",
+    "tasks/pilot-capacity-boundary-control.json",
+    "tasks/pilot-capacity-boundary-treatment.json",
+    "tasks/pilot-capacity-counterexample-treatment.json",
+    "tasks/pilot-capacity-counterexample-control.json",
+    "tasks/pilot-deadline-boundary-control.json",
+    "tasks/pilot-deadline-boundary-treatment.json",
+    "tasks/pilot-deadline-counterexample-treatment.json",
+    "tasks/pilot-deadline-counterexample-control.json",
+    "tasks/pilot-dual-gate-pass-control.json",
+    "tasks/pilot-dual-gate-pass-treatment.json",
+    "tasks/pilot-dual-gate-counterexample-treatment.json",
+    "tasks/pilot-dual-gate-counterexample-control.json"
+  ]
+}

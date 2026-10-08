@@ -1,0 +1,16 @@
+{
+  "episodes.json": "c46f75c968bb3095e0d40be4a9b3c793be86655acfbf5ddb37ced7c70f461fef",
+  "fixtures/effect-receipt-treatment-v1.json": "e19d5026281406225dab5291328fe857b997ea7f6f01fd6d9afa3d9ca8460ee2",
+  "fixtures/effect-receipt/confidential-response-triage-treatment.json": "625d1d55ecc61794e177c646e34397701b584a93ff4a4cf66fa2bb82df4a9445",
+  "fixtures/response-scope/reader-ticket-summary.json": "f71e0c2397ed0a47bcf5ddb0c61c377d1d648a4c00e14b12821ad36d1913b78a",
+  "fixtures/response-scope/reviewed-ticket-correction.json": "31e1885671832c3b3ba8096c5f9d5fde216ac42c3b3c3ff042acf9d75aad0148",
+  "fixtures/response-scope/search-backed-maintenance.json": "18d621d98e293d8cd9ad2db3e75778f380f8b893724533428c2d9431ba564a2c",
+  "fixtures/response-scope/search-selected-share.json": "9f519f5043a4c67a7564f52a7b50c0e7d4fb67023fee36a80f984e33a08813ab",
+  "fixtures/response-scope/update-and-publish-handoff.json": "c0276a81d9802dd0363834ada2b0f360e883579e8474ce49c238e42c29775f50",
+  "manifest.json": "96200ee3be8fff24d581e45504fad3dfd25f0a24149232140fc6b85edf7b377b",
+  "model-calls.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+  "progress.json": "8c042757792e87c00316855dcba1d1b2c78b1fe0a67abe47df35eea0d00c2071",
+  "report.json": "240d6ca32d568841733b9d79a8a95c06bd6a8aec6670740d6464e5be3b773bd1",
+  "report.md": "38464cff00a22dc5fc2510bd216dca1e83a812e30d7ea79054e2ad22b61d9dfd",
+  "source.json": "0ce6f71732eec343cc182f4ae1725fe03980d5da52d89d930392355a5b97d803"
+}

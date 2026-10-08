@@ -1,0 +1,31 @@
+{
+  "all_13_failed_task_grades_retained": true,
+  "browser_checks": "browser-checks.json",
+  "copied_run_files_byte_identical": 22,
+  "limits": [
+    "Original application and model trials were not rerun or regraded.",
+    "Full application, authenticated UI, and container containment suites were not rerun for this documentation/evidence change.",
+    "Pattern screening and review of synthetic content are not an exhaustive secret scanner or a host-wide network audit."
+  ],
+  "local_markdown_links": "passed",
+  "local_markdown_links_checked": 88,
+  "local_path_and_credential_pattern_screen": "passed",
+  "local_sqlite_journal_results_match_exported_episodes": true,
+  "local_sqlite_sessions_match_exported_progress": true,
+  "model_call_and_token_reconciliation": "passed",
+  "new_model_trials_during_packaging": 0,
+  "original_run_files_unchanged": true,
+  "packaging_date": "2026-09-24",
+  "scheduled_and_accounted_episodes": 84,
+  "scope": "Offline packaging of existing completed live evidence; application code unchanged",
+  "source_fixture_and_schedule_validation": "passed",
+  "source_run_checksum_entries_verified": 23,
+  "summary_counts_recomputed": "passed",
+  "tests": {
+    "command": ".venv/bin/pytest tests/test_analysis.py tests/test_diagnostics.py tests/test_report_viewer.py -q",
+    "exit_code": 0,
+    "passed": 40,
+    "published_python_snapshots_ruff_format": "passed",
+    "published_python_snapshots_ruff_lint": "passed"
+  }
+}

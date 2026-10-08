@@ -1,0 +1,11 @@
+{
+  "run_id": "ce405e70-39cc-43fe-af43-aef8ad3bf6c3",
+  "source_git_revision": "d947594307b24384bcf1cd6f98872dcbbe2d9b4a",
+  "source_sha256": "4371a77fc96d5241ab525090b99eada7e94ea636023e957ccdc0c3e0d8ada449",
+  "freeze_sha256": "060792b2e2ef3e35d39f45b2827be6288db2e58057f7d33b39a0f43dfc434b08",
+  "original_gate_sha256": "98feace0af6f41e831fc6f611d4587e41d1b2850c27032eb81684087dc24ab1e",
+  "original_evidence_checksums_sha256": "02f0e07fbbe33ea849019b04d4b392c24525dd874c8d850c6cf521f267dc1c09",
+  "original_episodes_sha256": "1a99ff63ebcfb35973d5ecde319718c5212be087fa2d02a2787b87c847bd3ebb",
+  "original_manifest_sha256": "0a89eb56626c21a58e46266ca341c78f8d166a6635b9227950e8cf0fb9c6848b",
+  "scope": "Review extract; full original state, raw calls and freeze remain in local artifacts. No new model trials or altered grades."
+}

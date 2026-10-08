@@ -1,0 +1,33 @@
+{
+  "mode": "authored_fixture",
+  "fresh_model_trials": 0,
+  "python_tests_passed": 267,
+  "browser_scenarios_passed": 9,
+  "browser_test_runtime_seconds": 31.1,
+  "browser": "installed Google Chrome, headless",
+  "desktop_viewport": {
+    "width": 1440,
+    "height": 1100
+  },
+  "mobile_viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "checks": [
+    "approve_exact_action_after_api_restart_and_commit_once",
+    "reject_without_effect_and_cancel_queued_run",
+    "reject_stale_resource_version",
+    "disable_expired_approval",
+    "render_hostile_text_inertly_and_fit_mobile_viewport",
+    "observer_cannot_submit_cancel_or_inspect_nonce",
+    "no_credential_storage_and_reload_clears_session",
+    "lost_submission_response_reuses_idempotency_key",
+    "late_responses_cannot_restore_disconnected_session"
+  ],
+  "package_check": "Built wheel includes and serves UI; API stays authenticated; no credentials or local artifacts bundled.",
+  "limitations": [
+    "Browser scenarios use authored responses and in-process synthetic tools.",
+    "Automated browser checks are not human-usability evidence.",
+    "No new live-model benchmark or held-out release result."
+  ]
+}

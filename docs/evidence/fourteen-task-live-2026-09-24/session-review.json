@@ -1,0 +1,58 @@
+{
+  "all_results_match_local_database_journal": true,
+  "difference_seconds": 3418.2176577789305,
+  "interrupted_episodes": 0,
+  "limits": [
+    "Successful pause/resume between episodes is measured. This is not a live mid-episode crash recovery experiment.",
+    "The journal does not record whether an operator used Ctrl+C or an episode limit to pause.",
+    "Episode durations and session wall time use different clocks and boundaries. The difference is not instrumented and is not attributed to inference, exports, host suspension, or any other cause.",
+    "No fresh peak-memory, GPU-offload, host-wide network, or containment-probe measurement was collected while packaging."
+  ],
+  "local_database_row_counts": {
+    "benchmark_episodes": 84,
+    "benchmark_sessions": 3,
+    "episodes": 84,
+    "model_calls": 275
+  },
+  "original_run_id": "112c4288-f29a-4126-b8f1-3521136e6872",
+  "sessions": [
+    {
+      "ended_at": 1790218851.55097,
+      "ended_at_utc": "2026-09-24T03:00:51.550970+00:00",
+      "final_recorded": 10,
+      "id": 1,
+      "initial_recorded": 0,
+      "new_episodes": 10,
+      "outcome": "PAUSED",
+      "started_at": 1790217615.637197,
+      "started_at_utc": "2026-09-24T02:40:15.637197+00:00",
+      "wall_seconds": 1235.913773059845
+    },
+    {
+      "ended_at": 1790220667.22331,
+      "ended_at_utc": "2026-09-24T03:31:07.223310+00:00",
+      "final_recorded": 20,
+      "id": 2,
+      "initial_recorded": 10,
+      "new_episodes": 10,
+      "outcome": "PAUSED",
+      "started_at": 1790219620.6569102,
+      "started_at_utc": "2026-09-24T03:13:40.656910+00:00",
+      "wall_seconds": 1046.5663998126984
+    },
+    {
+      "ended_at": 1790276798.2606359,
+      "ended_at_utc": "2026-09-24T19:06:38.260636+00:00",
+      "final_recorded": 84,
+      "id": 3,
+      "initial_recorded": 20,
+      "new_episodes": 64,
+      "outcome": "COMPLETED",
+      "started_at": 1790267345.868851,
+      "started_at_utc": "2026-09-24T16:29:05.868851+00:00",
+      "wall_seconds": 9452.391784906387
+    }
+  ],
+  "sum_recorded_episode_seconds": 8316.6543,
+  "sum_session_wall_seconds": 11734.87195777893
+}

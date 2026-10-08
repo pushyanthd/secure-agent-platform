@@ -1,0 +1,29 @@
+{
+  "all_grades_rechecked_against_original_database": true,
+  "copied_files": {
+    "episodes.json": "180e222a6a15b3e393e57e5dd4539a4c0ddbc2faf5214791bec6dbbfe435b1e8",
+    "fixtures/expansion-v1.json": "c34b7a2cad1556a252984adabf8cbde07596cf77feb43e80206df2226effd091",
+    "fixtures/expansion/confidential-response-triage.json": "ce4646d9abf289b0a9b584f86ff885a9b2c805277e57a2424d01141ec7156e92",
+    "fixtures/expansion/reader-ticket-summary.json": "e7dc051636482848909c68b82264ea0cca82930f7a5a9f3bb7068d85aa92fffb",
+    "fixtures/expansion/reviewed-ticket-correction.json": "ce35a8252abadbce3a5437ccdc6421e59b191b518df340ca587f936483fd43f8",
+    "fixtures/expansion/search-backed-maintenance.json": "221ad78f3a9f946679bd64fef264555dda576eb5e9df610a56edd1cdeed7d242",
+    "fixtures/expansion/search-selected-share.json": "9ed6e44ea381934e6e8ec3ad9cf36b1b6044b85934fcead1b4d877d11c53504a",
+    "fixtures/expansion/update-and-publish-handoff.json": "471d14c7954c79fff36bbb6e14fb7723e6b9fd56d184c9bbe6037dda52dd084a",
+    "manifest.json": "13fcf537ec627eb621304a9d95bfa7f3a5cfb61ef65af3ec6a84467da93a02f4",
+    "model-calls.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "progress.json": "7c4a88b883e7e7405c3b0630215979f33f17ec450ca333fcb788b15201931ee4",
+    "report.json": "f478077ff2d617828a9f882e10ae598f84a91daa09fd2a1982f29af8a4c5bb6b",
+    "report.md": "9177436acf84b039fc8a9412ef2d3e00be3eaa27aa6712a1257a1af6f764ab62",
+    "source.json": "db80fd2b5ee8944c1fcea4b0153ba03d5a2974fcad1b73db8533d5c077bd6274"
+  },
+  "excluded_from_publication": {
+    "evidence.sqlite3": "a2455b7048e3c5578508869c718911e0d37af22efb79fd851875045ab425c134"
+  },
+  "exclusion_reason": "SQLite databases and approval nonces remain in ignored local artifacts. All exported outcomes, fixtures, source, manifest, and session history are retained byte-for-byte.",
+  "fresh_model_trials": 0,
+  "historical_evidence_modified": false,
+  "mode": "scripted_suite_replay",
+  "original_checksums_sha256": "705dac4a12da5c1b6ec60a8da9b55a2d8bd28e4528781d1399ff4e5369eb4bfa",
+  "original_run_id": "adab594a-51aa-4c48-8ed9-26e74fd028e9",
+  "source_matches_checkout": true
+}

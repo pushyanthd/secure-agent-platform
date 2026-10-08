@@ -1,0 +1,57 @@
+/home/pushy/secure-agent-platform/.venv/bin/uv run --locked ruff check .
+All checks passed!
+/home/pushy/secure-agent-platform/.venv/bin/uv run --locked ruff format --check .
+321 files already formatted
+/home/pushy/secure-agent-platform/.venv/bin/uv run --locked mypy src scripts/compare_receipt_pilot.py scripts/report_release.py scripts/utility_pilot.py scripts/model_pilot.py scripts/screen_model_pilot.py scripts/completion_pilot.py scripts/completion_broad.py scripts/decision_review.py scripts/portfolio_check.py
+Success: no issues found in 48 source files
+/home/pushy/secure-agent-platform/.venv/bin/uv run --locked pytest
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/pushy/secure-agent-platform/artifacts/portfolio-reproduction-2026-10-07-v2/checkout
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.15.1
+collected 735 items
+
+tests/test_analysis.py ....................                              [  2%]
+tests/test_api.py ...................................................... [ 10%]
+.......                                                                  [ 11%]
+tests/test_benchmark.py ........................                         [ 14%]
+tests/test_completion_broad.py .........                                 [ 15%]
+tests/test_completion_guard.py .........                                 [ 16%]
+tests/test_completion_pilot.py ...........                               [ 18%]
+tests/test_corpus_expansion.py ............................              [ 22%]
+tests/test_decision_review.py ............                               [ 23%]
+tests/test_decision_study.py ............                                [ 25%]
+tests/test_diagnostics.py .................                              [ 27%]
+tests/test_effect_receipts.py .......................................... [ 33%]
+..........                                                               [ 34%]
+tests/test_evidence.py .................                                 [ 37%]
+tests/test_gateway.py ........................................           [ 42%]
+tests/test_held_out_corpus.py .......................................... [ 48%]
+                                                                         [ 48%]
+tests/test_live.py ..                                                    [ 48%]
+tests/test_model.py ......................                               [ 51%]
+tests/test_model_pilot.py .................                              [ 53%]
+tests/test_model_screen.py ....                                          [ 54%]
+tests/test_model_setup.py ....                                           [ 54%]
+tests/test_multi_attack.py ..................                            [ 57%]
+tests/test_pc_model.py ..............                                    [ 59%]
+tests/test_policy.py ...........                                         [ 60%]
+tests/test_policy_benchmark.py .....                                     [ 61%]
+tests/test_receipt_disclosure.py ..........                              [ 62%]
+tests/test_receipt_pilot_report.py ....................                  [ 65%]
+tests/test_release.py ..............................                     [ 69%]
+tests/test_release_report.py ......                                      [ 70%]
+tests/test_replay.py ...                                                 [ 70%]
+tests/test_report_viewer.py ...                                          [ 71%]
+tests/test_response_scope.py ......................                      [ 74%]
+tests/test_runtime.py ...........................                        [ 77%]
+tests/test_suite.py ........................                             [ 81%]
+tests/test_supervisor.py .......................                         [ 84%]
+tests/test_ticket_scope.py .....................                         [ 87%]
+tests/test_tools.py ............................................         [ 93%]
+tests/test_utility_pilot.py .......................                      [ 96%]
+tests/test_worker.py ............................                        [100%]
+
+============================= 735 passed in 55.35s =============================

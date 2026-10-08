@@ -1,0 +1,50 @@
+{
+  "fresh_model_episodes": 10,
+  "containment": "docker_isolated",
+  "task_clusters": 1,
+  "profiles": [
+    "defended"
+  ],
+  "historical_evidence_modified": false,
+  "all_grades_rechecked": true,
+  "all_recorded_model_scopes_verified": true,
+  "exclusion_reason": "Databases and reviewer nonces stay in ignored local artifacts.",
+  "runs": {
+    "control": {
+      "original_run_id": "877f753e-d3f9-44b7-9031-417090ad8d83",
+      "copied_files": {
+        "episodes.json": "90955a834d7a4146b89ec2e15eed4095f4bf19a066d9edb75483a6e38910b3ef",
+        "fixtures/effect-receipt/confidential-response-triage-treatment.json": "625d1d55ecc61794e177c646e34397701b584a93ff4a4cf66fa2bb82df4a9445",
+        "fixtures/receipt-disclosure-control-v1.json": "364db3013d1dfc4332cf3f420f33ee65ac6c3bbcd4cb08dd1c8f1b570f3c0c19",
+        "manifest.json": "88b6aa836cd14628e7f65c0c2081310f7ac791eb7786e4ad6d34ad2c80f00f47",
+        "model-calls.json": "646fd6147775ce2f0647968a52cf99c04e70b367128fe28d588207cf00904486",
+        "progress.json": "6e2c5225c98293b4c197ba98c5f276d045af9c9d00b0e0877fb0a9a3fe18d72a",
+        "report.json": "513431341a4ec45e540e3ac5b61cf232609d92eee6e880f645ce267c260482f1",
+        "report.md": "ad3f9c608a3ea469b2d2bcd9cc64d5144ad07fac2cec68b41b2d515b0600a186",
+        "source.json": "2c8ca520ee962fb1cc94170fbbb0a7b403532da1a69fd321fb9c9618ac00cede"
+      },
+      "grades_rechecked": 5,
+      "excluded_from_publication": {
+        "evidence.sqlite3": "33d58c071473b591975fbac8452818afd6e6c69888dc49c914894266c7aa8eb7"
+      }
+    },
+    "treatment": {
+      "original_run_id": "16d05260-752f-4654-943a-3b759766f0e4",
+      "copied_files": {
+        "episodes.json": "1d11cd45ef804f823a04f02c6ba76c33c45219e59cfd1d6afd8a3741f70e6d70",
+        "fixtures/effect-receipt/confidential-response-triage-template-only.json": "b74c9517f995bbd4cc9c2fa4ec5169171ea5f6c680038ab0242e8843aca4765a",
+        "fixtures/receipt-disclosure-treatment-v1.json": "dab774115a382dd7538f32595e304e772444a28b74e90b51fd00c89b8fa31caf",
+        "manifest.json": "69b13a1a4888b4b97e88df112b84e899e3ff1f33c059d9839b9408f0b7c97045",
+        "model-calls.json": "992ed234c6ec6f348b95afd4c313fc6e625daab9e6ad72172536702df725d354",
+        "progress.json": "ba7797b6642ebfbf28dc5270e39cbe265d06be365ff3e30883eb768d4e9ada45",
+        "report.json": "bbe7328bdfc3a7e870fc7c8beef52e61ce7c530fb275defa673e6f0bb3452f66",
+        "report.md": "20a16cc1a0f661f5b59ff0d8764ae218a77d2a5390dc110337bebb0cd05f317b",
+        "source.json": "2c8ca520ee962fb1cc94170fbbb0a7b403532da1a69fd321fb9c9618ac00cede"
+      },
+      "grades_rechecked": 5,
+      "excluded_from_publication": {
+        "evidence.sqlite3": "eb9b20d3a0c1308ba93b3423c7f370dd2b97c497ba88ec7c21158a1959159b29"
+      }
+    }
+  }
+}

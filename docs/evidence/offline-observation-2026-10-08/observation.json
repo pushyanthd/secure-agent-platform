@@ -1,0 +1,10 @@
+﻿{
+    "trace_sha256":  "5981392e8aabb9a9f301a390de492bab889386e8361d2de1ef539f395d1fd613",
+    "command_line":  "C:\\Users\\pushy\\OneDrive\\Desktop\\Code\\github-projects\\secure-agent-platform\\artifacts\\runtime\\win-b11149\\llama-server.exe --model C:\\Users\\pushy\\OneDrive\\Desktop\\Code\\github-projects\\secure-agent-platform\\artifacts\\models\\Qwen3.5-9B-Q4_K_M.gguf --alias agentguard-qwen35-9b --host 127.0.0.1 --port 8101 --ctx-size 8192 --parallel 1 --n-gpu-layers 99 --jinja --reasoning off --offline --no-webui --no-agent --cors-origins http://127.0.0.1:8101 --no-cors-credentials --no-context-shift --cache-ram 0 --verbosity 4",
+    "schema_version":  1,
+    "start_utc":  "2026-10-08T18:06:39.9358862Z",
+    "end_utc":  "2026-10-08T18:25:08.2141793Z",
+    "executable":  "C:\\Users\\pushy\\OneDrive\\Desktop\\Code\\github-projects\\secure-agent-platform\\artifacts\\runtime\\win-b11149\\llama-server.exe",
+    "scope":  "Windows TCPIP ETW observation; full host trace remains private, extract model events before publication",
+    "model_pid":  4032
+}

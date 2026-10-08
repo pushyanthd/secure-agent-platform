@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "profile": "mac-small",
+  "platform": "Darwin-arm64",
+  "model": {
+    "repository": "Qwen/Qwen3-4B-GGUF",
+    "revision": "bc640142c66e1fdd12af0bd68f40445458f3869b",
+    "filename": "Qwen3-4B-Q4_K_M.gguf",
+    "sha256": "7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5",
+    "size_bytes": 2497280256,
+    "quantization": "Q4_K_M",
+    "license": "Apache-2.0",
+    "url": "https://huggingface.co/Qwen/Qwen3-4B-GGUF/resolve/bc640142c66e1fdd12af0bd68f40445458f3869b/Qwen3-4B-Q4_K_M.gguf",
+    "license_url": "https://huggingface.co/Qwen/Qwen3-4B-GGUF/resolve/bc640142c66e1fdd12af0bd68f40445458f3869b/LICENSE"
+  },
+  "runtime": {
+    "repository": "ggml-org/llama.cpp",
+    "release": "b11149",
+    "commit": "d2e54583c7452353eb35d40431281f6ee984332f",
+    "filename": "llama-b11149-bin-macos-arm64.tar.gz",
+    "sha256": "791eb0200a7c846ca925b6274fc21f0f21f537fda2924cc5a47402655816f56e",
+    "size_bytes": 11189509,
+    "license": "MIT",
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11149/llama-b11149-bin-macos-arm64.tar.gz",
+    "license_url": "https://raw.githubusercontent.com/ggml-org/llama.cpp/d2e54583c7452353eb35d40431281f6ee984332f/LICENSE"
+  },
+  "inference": {
+    "endpoint": "http://127.0.0.1:8101",
+    "model": "agentguard-qwen3-4b",
+    "context_tokens": 8192,
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20,
+    "seed": 42,
+    "request_timeout_seconds": 90
+  }
+}

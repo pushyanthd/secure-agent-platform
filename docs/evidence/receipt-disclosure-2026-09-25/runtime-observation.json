@@ -1,0 +1,39 @@
+{
+  "local_date": "2026-09-25",
+  "os": "Darwin",
+  "architecture": "arm64",
+  "chip": "Apple M1",
+  "gpu_layers_offloaded": 37,
+  "total_model_layers": 37,
+  "context_tokens": 8192,
+  "slots": 1,
+  "arm_order": [
+    "control",
+    "treatment"
+  ],
+  "control_episode_seconds": [
+    83.4984,
+    64.8765,
+    80.0946,
+    56.7201,
+    59.0628
+  ],
+  "treatment_episode_seconds": [
+    103.3253,
+    105.3186,
+    105.2187,
+    100.7246,
+    153.6555
+  ],
+  "cleanup": {
+    "model_listener_on_8101": false,
+    "agentguard_containers_remaining": 0,
+    "docker_left_running": true
+  },
+  "limits": [
+    "Tests overlapped control inference; durations are not controlled performance measurements.",
+    "Whole-machine memory and host-wide public-network traffic were not measured.",
+    "Live mid-episode crash recovery was not measured; recovery checks used model doubles.",
+    "Server properties and file hashes are provenance checks, not hostile-server attestation."
+  ]
+}

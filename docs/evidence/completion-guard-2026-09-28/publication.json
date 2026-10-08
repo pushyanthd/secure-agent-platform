@@ -1,0 +1,13 @@
+{
+  "run_id": "b2f616fc-a0d2-40c3-8370-387e44b6ecb3",
+  "source_sha256": "4c694d220f4e0c6fb49dc40e8abe68562f3db9237b045c4496a18c22a8f18128",
+  "original_study_sha256": "dcea411de80bd3e35945f93c0429a7d4cde33661856048a07d712763007b82d4",
+  "original_checksums_sha256": "f3ab3945524f7f4c85ff68459adcd7cf55acae5c5fb3ae6de2c20bf043499f37",
+  "independently_regraded": 8,
+  "excluded": [
+    "evidence.sqlite3",
+    "progress.json"
+  ],
+  "limits": "Two exposed cases, one seed, four trials per arm. The declaration omits private local paths and is not a replacement freeze. SQLite and reviewer nonces stay in local artifacts. Host load and timing are uncontrolled. Local hashes detect inconsistency, not owner forgery.",
+  "progress_note": "The live progress file contains a private absolute path and is omitted from the review extract; the complete report retains all eight outcomes."
+}

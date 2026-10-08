@@ -1,0 +1,26 @@
+{
+  "local_date": "2026-09-23",
+  "os": "Darwin",
+  "architecture": "arm64",
+  "chip": "Apple M1",
+  "unified_memory_gib": 16,
+  "server_process_tree_max_rss_bytes": 3800367104,
+  "server_process_tree_max_rss_gib": 3.53936767578125,
+  "measurement": "macOS /usr/bin/time -l make model-serve; foreground command stopped with SIGINT after all trials",
+  "server_command_elapsed_seconds": 5199.61,
+  "gpu_layers_offloaded": 37,
+  "total_model_layers": 37,
+  "context_tokens": 8192,
+  "slots": 1,
+  "generation_schema_warning": "WARNING: JSON schema conversion was incomplete: pattern \\S is not supported (not anchored with '^' and '$'), accepting any string",
+  "cleanup": {
+    "model_listener_on_8101": false,
+    "agentguard_containers_remaining": 0
+  },
+  "limits": [
+    "Maximum RSS is for the native server command process tree, not whole-host, Docker, or independent GPU memory.",
+    "Tests and analysis ran during parts of inference; host load and thermal conditions were uncontrolled.",
+    "No host-wide public-network audit was performed.",
+    "Schema conversion omitted the nonblank-search regex; host Pydantic validation still enforced it."
+  ]
+}

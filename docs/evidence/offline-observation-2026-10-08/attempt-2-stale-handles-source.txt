@@ -1,0 +1,193 @@
+"""Extract model-owned TCPIP observations without publishing unrelated host traffic."""
+
+import argparse
+import csv
+import hashlib
+import ipaddress
+import json
+import re
+from collections import Counter
+from datetime import UTC, datetime, timedelta
+from pathlib import Path
+from typing import Any
+
+
+def address(value: str) -> str:
+    value = value.strip()
+    if value.startswith("["):
+        return str(ipaddress.ip_address(value[1 : value.index("]")]))
+    try:
+        return str(ipaddress.ip_address(value))
+    except ValueError:
+        return str(ipaddress.ip_address(value.rsplit(":", 1)[0]))
+
+
+def summarize(directory: Path) -> dict[str, Any]:
+    metadata = json.loads((directory / "observation.json").read_text(encoding="utf-8-sig"))
+    schemas = json.loads((directory / "provider-schemas.json").read_text(encoding="utf-8-sig"))
+    summary = (directory / "trace-summary.txt").read_text(encoding="utf-8-sig")
+    lost = re.search(r"Total Events\s+Lost\s+(\d+)", summary)
+    if lost is None:
+        raise ValueError("Event-loss accounting unavailable")
+    model_pid = metadata["model_pid"]
+    selected, unknown, unparsed = [], [], []
+    count: Counter[str] = Counter()
+    addresses: Counter[str] = Counter()
+    public_remote = []
+    owners: dict[tuple[str, str], str] = {}
+    excluded_header_context = 0
+    unattributed_header_addresses = []
+    total = 0
+    with (directory / "events.csv").open(encoding="utf-8-sig", newline="") as stream:
+        reader = csv.reader(stream, skipinitialspace=True)
+        header = next(reader)
+        if [item.strip() for item in header[:20]] != [
+            "Event Name",
+            "Type",
+            "Event ID",
+            "Version",
+            "Channel",
+            "Level",
+            "Opcode",
+            "Task",
+            "Keyword",
+            "PID",
+            "TID",
+            "Processor Number",
+            "Instance ID",
+            "Parent Instance ID",
+            "Activity ID",
+            "Related Activity ID",
+            "Clock-Time",
+            "Kernel(ms)",
+            "User(ms)",
+            "User Data",
+        ]:
+            raise ValueError("Unexpected tracerpt CSV schema")
+        for row in reader:
+            total += 1
+            if row[0].strip() != "Microsoft-Windows-TCPIP":
+                continue
+            key = f"{row[2].strip()}:{row[3].strip()}"
+            names = schemas.get(key)
+            header_owner = int(row[9].strip(), 16) == model_pid
+            if names is None:
+                if header_owner:
+                    unknown.append(key)
+                continue
+            if isinstance(names, str):
+                names = [names]
+            data = dict(zip(names, (v.strip() for v in row[19:]), strict=False))
+            payload_pids = [value for name, value in data.items()
+                if name.lower() in ("pid", "processid", "owningprocessid")]
+            for kind in ("Tcb", "Endpoint"):
+                if data.get(kind) and payload_pids:
+                    # Handle reuse replaces ownership at the next explicit
+                    # owning-process event; a static handle-to-PID map is unsafe.
+                    owners[(kind, data[kind])] = payload_pids[0]
+            payload_owner = str(model_pid) in payload_pids
+            kind = "Tcb" if data.get("Tcb") else "Endpoint"
+            correlated_pid = owners.get((kind, data.get(kind, "")))
+            correlated_owner = correlated_pid == str(model_pid)
+            if not payload_owner and not correlated_owner:
+                if header_owner:
+                    excluded_header_context += 1
+                    if correlated_pid is None and any(
+                        name in data and data[name] for name in ("LocalAddress", "RemoteAddress")
+                    ):
+                        unattributed_header_addresses.append(key)
+                continue
+            if len(names) != len(row[19:]):
+                unknown.append(key)
+                continue
+            fields = {}
+            for name, value in data.items():
+                if (
+                    not value
+                    or "address" not in name.lower()
+                    or "length" in name.lower()
+                    or "family" in name.lower()
+                ):
+                    continue
+                try:
+                    ip = address(value)
+                except (ValueError, IndexError):
+                    unparsed.append({"event": key, "field": name, "value": value})
+                    continue
+                fields[name] = {"endpoint": value, "ip": ip}
+                addresses[ip] += 1
+                if "remote" in name.lower() and not ipaddress.ip_address(ip).is_loopback:
+                    public_remote.append({"event": key, "field": name, "endpoint": value})
+            count[key] += 1
+            timestamp = datetime(1601, 1, 1, tzinfo=UTC) + timedelta(
+                microseconds=int(row[16].strip()) // 10
+            )
+            selected.append(
+                {
+                    "event": key,
+                    "utc": timestamp.isoformat(),
+                    "attribution": "payload" if payload_owner else "connection ownership",
+                    "addresses": fields,
+                    "owning_process": {
+                        name: data[name]
+                        for name in ("Pid", "ProcessId", "ProcessStartKey")
+                        if name in data
+                    },
+                }
+            )
+    checks = {
+        "zero_events_lost": int(lost.group(1)) == 0,
+        "positive_model_observation": bool(selected),
+        "positive_loopback_observation": addresses["127.0.0.1"] > 0,
+        "no_unparsed_model_schema": not unknown,
+        "no_unparsed_model_addresses": not unparsed,
+        "no_unattributed_header_addresses": not unattributed_header_addresses,
+        "no_observed_nonloopback_remote_endpoint": not public_remote,
+    }
+    result = {
+        "version": "native-network-observation-v1",
+        "model_pid": model_pid,
+        "trace_sha256": metadata["trace_sha256"],
+        "start_utc": metadata["start_utc"],
+        "end_utc": metadata["end_utc"],
+        "total_events": total,
+        "model_events": len(selected),
+        "events_lost": int(lost.group(1)),
+        "event_counts": dict(count),
+        "address_counts": dict(addresses),
+        "unknown_model_schemas": unknown,
+        "unparsed_model_addresses": unparsed,
+        "nonloopback_remote_endpoints": public_remote,
+        "excluded_unowned_header_context_events": excluded_header_context,
+        "unattributed_header_address_events": unattributed_header_addresses,
+        "checks": checks,
+        "passed": all(checks.values()),
+        "limits": [
+            "Finite TCPIP ETW interval on the native model process; not permanent enforcement.",
+            "Owning process payloads cover connection events emitted by kernel threads.",
+            "Non-PID connection events use the latest explicit TCB/endpoint owner; "
+            "event-header process context alone is not ownership.",
+            "Unrelated host traffic and raw trace/CSV remain private.",
+        ],
+    }
+    for name, value in (("model-events.json", selected), ("network-assessment.json", result)):
+        target = directory / name
+        if target.exists():
+            raise FileExistsError(target)
+        target.write_text(json.dumps(value, indent=2) + "\n")
+    hashes = {
+        name: hashlib.sha256((directory / name).read_bytes()).hexdigest()
+        for name in ("network.etl", "events.csv", "trace-summary.txt", "provider-schemas.json")
+    }
+    (directory / "original-input-checksums.json").write_text(json.dumps(hashes, indent=2) + "\n")
+    return result
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("directory", type=Path)
+    args = parser.parse_args()
+    result = summarize(args.directory)
+    print(json.dumps(result, indent=2))
+    if not result["passed"]:
+        raise SystemExit(1)

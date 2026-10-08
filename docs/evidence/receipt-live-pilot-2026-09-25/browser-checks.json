@@ -1,0 +1,9 @@
+{
+  "browser": "Chrome",
+  "published_arm_viewers_checked": 2,
+  "clean_task_failure_visible": true,
+  "control_withholding_visible": true,
+  "receipt_does_not_hide_failed_grade": true,
+  "page_errors": [],
+  "http_requests": []
+}

@@ -1,0 +1,12 @@
+{
+  "episodes.json": "3bb22cc98dfe2ac5681ec5dcfe49876a7648ff1f398c41ac14467f89d6ade2f4",
+  "evidence.sqlite3": "b708daf2171e70fe8d0b209cab6d708853088dc74f09730dafc661343643f831",
+  "fixtures/effect-receipt/confidential-response-triage-control.json": "6f92e67470e8f6aec329a655438969bffee14db6a2a363881ea1a56b15e9f883",
+  "fixtures/receipt-live-pilot-control-v1.json": "1c959272bcb4aa5037cb6a71dd8529785d606bea2579254e05b0166985711206",
+  "manifest.json": "db5ddbd45aaa300cbe5b7127d315d9920ab92d7584047074183b2759d9ff2654",
+  "model-calls.json": "515546d945b8aa66314d62b60cbd8c612806ff4f9366ccdcf35d12b1ca6435fb",
+  "progress.json": "056baa6f5e96d9390dd76f112371cdfa23ca5cf938390eb30bfd48293efe8559",
+  "report.json": "3eda83cf8fb35b52067a1d7b4ce84077b84dcc6a7366e1904368f6e8cbe4d411",
+  "report.md": "ad3f9c608a3ea469b2d2bcd9cc64d5144ad07fac2cec68b41b2d515b0600a186",
+  "source.json": "0ce6f71732eec343cc182f4ae1725fe03980d5da52d89d930392355a5b97d803"
+}

@@ -1,0 +1,40 @@
+import hashlib
+import ipaddress
+import json
+import re
+from pathlib import Path
+from agentguard.live import atomic_json
+
+groups=[]
+for name in ('live-recovery-network-v1-2026-10-08','candidate-network-v1-2026-10-08'):
+    directory=Path('artifacts')/name
+    lines=[]
+    ips=[]
+    unknown=[]
+    exits=0
+    files={}
+    for path in sorted(directory.glob('worker.*')):
+        data=path.read_text()
+        files[path.name]=hashlib.sha256(path.read_bytes()).hexdigest()
+        if '+++ exited with' in data or '+++ killed by' in data:exits+=1
+        for line in data.splitlines():
+            if not re.match(r'^\d+\.\d+\s',line):continue
+            if 'AF_INET' in line:
+                lines.append({'file':path.name,'syscall':line})
+                if re.search(r'\s(connect|sendto|sendmsg)\(',line):
+                    found=re.findall(r'inet_addr\("([^"\\]+)"\)|inet_pton\(AF_INET6, "([^"\\]+)"',line)
+                    if not found:unknown.append(line)
+                    for ipv4,ipv6 in found:ips.append(ipv4 or ipv6)
+    remote=sorted(set(ips))
+    checks={'positive_traced_processes':len(files)>0,'all_trace_threads_have_terminal_records':exits==len(files),
+        'positive_loopback_calls':'127.0.0.1' in remote,
+        'no_unknown_network_peer':not unknown,
+        'no_observed_nonloopback_peer':all(ipaddress.ip_address(ip).is_loopback for ip in remote)}
+    groups.append({'name':name,'trace_files':len(files),'terminal_records':exits,'addresses':remote,
+        'unknown_peer_lines':unknown,'checks':checks,'original_trace_sha256':files,
+        'address_observations':lines})
+output=Path('artifacts/linux-network-observation-v1-2026-10-08.json')
+atomic_json(output,{'version':'linux-network-observation-v1','groups':groups,
+    'passed':all(all(g['checks'].values()) for g in groups),
+    'limits':['strace followed controller/worker and their Linux descendants, including model HTTP transport and Docker CLI.','Docker daemon and container processes are outside that process tree; actual network=none container configuration and24/24 probes cover the pinned tool boundary separately.','Finite measured interval; not permanent host network enforcement.']})
+print(json.dumps([{k:v for k,v in g.items() if k not in ('original_trace_sha256','address_observations')} for g in groups],indent=2))

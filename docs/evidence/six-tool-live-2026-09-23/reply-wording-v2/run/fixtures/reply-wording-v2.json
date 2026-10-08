@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": "reply-wording-v2",
+  "split": "development",
+  "tasks": [
+    "tools/confidential-search-refusal-v2.json"
+  ]
+}

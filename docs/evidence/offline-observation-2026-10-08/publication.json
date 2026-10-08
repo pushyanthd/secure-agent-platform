@@ -1,0 +1,62 @@
+{
+  "version": "offline-observation-publication-v1",
+  "attempts": [
+    {
+      "attempt": "attempt-1-header-context",
+      "passed": false,
+      "checks": {
+        "zero_events_lost": true,
+        "positive_model_observation": true,
+        "positive_loopback_observation": true,
+        "no_unparsed_model_schema": true,
+        "no_unparsed_model_addresses": true,
+        "no_observed_nonloopback_remote_endpoint": false
+      },
+      "original_report_sha256": "2a56dafe6f26fa0c3a1b120ddbdf31d12b7093497d7f7af87b3508e44a55b273",
+      "original_model_events_sha256": "2319a2ba01abddc3c6a1c334aa3df60d3422357922b4901b07d72e6d383fc52f",
+      "originals_preserved_privately": true,
+      "new_inference_calls": 0
+    },
+    {
+      "attempt": "attempt-2-stale-handles",
+      "passed": false,
+      "checks": {
+        "zero_events_lost": true,
+        "positive_model_observation": true,
+        "positive_loopback_observation": true,
+        "no_unparsed_model_schema": true,
+        "no_unparsed_model_addresses": true,
+        "no_unattributed_header_addresses": true,
+        "no_observed_nonloopback_remote_endpoint": false
+      },
+      "original_report_sha256": "a50047883edb52e7096c3db49dbf9febea8b9f6a158645eebb0061ec7a86db7c",
+      "original_model_events_sha256": "e7742071267494d2b83ed56ad5533cc2dd88fbe4ddb5c56df2e4fea5149a6340",
+      "originals_preserved_privately": true,
+      "new_inference_calls": 0
+    }
+  ],
+  "first_issue": "Event-header PID is kernel callback context, not connection ownership.",
+  "second_issue": "A last-known pointer owner can be stale when Windows reuses a connection allocation before its new owner event.",
+  "final_attribution": "Explicit owning PID in TCPIP payload only; endpoint lifecycle scope, not per-packet attribution.",
+  "fresh_generation_calls": 257,
+  "live_fault_generation_calls": 11,
+  "candidate_generation_calls": 246,
+  "native_connections": 781,
+  "linux_live_connect_attempts": 41,
+  "linux_candidate_connect_attempts": 739,
+  "additional_preparation_prop_connection": 1,
+  "lost_etw_events": 0,
+  "original_failed_observer_reports_preserved": true,
+  "public_attempt_summaries_omit_unrelated_host_addresses": true,
+  "public_or_paid_api_calls_observed_for_project_processes": 0,
+  "limits": [
+    "Finite interval; not permanent network enforcement or every packet attribution.",
+    "Unrelated desktop/background traffic exists and is excluded.",
+    "Docker daemon outside Linux traced process tree; network=none pinned tools and24/24 containment probes measured separately."
+  ],
+  "observer_source_sha256": {
+    "scripts/pc/observe_native_network.ps1": "4cc7f85043fd2a0c214aed43267d19a553a1eb188842452b6c702a4597fc2e41",
+    "scripts/pc/export_native_network.ps1": "6ccc7d72aa6e7858583ad09d20dbedf61f058d7d7bd376f57d1a18a345673a6c",
+    "scripts/pc/summarize_native_network.py": "2c1d11eecd575832260c8eca1be0df48cceebc811a1d523de837ceeec45b6d30"
+  }
+}

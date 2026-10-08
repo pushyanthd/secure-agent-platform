@@ -1,0 +1,17 @@
+{
+  "README.md": "96f6d0f5e32bf0223d8907b2b59b0181d5d9d99ea89871214d5d0dd2c2cd516a",
+  "logs/contracts.log": "727f57484a2ab269a7cf2febc7689129e593422db57e65cd27fe3791e92b899a",
+  "logs/durable.log": "b80f0e35bf779e0460187a1b076ea2f11df9b1ebabfac03539051ea4b06b9a3a",
+  "logs/release-corpus.log": "910448ad289620e301a161404664bd1e833f891be0c430c352e72c096b1a329b",
+  "logs/replay.log": "d3990af8dcc1f1faf0bf7a05f6a140951861d48ffcd7581763c7984c50c11cb9",
+  "logs/sync.log": "06f8447180fa80fa9d8ea6e9215ea02ff82c8080a72c60d0dabf957ee45437e3",
+  "logs/verify-pc-completion-broad-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "logs/verify-pc-completion-guard-2026-10-07.log": "8278f8521b95cd7daef06f2b285df9d0c8a9b61c2b706aa47569f8c63912935e",
+  "logs/verify-pc-decision-review-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "logs/verify-pc-development-2026-10-07.log": "09d598ce88dc5188fc22dc011a7175c23151bbd24a4601d75aaa51716e69f3f5",
+  "logs/verify-pc-resource-completion-2026-10-07.log": "abcbc18586be4db093a861913339e8d8d4a9589a64b209bce1714e2d0c54598d",
+  "logs/verify-pc-structured-review-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "logs/verify-pc-utility-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "logs/verify-pc-workflow-comparison-2026-10-07.log": "abcbc18586be4db093a861913339e8d8d4a9589a64b209bce1714e2d0c54598d",
+  "result.json": "551610544e09c7ac7ef554d48dc014d26557f90c2458545bdb7e68dcc25704d0"
+}

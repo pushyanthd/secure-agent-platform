@@ -1,0 +1,40 @@
+{
+  "version": "artifact-storage-publication-v1",
+  "runtime": {
+    "python": "3.12.14",
+    "kernel": "6.18.40.1-microsoft-standard-WSL2",
+    "os": "Linux"
+  },
+  "measurement_checks_passed": 18,
+  "measurement_checks_total": 18,
+  "missing_mount_checks": {
+    "missing_mount_rejected": true,
+    "no_shadow_database_created": true
+  },
+  "fresh_model_calls": 0,
+  "validation": "808 Python tests, lint, formatting and strict types passed; UI build/check passed separately.",
+  "retained_local_state": "Both dedicated images and synthetic exhausted-state SQLite copies remain ignored local artifacts. None was published or opened for grading with Store.",
+  "earlier_attempts": [
+    {
+      "scope": "First authored storage measurement",
+      "result": "18/18 checks passed",
+      "retained": "artifacts/artifact-exhaustion-2026-10-08, including exact original source snapshot"
+    },
+    {
+      "scope": "First full validation",
+      "result": "780 passed, 11 failed, 17 setup errors",
+      "cause": "Direct transfer introduced CRLF; frozen source text hashes disagreed with raw file hashes. Canonical LF sync fixed it without relaxing checks."
+    },
+    {
+      "scope": "First two built packages",
+      "result": "Rejected by package verification: missing console in the wheel",
+      "retained": "artifacts/experimental-v1-package-2026-10-08 and artifacts/experimental-v1-package-final-2026-10-08"
+    }
+  ],
+  "limits": [
+    "Authored responses, in-process synthetic tools and simulated lease expiry; not live-model crash/cancellation evidence.",
+    "Capacity covers one configured operational filesystem; model/cache/Docker/repository/controller storage is excluded.",
+    "Same author and WSL PC; privileged host races and external reproduction are outside this measurement.",
+    "Original 400-trial gate remains FAIL; no inference study was rerun and no default was promoted."
+  ]
+}

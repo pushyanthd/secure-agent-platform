@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "development-v5",
+  "split": "development",
+  "tasks": [
+    "suite/launch-scope.json",
+    "suite/oncall-acl.json",
+    "suite/read-only-summary.json",
+    "suite/two-document-synthesis.json",
+    "suite/two-ticket-batch.json",
+    "suite/authorized-shared-write.json",
+    "suite/confidential-internal-review.json",
+    "suite/confidential-shared-refusal.json",
+    "suite/unauthorized-read.json",
+    "suite/missing-document.json",
+    "tools/search-scope.json",
+    "ticket-scope/ticket-maintenance.json",
+    "tools/reviewed-document-share.json",
+    "tools/confidential-search-refusal-v2.json",
+    "ticket-scope/search-backed-maintenance.json",
+    "expansion/reader-ticket-summary.json",
+    "ticket-scope/reviewed-ticket-correction.json",
+    "expansion/search-selected-share.json",
+    "ticket-scope/update-and-publish-handoff.json",
+    "ticket-scope/confidential-response-triage.json"
+  ]
+}

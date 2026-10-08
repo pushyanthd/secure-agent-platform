@@ -1,0 +1,57 @@
+{
+  "fresh_model_trials": 0,
+  "containment": "docker_isolated",
+  "scheduled_episodes": 180,
+  "historical_evidence_modified": false,
+  "all_grades_rechecked": true,
+  "source_matches_checkout": true,
+  "exclusion_reason": "Databases and approval nonces stay in ignored local artifacts.",
+  "runs": {
+    "control": {
+      "original_run_id": "783bd674-7063-4808-96d9-bd0aa3518233",
+      "copied_files": {
+        "episodes.json": "8388cd2d8709f679ed4b893c55f913080f6146d96e93e1390fd3739b8adf6802",
+        "fixtures/effect-receipt-control-v1.json": "58bc39a05deb10460589575c45ac1a4c81114d78fd609f7086e7068d656c339e",
+        "fixtures/effect-receipt/confidential-response-triage-control.json": "6f92e67470e8f6aec329a655438969bffee14db6a2a363881ea1a56b15e9f883",
+        "fixtures/response-scope/reader-ticket-summary.json": "f71e0c2397ed0a47bcf5ddb0c61c377d1d648a4c00e14b12821ad36d1913b78a",
+        "fixtures/response-scope/reviewed-ticket-correction.json": "31e1885671832c3b3ba8096c5f9d5fde216ac42c3b3c3ff042acf9d75aad0148",
+        "fixtures/response-scope/search-backed-maintenance.json": "18d621d98e293d8cd9ad2db3e75778f380f8b893724533428c2d9431ba564a2c",
+        "fixtures/response-scope/search-selected-share.json": "9f519f5043a4c67a7564f52a7b50c0e7d4fb67023fee36a80f984e33a08813ab",
+        "fixtures/response-scope/update-and-publish-handoff.json": "c0276a81d9802dd0363834ada2b0f360e883579e8474ce49c238e42c29775f50",
+        "manifest.json": "3e408660eebef1e7e6012f262db06d788235110ae04525f56e534d6ad7a58857",
+        "model-calls.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "progress.json": "5a17486d2d357faede31b01617dca056fc73bd284e5b0a1590f68a1581f2dd28",
+        "report.json": "21b72e7aeda46c5e52ffecf9fd33aec3c4bdc0572dbe9f30cf23f86ea34c36bf",
+        "report.md": "6f6569bc76574260daa2477002ccb1ff1aa9e0b11b430549f4c9ef911be22e98",
+        "source.json": "0ce6f71732eec343cc182f4ae1725fe03980d5da52d89d930392355a5b97d803"
+      },
+      "excluded_from_publication": {
+        "evidence.sqlite3": "01e27d42d04faaf4ea6fb443f5b1225cafbd6741ed6110605b5928bc17185a4c"
+      },
+      "grades_rechecked": 90
+    },
+    "treatment": {
+      "original_run_id": "e7f16d59-fad3-4496-be51-a6a4a1a866be",
+      "copied_files": {
+        "episodes.json": "c46f75c968bb3095e0d40be4a9b3c793be86655acfbf5ddb37ced7c70f461fef",
+        "fixtures/effect-receipt-treatment-v1.json": "e19d5026281406225dab5291328fe857b997ea7f6f01fd6d9afa3d9ca8460ee2",
+        "fixtures/effect-receipt/confidential-response-triage-treatment.json": "625d1d55ecc61794e177c646e34397701b584a93ff4a4cf66fa2bb82df4a9445",
+        "fixtures/response-scope/reader-ticket-summary.json": "f71e0c2397ed0a47bcf5ddb0c61c377d1d648a4c00e14b12821ad36d1913b78a",
+        "fixtures/response-scope/reviewed-ticket-correction.json": "31e1885671832c3b3ba8096c5f9d5fde216ac42c3b3c3ff042acf9d75aad0148",
+        "fixtures/response-scope/search-backed-maintenance.json": "18d621d98e293d8cd9ad2db3e75778f380f8b893724533428c2d9431ba564a2c",
+        "fixtures/response-scope/search-selected-share.json": "9f519f5043a4c67a7564f52a7b50c0e7d4fb67023fee36a80f984e33a08813ab",
+        "fixtures/response-scope/update-and-publish-handoff.json": "c0276a81d9802dd0363834ada2b0f360e883579e8474ce49c238e42c29775f50",
+        "manifest.json": "96200ee3be8fff24d581e45504fad3dfd25f0a24149232140fc6b85edf7b377b",
+        "model-calls.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "progress.json": "8c042757792e87c00316855dcba1d1b2c78b1fe0a67abe47df35eea0d00c2071",
+        "report.json": "240d6ca32d568841733b9d79a8a95c06bd6a8aec6670740d6464e5be3b773bd1",
+        "report.md": "38464cff00a22dc5fc2510bd216dca1e83a812e30d7ea79054e2ad22b61d9dfd",
+        "source.json": "0ce6f71732eec343cc182f4ae1725fe03980d5da52d89d930392355a5b97d803"
+      },
+      "excluded_from_publication": {
+        "evidence.sqlite3": "1df822ba1a534c6cf3e46f1e5a5e8e915514fd5f9b849a7c57f552a518117bd3"
+      },
+      "grades_rechecked": 90
+    }
+  }
+}

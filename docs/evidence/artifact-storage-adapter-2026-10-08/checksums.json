@@ -1,0 +1,19 @@
+{
+  "README.md": "45dac432488eb15dda51e2c1c7354a54fa6a377c2a45f527d0a1b8972580d6a5",
+  "exhaustion.json": "7d90c983d2ccf484d804521dce9dd9f2be032acbaacf4dbced7e93dacd819c8f",
+  "measured-source.tar.gz": "d692c3a670b8902de99a57be1d63c8407daed2948c18d872e000224a703653a5",
+  "portable-verification/pc-completion-broad.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "portable-verification/pc-completion-guard.log": "8278f8521b95cd7daef06f2b285df9d0c8a9b61c2b706aa47569f8c63912935e",
+  "portable-verification/pc-decision-review.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "portable-verification/pc-development.log": "09d598ce88dc5188fc22dc011a7175c23151bbd24a4601d75aaa51716e69f3f5",
+  "portable-verification/pc-resource-completion.log": "abcbc18586be4db093a861913339e8d8d4a9589a64b209bce1714e2d0c54598d",
+  "portable-verification/pc-structured-review.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "portable-verification/pc-utility.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "portable-verification/pc-workflow-comparison.log": "abcbc18586be4db093a861913339e8d8d4a9589a64b209bce1714e2d0c54598d",
+  "portable-verification/release-corpus.log": "79c3c10ee1761a3f9568e71061a16dbedd6dc59f0ef511ec08d6333e182ec174",
+  "portable-verification/results.json": "2b75ea3537cbc8abe64d8fa7b37b30bec9b2d8bc67000eee9ca804b932e66c80",
+  "publication.json": "199091b0b8b169b711a99c1e669b60711c083761c55a527c6db9bdd9cef1abc3",
+  "report.json": "737b38a912cc2eaba49fc6b27fb71c27b53b26b6ae863ebbcb9d61fb7254ca12",
+  "unmounted.json": "a5f92524214c6f78cb1ff920e5f17136347f335c497c5a100b58f010f9e6c1e3",
+  "validation.log": "fbe6ca11fa50742424160af89d0ea23787f5bb11c9752fe18cca66aee5069bf2"
+}

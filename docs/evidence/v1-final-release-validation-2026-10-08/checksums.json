@@ -1,0 +1,21 @@
+{
+  "README.md": "b8c936d8b8ef8a13b1cf77b95f5d3de1850456b92aa0c85b92a410337a23da27",
+  "archive-audit.json": "ddec9d9b9a57570ca61c6dc5a1a773182c030f940cc6d1c67dd7c2bcf8911107",
+  "committed-evidence-byte-audit.json": "1e841de84e31afda6a63656257853262a0ad3e919d60013a9ab4d12ae649c608",
+  "package-check.log": "49e8ed6f969c140225ae42dac6c57bff3a12aaca728e8bd1cb0765bbf2a67d27",
+  "package-checksums.json": "40df68e3fa7b6052012360831512e847a6c5e0d1ef305b8a997e0d3a35187ba8",
+  "portable-verification/experimental-v1-candidate-2026-10-08.log": "39c42de5d166353dbbf656a032da03a0ef29b878ab5a402701bfe1c5df0e74d5",
+  "portable-verification/pc-completion-broad-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "portable-verification/pc-completion-guard-2026-10-07.log": "8278f8521b95cd7daef06f2b285df9d0c8a9b61c2b706aa47569f8c63912935e",
+  "portable-verification/pc-decision-review-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "portable-verification/pc-development-2026-10-07.log": "09d598ce88dc5188fc22dc011a7175c23151bbd24a4601d75aaa51716e69f3f5",
+  "portable-verification/pc-resource-completion-2026-10-07.log": "abcbc18586be4db093a861913339e8d8d4a9589a64b209bce1714e2d0c54598d",
+  "portable-verification/pc-structured-review-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "portable-verification/pc-utility-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "portable-verification/pc-workflow-comparison-2026-10-07.log": "abcbc18586be4db093a861913339e8d8d4a9589a64b209bce1714e2d0c54598d",
+  "portable-verification/results.json": "5fa977e524591373a33481758e963ecf7d8909566f87035954c2b8dc904a9124",
+  "release-asset-checksums.json": "06f6e821f69c3978418f49ba4290f862c77eabe3188c736fb46c0148e571bbe0",
+  "source-checks.log": "7f4538baecd3f33d05e470bff3c7416ec5bb7dc6587ffe912cf6dff31e2dbb5a",
+  "ui-checks.log": "58cc311d8ea885522c85d42c2b101f2a2dc56c7ebd084d99083ca7297c8c43ca",
+  "validation.json": "6a991f23d5babd953870e0724a4a2fbd5056b822e73aacb21571b17c98dd14f9"
+}

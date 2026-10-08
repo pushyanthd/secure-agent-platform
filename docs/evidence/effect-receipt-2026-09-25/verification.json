@@ -1,0 +1,30 @@
+{
+  "python_tests": {
+    "command": "make check",
+    "passed": 472
+  },
+  "focused_receipt_tests": {
+    "command": ".venv/bin/pytest -q tests/test_effect_receipts.py",
+    "passed": 26,
+    "included_in_full_suite": true
+  },
+  "ruff_lint": "passed",
+  "ruff_format": "passed",
+  "mypy": "passed",
+  "frontend": {
+    "command": "make ui-build ui-check",
+    "result": "passed"
+  },
+  "browser": {
+    "command": "make ui-test",
+    "passed": 16,
+    "execution": "outside development sandbox; local loopback and Chrome required",
+    "restricted_attempt": "server EPERM and Chrome SIGABRT; not an application assertion failure"
+  },
+  "docker_smoke": {
+    "command": "agentguard sandbox-smoke",
+    "passed": 24,
+    "docker_version": "29.7.2"
+  },
+  "fresh_model_trials": 0
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "effect-receipt-control-v1",
+  "split": "development",
+  "tasks": [
+    "response-scope/search-backed-maintenance.json",
+    "response-scope/reader-ticket-summary.json",
+    "response-scope/reviewed-ticket-correction.json",
+    "response-scope/search-selected-share.json",
+    "response-scope/update-and-publish-handoff.json",
+    "effect-receipt/confidential-response-triage-control.json"
+  ]
+}

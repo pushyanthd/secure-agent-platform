@@ -1,0 +1,29 @@
+{
+  "live_run": "artifacts/suites/de49bb54-d9b3-4cd1-9267-83e6effa8bd5",
+  "source_revision": "ec830e8",
+  "model_profile": "mac-small",
+  "planned_episodes": 60,
+  "host_load_notes": [
+    "Python checks and authored replay ran concurrently with inference.",
+    "Headless browser rendering and interaction tests ran concurrently with inference."
+  ],
+  "scope": "Development feasibility, not a held-out benchmark or controlled latency measurement.",
+  "scheduled_episodes": 60,
+  "recorded_episodes": 60,
+  "model_calls": 185,
+  "generated_tokens": 5939,
+  "schedule_written_utc": "2026-09-23T23:04:47.505204+00:00",
+  "checksums_written_utc": "2026-09-23T23:56:27.177263+00:00",
+  "summed_episode_seconds": 3099.2828,
+  "native_server_command_max_rss_bytes": 3852910592,
+  "native_server_command_max_rss_gib": 3.5883,
+  "measurement": "macOS /usr/bin/time -l around make model-serve; session maximum RSS, not per-episode, whole-machine, Docker, or separate GPU memory.",
+  "native_server_stopped": true,
+  "running_docker_containers_at_shutdown": [],
+  "selected_runtime_log_lines": [
+    "0.00.419.868 I common_memory_breakdown_print: |   - MTL0 (Apple M1)    | 12124 = 12123 + (3624 =  2375 +    1152 +      96) +       -3623 |",
+    "0.00.535.936 I llama_prepare_model_devices: using device MTL0 (Apple M1) (unknown id) - 12123 MiB free",
+    "0.00.949.528 I load_tensors: offloaded 37/37 layers to GPU",
+    "52.03.915.497 I common_memory_breakdown_print: |   - MTL0 (Apple M1)    | 12124 = 8499 + (3624 =  2375 +    1152 +      96) +           0 |"
+  ]
+}

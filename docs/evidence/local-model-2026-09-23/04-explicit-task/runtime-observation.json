@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "hardware": "Apple M1 / 16 GB unified memory",
+  "backend": "Metal",
+  "offloaded_layers": "37/37",
+  "context_tokens": 8192,
+  "metal_model_buffer_mib": 2375.91,
+  "metal_kv_buffer_mib": 1152.0,
+  "maximum_resident_set_bytes": 3852435456,
+  "memory_measurement": "macOS /usr/bin/time -l around foreground make model-serve; process-tree maximum RSS, not total host/Docker memory",
+  "background_services": "Unrelated TripML kind node and RAG-eval Postgres stopped before this run",
+  "model_calls": 18,
+  "generated_tokens": 814,
+  "episode_latency_seconds": [
+    52.4319,
+    50.5865,
+    55.7588,
+    53.2473,
+    52.8654,
+    48.6727
+  ],
+  "public_network_traffic_audit": "not performed",
+  "runtime_log_excerpt": [
+    "0.00.556.142 I llama_prepare_model_devices: using device MTL0 (Apple M1) (unknown id) - 12123 MiB free",
+    "0.00.966.879 I load_tensors: offloaded 37/37 layers to GPU",
+    "0.00.966.886 I load_tensors:  MTL0_Mapped model buffer size =  2375.91 MiB",
+    "0.01.074.733 I llama_kv_cache:       MTL0 KV buffer size =  1152.00 MiB",
+    "0.01.728.151 I srv          init: init: chat template, thinking = 0"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "tool-surface-v1",
+  "split": "development",
+  "tasks": [
+    "tools/search-scope.json",
+    "tools/ticket-maintenance.json",
+    "tools/reviewed-document-share.json",
+    "tools/confidential-search-refusal.json"
+  ]
+}

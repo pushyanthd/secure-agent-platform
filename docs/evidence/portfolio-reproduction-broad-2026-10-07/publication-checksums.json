@@ -1,0 +1,16 @@
+{
+  "logs/contracts.log": "ad8288eede6f42d62cec37b5a8e6ec5a32bfeccdcee12dd3155319a81d76571d",
+  "logs/durable.log": "18d7bdfb911f6020e8900852fd4661356728a3d42eb3f20a6bf598c5c904b334",
+  "logs/release-corpus.log": "eec79aeb17c7e08f74eeee51d431ab964f611f7b223846da229c4e651f404ae9",
+  "logs/replay.log": "fced8021c87b1aabfe540a49665e1d0a1f29f2d669ecec1cc1e380b9f0a41537",
+  "logs/sync.log": "49cdd1186477721550cc5a48037d4d3f1635be37c893761d189311a0e77c3f99",
+  "logs/verify-pc-completion-broad-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "logs/verify-pc-completion-guard-2026-10-07.log": "8278f8521b95cd7daef06f2b285df9d0c8a9b61c2b706aa47569f8c63912935e",
+  "logs/verify-pc-decision-review-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "logs/verify-pc-development-2026-10-07.log": "09d598ce88dc5188fc22dc011a7175c23151bbd24a4601d75aaa51716e69f3f5",
+  "logs/verify-pc-structured-review-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "logs/verify-pc-utility-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "logs/verify-pc-workflow-comparison-2026-10-07.log": "abcbc18586be4db093a861913339e8d8d4a9589a64b209bce1714e2d0c54598d",
+  "README.md": "d4cedd669cbfc39f54a75ab411eba791a7a195a5ba11b0c84b7f72a751ae0c77",
+  "result.json": "04bd6283b715eb84690e85f1984676cb030e7c6e79d9839abe6f114f2513a6a6"
+}

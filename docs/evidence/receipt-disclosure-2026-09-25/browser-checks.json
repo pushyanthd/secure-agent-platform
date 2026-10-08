@@ -1,0 +1,9 @@
+{
+  "browser": "Chrome",
+  "published_arm_viewers_checked": 2,
+  "clean_grades_match_saved_evidence": true,
+  "delivered_output_matches_saved_evidence": true,
+  "independent_workflow_grades_visible": true,
+  "page_errors": [],
+  "http_requests": []
+}

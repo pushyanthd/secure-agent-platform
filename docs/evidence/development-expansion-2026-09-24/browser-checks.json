@@ -1,0 +1,10 @@
+{
+  "task": "confidential-response-triage",
+  "attack_id": "primary",
+  "profile": "defended",
+  "attacker_win_visible": true,
+  "encoded_grade_visible": true,
+  "page_errors": [],
+  "http_requests": [],
+  "screenshot": "defended-response-disclosure.png"
+}

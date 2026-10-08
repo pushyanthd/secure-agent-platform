@@ -1,0 +1,69 @@
+import json
+import subprocess
+from pathlib import Path
+
+root = '/home/pushy/secure-agent-platform'
+base = root + '/artifacts/ci-storage-permissions-2026-10-08'
+python = root + '/.venv/bin/python'
+volume_script = root + '/scripts/artifact_volume.py'
+measure_script = root + '/scripts/measure_artifact_volume.py'
+logs = Path('artifacts/ci-fix-2026-10-08')
+logs.mkdir(exist_ok=True)
+operations = []
+
+def run(label, *command, privileged=False, require_success=True):
+    args = ['wsl', '-d', 'Ubuntu'] + (['-u', 'root'] if privileged else [])
+    args += ['--cd', root, '--', *command]
+    result = subprocess.run(args, capture_output=True, text=True)
+    (logs / (label + '.log')).write_text(result.stdout + result.stderr, encoding='utf-8')
+    operations.append({'operation': label, 'privileged': privileged, 'exit_code': result.returncode})
+    if require_success and result.returncode:
+        raise SystemExit(label + ' failed; inspect its retained log')
+    return result
+
+run('prepare-fresh-workspaces', 'mkdir', base)
+run('prepare-workspace-roots', 'mkdir', base + '/original', base + '/fixed')
+original_directory = base + '/original/artifacts/ci-volume'
+run('original-create', python, volume_script, 'create', '--directory', original_directory,
+    '--size-mib', '64', '--owner-uid', '1000', privileged=True)
+try:
+    parent = run('original-parent-owner', 'stat', '-c', '%u', base + '/original/artifacts')
+    result = run('original-exhaust', python, measure_script, 'exhaust', '--manifest',
+        original_directory + '/volume.json', '--output', base + '/original/artifacts/storage-measurement',
+        require_success=False)
+    assert parent.stdout.strip() == '0'
+    assert result.returncode != 0 and 'PermissionError: [Errno 13]' in result.stderr
+finally:
+    run('original-unmount', python, volume_script, 'unmount', '--directory',
+        original_directory, privileged=True)
+
+run('fixed-prepare-runner-owned-artifacts', 'mkdir', '-p', base + '/fixed/artifacts')
+fixed_directory = base + '/fixed/artifacts/ci-volume'
+measurement = base + '/fixed/artifacts/storage-measurement'
+run('fixed-create', python, volume_script, 'create', '--directory', fixed_directory,
+    '--size-mib', '64', '--owner-uid', '1000', privileged=True)
+try:
+    parent = run('fixed-parent-owner', 'stat', '-c', '%u', base + '/fixed/artifacts')
+    assert parent.stdout.strip() == '1000'
+    run('fixed-exhaust', python, measure_script, 'exhaust', '--manifest',
+        fixed_directory + '/volume.json', '--output', measurement)
+    run('fixed-grow', python, volume_script, 'grow', '--directory', fixed_directory,
+        '--size-mib', '96', privileged=True)
+    run('fixed-recover', python, measure_script, 'recover', '--manifest',
+        fixed_directory + '/volume.json', '--output', measurement)
+    report = json.loads(run('fixed-read-report', 'cat', measurement + '/report.json').stdout)
+    assert report['passed'] and all(report['checks'].values())
+finally:
+    run('fixed-unmount', python, volume_script, 'unmount', '--directory',
+        fixed_directory, privileged=True)
+
+summary = {'version': 'ci-storage-permissions-reproduction-v1', 'mode': 'authored_fixture',
+    'original_error_reproduced': True, 'original_parent_uid': 0, 'fixed_parent_uid': 1000,
+    'volume_capacity_before_mib': 64, 'volume_capacity_after_mib': 96,
+    'fresh_model_calls': 0, 'checks': report['checks'],
+    'checks_passed': sum(report['checks'].values()), 'checks_total': len(report['checks']),
+    'both_volumes_unmounted': True, 'operations': operations,
+    'hosted_ci_for_fix': 'pending_user_push'}
+(logs / 'reproduction.json').write_text(json.dumps(summary, indent=2) + '\n', encoding='utf-8')
+print(json.dumps({k: summary[k] for k in ['original_error_reproduced', 'fixed_parent_uid',
+    'checks_passed', 'checks_total', 'both_volumes_unmounted', 'fresh_model_calls']}))

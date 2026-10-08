@@ -1,0 +1,12 @@
+{
+  "episodes.json": "1d11cd45ef804f823a04f02c6ba76c33c45219e59cfd1d6afd8a3741f70e6d70",
+  "evidence.sqlite3": "eb9b20d3a0c1308ba93b3423c7f370dd2b97c497ba88ec7c21158a1959159b29",
+  "fixtures/effect-receipt/confidential-response-triage-template-only.json": "b74c9517f995bbd4cc9c2fa4ec5169171ea5f6c680038ab0242e8843aca4765a",
+  "fixtures/receipt-disclosure-treatment-v1.json": "dab774115a382dd7538f32595e304e772444a28b74e90b51fd00c89b8fa31caf",
+  "manifest.json": "69b13a1a4888b4b97e88df112b84e899e3ff1f33c059d9839b9408f0b7c97045",
+  "model-calls.json": "992ed234c6ec6f348b95afd4c313fc6e625daab9e6ad72172536702df725d354",
+  "progress.json": "ba7797b6642ebfbf28dc5270e39cbe265d06be365ff3e30883eb768d4e9ada45",
+  "report.json": "bbe7328bdfc3a7e870fc7c8beef52e61ce7c530fb275defa673e6f0bb3452f66",
+  "report.md": "20a16cc1a0f661f5b59ff0d8764ae218a77d2a5390dc110337bebb0cd05f317b",
+  "source.json": "2c8ca520ee962fb1cc94170fbbb0a7b403532da1a69fd321fb9c9618ac00cede"
+}

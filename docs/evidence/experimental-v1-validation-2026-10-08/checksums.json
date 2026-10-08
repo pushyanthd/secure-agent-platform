@@ -1,0 +1,17 @@
+{
+  "README.md": "f2f672e24aee451daf9aea2be717c265717d64bc4feb326ed86603aff92140ed",
+  "package-check.log": "8be6aab2d1fe55a89ad9a7b89c7ff9f67f9faa06cbf10c5f29915d6a523b1a9a",
+  "package-checksums.json": "b1354a0c05f82c24e19f54ed2c8fc657a3525f20d7dcffa5218e38a22b0c05d8",
+  "portable-verification/experimental-v1-candidate-2026-10-08.log": "39c42de5d166353dbbf656a032da03a0ef29b878ab5a402701bfe1c5df0e74d5",
+  "portable-verification/pc-completion-broad-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "portable-verification/pc-completion-guard-2026-10-07.log": "8278f8521b95cd7daef06f2b285df9d0c8a9b61c2b706aa47569f8c63912935e",
+  "portable-verification/pc-decision-review-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "portable-verification/pc-development-2026-10-07.log": "09d598ce88dc5188fc22dc011a7175c23151bbd24a4601d75aaa51716e69f3f5",
+  "portable-verification/pc-resource-completion-2026-10-07.log": "abcbc18586be4db093a861913339e8d8d4a9589a64b209bce1714e2d0c54598d",
+  "portable-verification/pc-structured-review-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "portable-verification/pc-utility-2026-10-07.log": "d320ee25bc6e8893c7ccf4f26c5e4a89eb90038f5154622fb1366ae44c5383d9",
+  "portable-verification/pc-workflow-comparison-2026-10-07.log": "abcbc18586be4db093a861913339e8d8d4a9589a64b209bce1714e2d0c54598d",
+  "portable-verification/results.json": "5fa977e524591373a33481758e963ecf7d8909566f87035954c2b8dc904a9124",
+  "source-checks.log": "44a94cd6c2b4c56d7fedfbba44276a6e98b24f47228e3c157e2cb0cb87ba8c5f",
+  "validation.json": "6d979a132e5c1af66003018062641896d9e49b9a7784a0d0c2fe4ddcaf469b5c"
+}

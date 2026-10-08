@@ -1,0 +1,21 @@
+{
+  "version": "ci-storage-permissions-fix-validation",
+  "pre_fix_commit": "1d9b44dc7fee68efe0774dc30e6df5bb94b13fbc",
+  "pre_fix_hosted_run": 37831928077,
+  "pre_fix_successful_jobs": [
+    "contracts",
+    "operator-ui",
+    "package"
+  ],
+  "original_permission_error_reproduced": true,
+  "fixed_fresh_storage_checks_passed": 18,
+  "fixed_fresh_storage_checks_total": 18,
+  "both_test_volumes_unmounted": true,
+  "runtime_source_sha256": "e0b36d65ff81d43049c9d1b4534c3c9621e09dfd0ebee77c4af2d13d8a66e5d2",
+  "runtime_and_graders_changed": false,
+  "installed_package_passed": true,
+  "source_archive_compared_files": 1683,
+  "source_archive_mismatches": 0,
+  "fresh_model_calls": 0,
+  "corrected_hosted_ci": "pending_user_push"
+}

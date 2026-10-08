@@ -1,0 +1,16 @@
+{
+  "browser": "Chrome",
+  "version": "153.0.8010.53",
+  "headless": true,
+  "episode_selections_verified": 84,
+  "episode_ids_and_task_grades_match": true,
+  "javascript_errors": [],
+  "http_requests_observed": 0,
+  "mobile_viewport_width": 390,
+  "mobile_no_document_overflow": true,
+  "screenshot": "defended-failure.png",
+  "limits": [
+    "Offline report viewer checks; no live inference or authenticated operator UI tests.",
+    "No adversarial browser payload was added in this packaging check."
+  ]
+}

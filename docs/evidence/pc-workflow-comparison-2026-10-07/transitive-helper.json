@@ -1,0 +1,7 @@
+{
+  "file": "utility_pilot.py",
+  "sha256": "1e197722154bc024cba164fff817eb29c84235f094191d2707746b104a72c441",
+  "prior_pre_generation_study_sha256": "08e49c5402c788a20ead26e927b019c001e3e2b317ae437f39a60919082dc1ee",
+  "prior_helper_sha256": "1e197722154bc024cba164fff817eb29c84235f094191d2707746b104a72c441",
+  "scope": "Loaded transitively by decision_structured.py; its utility-answer metrics are not called by this study."
+}

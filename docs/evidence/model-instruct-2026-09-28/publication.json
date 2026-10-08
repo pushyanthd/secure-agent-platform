@@ -1,0 +1,9 @@
+{
+  "original_model_study_sha256": "892ec4801156b5c87e6529cad33eb6b2d53568e78a10da61bc6a82894a4b9e5a",
+  "original_study_sha256": "3096e131802bd15bd1c39e12a0a217566514845ecf72725b50f10aeb1a876a15",
+  "checkpoint_sqlite_sha256": "6280f60cb4daa87b805b37005d0e8a7cddb42923e65071fa498d660d424fcc6c",
+  "run_id": "859abd24-60bb-429e-8513-3a59b4c19687",
+  "independently_regraded": 19,
+  "excluded": "Original state and review nonces remain in local artifacts; declaration extract omits local historical-session path. This is not a complete comparison or a replacement freeze.",
+  "status_note": "Status extract replaces the absolute local run path with a descriptive pointer."
+}

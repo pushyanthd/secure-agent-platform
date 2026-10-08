@@ -1,0 +1,18 @@
+{
+  "python_tests_passed": 423,
+  "ruff_check": "passed",
+  "ruff_format": "passed",
+  "mypy_strict": "passed",
+  "frontend_type_and_format_checks": "passed",
+  "frontend_build": "passed",
+  "chrome_scenarios_passed": 14,
+  "docker_scheduled": 90,
+  "docker_completed": 90,
+  "all_grades_rechecked": true,
+  "fresh_model_trials": 0,
+  "full_catalogue_scripted_episodes": 174,
+  "full_catalogue_defended_clean_success": 20,
+  "full_catalogue_defended_attacked_success": 35,
+  "full_catalogue_defended_attack_wins": 3,
+  "initial_restricted_browser_attempt": "Localhost bind and Chrome launch denied; all 14 passed with local process access."
+}

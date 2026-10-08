@@ -1,0 +1,9 @@
+[
+  "Experimental portfolio laboratory using self-authored synthetic data and simulated exact-action approvals; no production security claim.",
+  "Held-out lineage is author-declared and mechanically checked; no independent semantic split audit. Task-bootstrap intervals do not remove shared-family correlation.",
+  "Attack insertion is document-body append; tool-result-field insertion and arbitrary encoded or semantic disclosure detection are not implemented.",
+  "A host-wide public-network audit, artifact quota, additional live crash/cancellation/orphan cleanup evidence, independent clean-checkout reproduction, and final recording remain acceptance gaps.",
+  "One pinned local model, one sampling seed, and fixed payloads; zero observed wins cannot establish zero risk. Prompt-only release ablation is separate and not yet implemented in the frozen runner.",
+  "Raw artifacts remain privileged. Local checksums and the freeze detect inconsistency, not forgery by the machine owner. Container containment is not microVM-grade isolation.",
+  "The v1 corpus holds out forty decision-rule templates in eight families, while sharing tool/resource plumbing and attack mechanisms with development. It does not establish independent workflow or unseen-attack generalization; legitimate confidential-input receipt utility is outside this corpus."
+]

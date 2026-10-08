@@ -1,0 +1,20 @@
+{
+  "README.md": "20dcbfe7df040da5160d7041bb574a9c8fcbaae67b58bcef21bdf3e16f65a7c9",
+  "approval.png": "994281b5120ab32cb419960d91186203f9777cc904141351cd5c6b30c9799480",
+  "cancelled.png": "c1438ef3f54b42f45ab03af2ad725f3fef37c9a55394affa0ecf3651addb15c1",
+  "capture-script.mjs": "6cadd1cd39bc3230f6a016c6b60bc6a79e1fc6699e9d5f51cfb90e7f50b5da13",
+  "capture.json": "bde79f2a3e7f0d2d8f986581693c7ce185a27bccd6e7a8c7efd7f21c3f0c3828",
+  "completed.png": "183cd1f985278cf9686b713ce638b02b82b20d4d2c30eed5224029e1fd2d7477",
+  "decode-script.mjs": "3a46f3feacf2b65890597a9b161fe6239ac4b96c9545f3b44ab03bad56efe079",
+  "denied-read.png": "32fec956287fd1bd0ee6ff66de79a7d0e72b24ea20fd0999ca469aff9edd97d2",
+  "frame-114.png": "59e005a130798bf7380809127ec08de0835bedd34d35ba19fd3a604489d62316",
+  "frame-133.png": "a75ca65e4965c24cab83e18e3d8ff95572799b361d2cae559103259a7b3fd92d",
+  "frame-159.png": "e5bf63cb92a3a2312238bf7536d722df245475930e3c9c250956c8900ed33023",
+  "frame-40.png": "2e8b55a44bc4977cd9655da66aa0433c3b2fe85b9bb235416ebf3c55055cc524",
+  "frame-5.png": "494cace951f297959a0f72a3126749e63798641456aa7b00eda4b440d300aa30",
+  "frame-61.png": "00218d6b1cd6f453aadf4af91f1fa825ea7dffca0edbe715da5aa840d9793da4",
+  "frame-75.png": "7287364fdac508aaf5351b9e1dce3e1c56daa29981831df556073a6761f9c5c3",
+  "frame-94.png": "5020d84ebbeadcea8b8a126d0d7b3edf71a20560290cca4dbfb2293daf793062",
+  "playback-review.json": "0b0161e1d73727c4ff31c51df5dbc9433a4d0fd63b2fb85eda83b4cec83f82c2",
+  "walkthrough.webm": "f1d2de03165566edf98372d3a143be9d6b9f447e9ce2e02c9792ade6176fe2a0"
+}

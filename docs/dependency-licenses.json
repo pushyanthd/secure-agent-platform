@@ -1,0 +1,274 @@
+{
+  "source": "Installed Python distribution metadata; versions pinned in uv.lock. Includes development dependencies. Metadata is not a legal review.",
+  "model_artifacts": [],
+  "packages": [
+    {
+      "name": "annotated-doc",
+      "version": "0.0.5",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "license_expression": "MIT",
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "anyio",
+      "version": "4.15.1",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "click",
+      "version": "8.5.0",
+      "license_expression": "BSD-3-Clause",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "fastapi",
+      "version": "0.141.1",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "license_expression": null,
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_metadata": "MIT",
+      "metadata_requires_review": false
+    },
+    {
+      "name": "httpcore2",
+      "version": "2.13.1",
+      "license_expression": "BSD-3-Clause",
+      "license_classifiers": [
+        "OSI Approved :: BSD License"
+      ],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "httpx2",
+      "version": "2.13.1",
+      "license_expression": "BSD-3-Clause",
+      "license_classifiers": [
+        "OSI Approved :: BSD License"
+      ],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "idna",
+      "version": "3.20",
+      "license_expression": "BSD-3-Clause",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.0",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "librt",
+      "version": "0.15.0",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "markdown-it-py",
+      "version": "4.2.0",
+      "license_expression": null,
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "mdurl",
+      "version": "0.1.2",
+      "license_expression": null,
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "mypy",
+      "version": "1.20.2",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "mypy_extensions",
+      "version": "1.1.0",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "license_expression": "Apache-2.0 OR BSD-2-Clause",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "pathspec",
+      "version": "1.1.1",
+      "license_expression": null,
+      "license_classifiers": [
+        "OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)"
+      ],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "pluggy",
+      "version": "1.6.0",
+      "license_expression": null,
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_metadata": "MIT",
+      "metadata_requires_review": false
+    },
+    {
+      "name": "pydantic",
+      "version": "2.13.5",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.46.5",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "Pygments",
+      "version": "2.21.0",
+      "license_expression": "BSD-2-Clause",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "pytest",
+      "version": "9.1.1",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "rich",
+      "version": "15.0.0",
+      "license_expression": null,
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_metadata": "MIT",
+      "metadata_requires_review": false
+    },
+    {
+      "name": "ruff",
+      "version": "0.16.8",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "shellingham",
+      "version": "1.5.4",
+      "license_expression": null,
+      "license_classifiers": [
+        "OSI Approved :: ISC License (ISCL)"
+      ],
+      "license_metadata": "ISC License",
+      "metadata_requires_review": false
+    },
+    {
+      "name": "starlette",
+      "version": "1.7.0",
+      "license_expression": "BSD-3-Clause",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "truststore",
+      "version": "0.10.4",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "typer",
+      "version": "0.27.2",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.4",
+      "license_expression": "MIT",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "license_expression": "PSF-2.0",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.53.0",
+      "license_expression": "BSD-3-Clause",
+      "license_classifiers": [],
+      "license_metadata": null,
+      "metadata_requires_review": false
+    }
+  ]
+}

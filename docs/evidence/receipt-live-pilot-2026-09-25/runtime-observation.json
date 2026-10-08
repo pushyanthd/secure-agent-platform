@@ -1,0 +1,17 @@
+{
+  "model_profile": "mac-small",
+  "runtime": "llama.cpp b11149",
+  "device": "Apple M1",
+  "backend": "Metal",
+  "gpu_offloaded_layers": "37/37",
+  "slot_count": 1,
+  "context_tokens": 8192,
+  "seed": 42,
+  "arm_order": [
+    "control",
+    "treatment"
+  ],
+  "randomized_arm_order": false,
+  "python_tests_overlapped_part_of_inference": true,
+  "measurement_scope": "Episode/call timings and usage from saved ledger; no peak-memory or host-network measurement."
+}

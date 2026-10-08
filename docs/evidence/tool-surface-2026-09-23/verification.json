@@ -1,0 +1,37 @@
+{
+  "python_tests": {
+    "passed": 311,
+    "command": "make check"
+  },
+  "browser_scenarios": {
+    "passed": 11,
+    "command": "make ui-test",
+    "seconds": 43.6
+  },
+  "frontend": {
+    "production_build": true,
+    "typescript": true,
+    "formatting": true
+  },
+  "container_checks": {
+    "passed": 24,
+    "command": "make sandbox-smoke"
+  },
+  "isolated_tool_episodes": {
+    "completed": 24,
+    "command": "make eval-tools-isolated",
+    "model_trials": 0
+  },
+  "original_replay": {
+    "completed": 60,
+    "defended_clean_success": 10,
+    "defended_attacked_success": 10,
+    "defended_attack_wins": 0,
+    "model_trials": 0
+  },
+  "durable_demo": {
+    "checks_passed": 7,
+    "model_trials": 0
+  },
+  "limitations": "Local development verification. Authored model responses and automated reviews; no new live-model or held-out evaluation."
+}

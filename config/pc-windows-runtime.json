@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "platform": "Windows-x64",
+  "runtime_repository": "ggml-org/llama.cpp",
+  "release": "b11149",
+  "commit": "d2e54583c7452353eb35d40431281f6ee984332f",
+  "assets": [
+    {
+      "filename": "llama-b11149-bin-win-cuda-13.4-x64.zip",
+      "sha256": "24fa117fa4d34e24d121e13d7d1a542adbfc0fca24c96409e0824e9b5666072c",
+      "size_bytes": 149758790,
+      "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11149/llama-b11149-bin-win-cuda-13.4-x64.zip"
+    },
+    {
+      "filename": "cudart-llama-bin-win-cuda-13.4-x64.zip",
+      "sha256": "738f8c251ac22b70c3ae6f83a10cf222725df0395246a2cf58f32bdb85fbe668",
+      "size_bytes": 423535356,
+      "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11149/cudart-llama-bin-win-cuda-13.4-x64.zip"
+    }
+  ],
+  "status": "Pinned setup candidate; driver compatibility and GPU offload require verification on the actual PC."
+}
