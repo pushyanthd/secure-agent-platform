@@ -1,14 +1,21 @@
-# System card — experimental portfolio build
+# System card — V1 local agent platform
 
-Updated October 7, 2026. The platform is a local authorization and evaluation
-laboratory for a workplace assistant. Forty decision-template holdouts and the
-self-service evaluation workflow are implemented. The 400 fresh baseline/defended
+Updated October 8, 2026. The platform is a local authorization and evaluation
+laboratory for a workplace assistant. The forty original release templates are
+now exposed. The self-service evaluation workflow is implemented. The 400 baseline/defended
 trials are complete, with a **FAIL** gate: defended clean utility 5/40,
 observed attacker wins 0/160, and two unresolved attacked timeouts. See the
 [frozen results and failure analysis](evidence/release-v1-2026-09-27/README.md). No production or
 universal prompt-injection-resistance claim is made.
 
 ## Intended use and implemented system
+
+The separately declared [experimental candidate regression](evidence/experimental-v1-candidate-2026-10-08/README.md)
+passed 20/20 clean and 38/38 attacked outcomes with zero wins, unresolved attacks
+or unfinished trials. It uses exposed tasks, one seed and no fresh control;
+resource completion remains opt-in. [Live faults](evidence/live-recovery-2026-10-08/README.md)
+and [joint network observations](evidence/offline-observation-2026-10-08/README.md)
+add operational evidence with their finite scopes and retained observer failures.
 
 A reviewer can inspect a synthetic agent task, proposed tool actions, authorization
 decisions, scoped approvals, committed effects, independent grades, and retained
@@ -130,10 +137,10 @@ paired task-bootstrap intervals, and preserves incomplete trials in denominators
 The tooling itself is tested with explicit test doubles; those tests are not
 held-out or fresh-model evidence.
 
-The release remains experimental even if the behavioral gate passes: remaining
-acceptance work includes improved utility and completion in a new declared study, a host-wide public-network
-audit, bounded artifact storage, additional live recovery/cleanup measurements,
-an independent clean-checkout walkthrough, and the final recording. The
+V1 is a local portfolio release with synthetic resources. The new declared
+candidate regression, bounded storage, live recovery/cleanup measurements,
+joint network observation and reviewed recording are now complete within their
+published scopes. Independent external reproduction remains open. The
 [limitations declaration](../evaluations/release-limitations-v1.json) travels with
 the frozen experiment. Changing policy or graders after seeing held-out results
 requires a separately identified follow-up; the original outcomes remain published.
@@ -200,3 +207,26 @@ not change. Same-author/same-PC reproduction does not close external review.
 The current comparison and wrap-up are complete. The user requested a pause; no
 new release study, Git commit/push or GitHub release was started. Resume with the
 [V1 checklist](release-readiness.md). The original release gate remains FAIL.
+
+## Operational storage and packaging (October 8)
+
+An opt-in [persistent ext4 volume](artifact-storage.md) bounds aggregate runtime
+artifacts. The runtime adapter validates the mount/backing image before opening
+storage; the historical SQLite reader remains unchanged. [Measured exhaustion
+and recovery](evidence/artifact-storage-adapter-2026-10-08/README.md) passed 18/18
+checks plus two actual missing-mount checks. A 64 MiB volume rejected file/SQLite
+writes and rolled back a separate effect. Explicit growth to 96 MiB retained
+evidence and saved responses, completing without duplicate effects.
+
+This is authored operational evidence with zero fresh model calls and simulated
+lease expiry. Model/cache/Docker/repository storage is outside the quota; existing
+configurations remain unbounded unless configured. It does not close live
+crash/cancellation/orphan cleanup or host-wide offline measurement.
+
+Final incremental WSL checks pass 826 tests, lint, formatting and strict types;
+all 446 PC outcomes verify without inference, including the new 58-trial
+candidate regression. [V1 packaging](release-packaging.md) includes the built
+console and passes installed-wheel checks. The user performs hosted CI and
+GitHub publication using the prepared commands; those results are not yet claimed.
+Historical gates, rejected treatments, exposed template lineage and original
+limitations remain preserved. No default promotion or production claim follows.

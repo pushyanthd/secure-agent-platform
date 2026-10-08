@@ -177,7 +177,7 @@ function App() {
       )}
       <footer>
         AgentGuard <span>Local execution. Reviewable authority.</span>
-        <span>Experimental research platform</span>
+        <span>Local agent execution platform</span>
       </footer>
     </div>
   );

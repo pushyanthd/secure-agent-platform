@@ -1,0 +1,38 @@
+[
+  {
+    "check": "release-corpus",
+    "exit_code": 0
+  },
+  {
+    "check": "pc-development",
+    "exit_code": 0
+  },
+  {
+    "check": "pc-utility",
+    "exit_code": 0
+  },
+  {
+    "check": "pc-completion-guard",
+    "exit_code": 0
+  },
+  {
+    "check": "pc-completion-broad",
+    "exit_code": 0
+  },
+  {
+    "check": "pc-decision-review",
+    "exit_code": 0
+  },
+  {
+    "check": "pc-structured-review",
+    "exit_code": 0
+  },
+  {
+    "check": "pc-workflow-comparison",
+    "exit_code": 0
+  },
+  {
+    "check": "pc-resource-completion",
+    "exit_code": 0
+  }
+]

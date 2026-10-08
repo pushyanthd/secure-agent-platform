@@ -1,5 +1,5 @@
-name: contracts-and-isolation
-on: [push, pull_request]
+name: portfolio-v1-checks
+on: [push, pull_request, workflow_dispatch]
 
 permissions:
   contents: read
@@ -24,6 +24,7 @@ jobs:
       - run: uv run --locked agentguard eval-verify docs/evidence/pc-structured-review-2026-10-07/run
       - run: uv run --locked agentguard eval-verify docs/evidence/pc-workflow-comparison-2026-10-07/run
       - run: uv run --locked agentguard eval-verify docs/evidence/pc-resource-completion-2026-10-07/run
+      - run: uv run --locked agentguard eval-verify docs/evidence/experimental-v1-candidate-2026-10-08/run
       - run: make release-validate
       - run: make demo-replay
       - run: make demo-durable
@@ -53,3 +54,55 @@ jobs:
       - run: npx --no-install playwright install --with-deps chromium
         working-directory: frontend
       - run: make ui-test
+
+  artifact-storage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install uv==0.12.18
+      - run: uv sync --locked
+      - name: Create a persistent 64 MiB artifact boundary
+        run: sudo .venv/bin/python scripts/artifact_volume.py create --directory "$PWD/artifacts/ci-volume" --size-mib 64 --owner-uid "$(id -u)"
+      - name: Measure real file and SQLite exhaustion
+        run: uv run --locked python scripts/measure_artifact_volume.py exhaust --manifest artifacts/ci-volume/volume.json --output artifacts/storage-measurement
+      - name: Recover capacity without deleting evidence
+        run: sudo .venv/bin/python scripts/artifact_volume.py grow --directory "$PWD/artifacts/ci-volume" --size-mib 96
+      - name: Regrade effects and verify saved-response recovery
+        run: uv run --locked python scripts/measure_artifact_volume.py recover --manifest artifacts/ci-volume/volume.json --output artifacts/storage-measurement
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: authored-storage-measurement
+          path: artifacts/storage-measurement/*.json
+          if-no-files-found: warn
+      - name: Unmount dedicated volume
+        if: always()
+        run: sudo .venv/bin/python scripts/artifact_volume.py unmount --directory "$PWD/artifacts/ci-volume"
+
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - run: python -m pip install uv==0.12.18
+      - run: uv sync --locked
+      - run: make ui-setup ui-build
+      - run: uv build
+      - run: uv run --locked python scripts/check_package.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v1-package
+          path: dist/
+          if-no-files-found: error

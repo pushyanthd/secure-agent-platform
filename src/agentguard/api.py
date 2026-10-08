@@ -16,6 +16,7 @@ from pydantic import Field, model_validator
 from starlette.datastructures import Headers, MutableHeaders
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
+from agentguard.artifact_volume import ArtifactVolumeUnavailable
 from agentguard.contracts import Contract
 from agentguard.control import ControlError, ControlPlane, Principal, ReviewAction, SubmitRun
 from agentguard.storage import ReviewRejected
@@ -201,7 +202,13 @@ def create_app(
 
     @app.exception_handler(sqlite3.Error)
     async def storage_error(request: Request, exc: sqlite3.Error) -> JSONResponse:
+        if getattr(exc, "sqlite_errorcode", None) == sqlite3.SQLITE_FULL:
+            return JSONResponse({"error": "ARTIFACT_STORAGE_FULL"}, status_code=507)
         return JSONResponse({"error": "STORAGE_UNAVAILABLE"}, status_code=503)
+
+    @app.exception_handler(ArtifactVolumeUnavailable)
+    async def volume_error(request: Request, exc: ArtifactVolumeUnavailable) -> JSONResponse:
+        return JSONResponse({"error": "ARTIFACT_VOLUME_UNAVAILABLE"}, status_code=503)
 
     @app.exception_handler(Exception)
     async def internal_error(request: Request, exc: Exception) -> JSONResponse:

@@ -146,6 +146,7 @@ class Worker:
         self.manifest = execution_manifest(store, model_identity)
         self.queue = Queue(store)
         self.lease_seconds = lease_seconds
+        self.last_orphan_cleanup: list[str] = []
 
     def submit(self, episode: str, task: str, budgets: Budgets | None = None) -> None:
         self.queue.submit(episode, task, budgets or Budgets(), manifest=self.manifest)
@@ -156,6 +157,9 @@ class Worker:
         LeaseLost propagates; stale workers must exit without recording a terminal result.
         Unexpected process/runtime failures retain the job for reclaim after lease expiry.
         """
+        reconcile = getattr(self.store.computer, "reconcile_orphans", None)
+        if reconcile is not None:
+            self.last_orphan_cleanup = reconcile()
         lease = self.queue.claim(manifest=self.manifest, lease_seconds=self.lease_seconds)
         if lease is None:
             return None

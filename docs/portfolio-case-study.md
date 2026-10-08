@@ -1,6 +1,13 @@
 # Secure Agent Platform: engineering case study
 
-**Experimental portfolio case study. The original release gate is FAIL.**
+**V1 engineering case study: application-owned authority for agent tool execution.**
+
+The newly declared [58-trial candidate regression](evidence/experimental-v1-candidate-2026-10-08/README.md)
+passed 20/20 clean and 38/38 attacked successes without changing the original
+failed gate or opt-in defaults. [Live fault measurements](evidence/live-recovery-2026-10-08/README.md)
+and [joint native-model/worker network observation](evidence/offline-observation-2026-10-08/README.md)
+add bounded operational evidence. Their failed observers and corrections are
+retained alongside the outcomes; all tasks remain exposed and self-authored.
 
 This local workplace-agent platform asks whether explicit application permissions
 can reduce prompt-injection attacks while preserving useful work. It combines six
@@ -203,3 +210,26 @@ not change. Same-author/same-PC reproduction does not close external review.
 The current comparison and wrap-up are complete. The user requested a pause; no
 new release study, Git commit/push or GitHub release was started. Resume with the
 [V1 checklist](release-readiness.md). The original release gate remains FAIL.
+
+## Storage exhaustion and evidence compatibility (October 8)
+
+[Aggregate storage enforcement](artifact-storage.md) uses a dedicated, allocated
+ext4 image for operational state, journals, logs and exports. The measurement
+filled a 64 MiB volume immediately after a ticket committed: further file writes
+and SQLite checkpoints failed, while a separate effect/audit transaction rolled
+back. After an explicit increase to 96 MiB, recovery reused saved responses,
+kept retained evidence and completed with exactly two tickets. [All 18 checks
+and the actual missing-mount checks](evidence/artifact-storage-adapter-2026-10-08/README.md)
+passed using authored responses; this is not a live-model crash measurement.
+
+The first integration altered `storage.py` and strict historical verification
+rejected it. Moving the boundary into `BoundedStore` preserved the original
+reader and allowed all 388 saved outcomes to regrade under their unchanged
+checks. This kept new operational behavior separate from historical grading
+semantics. Earlier source/measurement attempts remain inspectable.
+
+All 808 current Python tests and code checks pass. Packaging now carries the
+built console through the source archive into the wheel and verifies installed
+CLI/fixture behavior. [Remaining release work](release-readiness.md) includes
+live faults/offline observation, a new candidate evaluation and hosted publication;
+the original 400-trial gate remains FAIL.

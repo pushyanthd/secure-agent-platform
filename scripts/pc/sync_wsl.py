@@ -34,7 +34,7 @@ def copy_changes(source: Path, target: Path, *, repair_initial_copy: bool = Fals
         if not original.is_file():
             continue
         content = original.read_bytes()
-        if b"\0" not in content[:8192]:
+        if not name.startswith("docs/evidence/") and b"\0" not in content[:8192]:
             content = content.replace(b"\r\n", b"\n")
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_bytes(content)

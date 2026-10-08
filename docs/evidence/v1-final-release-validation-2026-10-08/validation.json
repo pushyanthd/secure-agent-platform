@@ -1,0 +1,27 @@
+{
+  "browser_tests_passed": 16,
+  "canonical_historical_bytes_checked": 1122,
+  "canonical_historical_checkout_files_restored": 646,
+  "frozen_publication_files_checksum_verified": 147,
+  "github_publication": "user_managed_not_performed",
+  "historical_pc_outcomes": 388,
+  "hosted_ci": "pending_user_push",
+  "limits": [
+    "Same retained WSL environment; not independent external reproduction.",
+    "Build/install may use dependency registries; not offline inference observation.",
+    "Hosted CI and GitHub release must be completed by the user."
+  ],
+  "lint_format_strict_types_passed": true,
+  "model_calls_during_validation": 0,
+  "new_candidate_outcomes": 58,
+  "package_version": "1.0.0",
+  "portable_outcomes_verified": 446,
+  "publication_checksums_verified": 1003,
+  "python_tests_passed": 826,
+  "runtime_source_sha256": "e0b36d65ff81d43049c9d1b4534c3c9621e09dfd0ebee77c4af2d13d8a66e5d2",
+  "source_archive_compared_files": 1674,
+  "source_archive_mismatches": 0,
+  "source_archive_missing_checksummed_evidence_files": 0,
+  "version": "v1-final-release-local-validation",
+  "wheel_sdist_console_installed_package_passed": true
+}

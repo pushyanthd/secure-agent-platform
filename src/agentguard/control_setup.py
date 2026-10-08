@@ -9,6 +9,8 @@ from typing import Any, Literal
 from pydantic import Field
 
 from agentguard.api import Credential, Credentials, token_hash
+from agentguard.artifact_volume import load_volume
+from agentguard.bounded_storage import BoundedStore
 from agentguard.contracts import Contract, canonical_json, digest
 from agentguard.control import ControlPlane, Principal
 from agentguard.durable_demo import ScriptedModel
@@ -29,6 +31,7 @@ class ControlSettings(Contract):
     sandbox_manifest: Path
     port: int = Field(default=8000, ge=1024, le=65535)
     budgets: Budgets = Budgets(max_episode_seconds=900)
+    artifact_volume_manifest: Path | None = None
 
 
 class FixtureCatalogModel:
@@ -53,6 +56,13 @@ class FixtureCatalogModel:
 
 
 def prepare_control(settings: ControlSettings) -> tuple[ControlPlane, Worker]:
+    volume = (
+        load_volume(settings.artifact_volume_manifest)
+        if settings.artifact_volume_manifest is not None
+        else None
+    )
+    if volume is not None:
+        volume.verify(settings.database)
     _, rows = load_suite(settings.suite)
     tasks = {task.id: task for _, _, task in rows}
     computer = None
@@ -71,7 +81,11 @@ def prepare_control(settings: ControlSettings) -> tuple[ControlPlane, Worker]:
             raise ValueError("Application context budget must match the verified server")
         identity = {"mode": "fresh_local_inference", "profile": profile, "server": server}
         computer = DockerComputer.from_manifest(settings.sandbox_manifest)
-    store = Store(settings.database, computer=computer)
+    store = (
+        BoundedStore(settings.database, computer=computer, artifact_volume=volume)
+        if volume is not None
+        else Store(settings.database, computer=computer)
+    )
     worker = Worker(store, model, model_identity=identity)
     control = ControlPlane(
         store, tasks, manifest=worker.manifest, budgets=settings.budgets, mode=settings.mode
@@ -91,8 +105,12 @@ def initialize_control(
     fixture: bool,
     port: int = 8000,
     model_profile: Path | None = None,
+    artifact_volume_manifest: Path | None = None,
 ) -> Path:
     root, directory = root.resolve(), directory.resolve()
+    if artifact_volume_manifest is not None:
+        artifact_volume_manifest = artifact_volume_manifest.resolve()
+        load_volume(artifact_volume_manifest).verify(directory)
     settings = ControlSettings(
         mode="authored_fixture" if fixture else "fresh_local_inference",
         root=root,
@@ -103,6 +121,7 @@ def initialize_control(
         else root / "config/model-mac-small.json",
         sandbox_manifest=root / "artifacts/sandbox/manifest.json",
         port=port,
+        artifact_volume_manifest=artifact_volume_manifest,
     )
     _, rows = load_suite(settings.suite)
     actor, workspace = rows[0][2].contract.actor, rows[0][2].contract.workspace

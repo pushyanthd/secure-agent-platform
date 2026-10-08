@@ -1,5 +1,11 @@
 # Resource-level completion requirements
 
+The selected guard subsequently passed a separately declared
+[58-trial experimental regression](evidence/experimental-v1-candidate-2026-10-08/README.md)
+at 20/20 clean and 38/38 attacked success. The earlier 19/20 and 37/38 grades,
+including both failed outcomes, remain unchanged. This exposed-task, single-seed
+regression changes no default or original release gate.
+
 The [broader workflow comparison](evidence/pc-workflow-comparison-2026-10-07/README.md)
 rejected both tool-kind completion and structured review. A successful search
 with limit one returned only the guide, not the requested source. Required
@@ -96,3 +102,10 @@ The guard's two failures retain the original exact ticket-body punctuation
 expectation. All ten failed grades remain published. This selects an opt-in
 development candidate for a newly declared release study; no application default
 or original release gate changes. The original release remains FAIL.
+
+The [October 8 operational increment](artifact-storage.md) adds a configured
+aggregate artifact volume and measured exhaustion/recovery; it does not change
+this candidate's completion plans, default selection or historical grades.
+Live faults/offline measurement and a newly declared release evaluation remain
+required. [Experimental packaging](release-packaging.md) is locally verified and
+has not been published.

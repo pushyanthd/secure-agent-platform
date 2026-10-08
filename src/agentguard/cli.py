@@ -10,6 +10,7 @@ import typer
 from agentguard import benchmark
 from agentguard.analysis import write_analysis
 from agentguard.api import create_app
+from agentguard.artifact_volume import ArtifactVolumeUnavailable, load_volume
 from agentguard.contracts import Profile
 from agentguard.control_setup import (
     ControlSettings,
@@ -61,13 +62,21 @@ def control_init(
     fixture: Annotated[bool, typer.Option("--fixture")] = False,
     port: Annotated[int, typer.Option(min=1024, max=65535)] = 8000,
     model_profile: Annotated[Path | None, typer.Option(exists=True, dir_okay=False)] = None,
+    artifact_volume_manifest: Annotated[
+        Path | None, typer.Option(exists=True, dir_okay=False)
+    ] = None,
 ) -> None:
     """Create private local credentials and settings. Explicit --fixture needs no services."""
     try:
         path = initialize_control(
-            Path.cwd(), directory, fixture=fixture, port=port, model_profile=model_profile
+            Path.cwd(),
+            directory,
+            fixture=fixture,
+            port=port,
+            model_profile=model_profile,
+            artifact_volume_manifest=artifact_volume_manifest,
         )
-    except (ValueError, OSError) as exc:
+    except (ValueError, OSError, ArtifactVolumeUnavailable) as exc:
         raise typer.BadParameter(str(exc)) from exc
     typer.echo(f"Settings: {path}")
     typer.echo(f"Operator token: {path.parent / 'operator.token'} (keep private)")
@@ -117,6 +126,14 @@ def worker(
             result = runner.run_once()
         except LeaseLost:
             typer.echo("Worker lease revoked or superseded; stopping.")
+            raise typer.Exit(1) from None
+        except ArtifactVolumeUnavailable:
+            typer.echo("Artifact volume unavailable; stopping without retry.")
+            raise typer.Exit(1) from None
+        except sqlite3.Error as exc:
+            if getattr(exc, "sqlite_errorcode", None) != sqlite3.SQLITE_FULL:
+                raise
+            typer.echo("Artifact storage full; stop services and recover capacity before restart.")
             raise typer.Exit(1) from None
         if result is not None:
             typer.echo(f"Run state: {result['status']}")
@@ -317,12 +334,18 @@ def eval_suite(
     sandbox_manifest: Annotated[Path | None, typer.Option(exists=True, dir_okay=False)] = None,
     output: Annotated[Path, typer.Option()] = Path("artifacts/suites"),
     max_episodes: Annotated[int | None, typer.Option(min=1)] = None,
+    artifact_volume_manifest: Annotated[
+        Path | None, typer.Option(exists=True, dir_okay=False)
+    ] = None,
 ) -> None:
     """Run a synthetic development suite; default is authored replay, not model inference."""
     selected = tuple(v.strip() for v in variants.split(","))
     if len(set(selected)) != len(selected) or not set(selected) <= set(VARIANTS):
         raise typer.BadParameter("Select unique variants from baseline,prompt_only,defended")
     model, evidence = None, None
+    volume = load_volume(artifact_volume_manifest) if artifact_volume_manifest else None
+    if volume is not None:
+        volume.verify(output)
     if live:
         model, profile, server = prepare_local_model(Path.cwd(), model_profile)
         if "preflight_error" in server:
@@ -343,6 +366,7 @@ def eval_suite(
             progress=_suite_progress,
             stop_requested=stop,
             max_episodes=max_episodes,
+            artifact_volume=volume,
         )
     _suite_output(result)
 

@@ -2,7 +2,9 @@
 
 The [project overview](../README.md) is the short portfolio entry point. This
 guide retains the detailed workflows and development history. For the latest
-follow-up, see [decision review](decision-review.md).
+follow-up, see [V1 release readiness](release-readiness.md),
+[candidate regression](evidence/experimental-v1-candidate-2026-10-08/README.md)
+and [release packaging](release-packaging.md).
 
 # Secure Agent Execution & Evaluation Platform
 
@@ -62,7 +64,7 @@ flowchart LR
 
 The studies use different task sets and execution profiles. Their scores remain
 separate. A failed behavioral gate is part of the engineering evidence; this is
-an experimental laboratory with synthetic data and effects.
+a local laboratory with synthetic data and effects.
 
 ![Operator console reviewing an exact shared-ticket action](evidence/operator-ui-2026-09-23/approval-desktop.png)
 
@@ -103,7 +105,8 @@ make release-report              # Gate, offline viewer, and diagnostics
 
 Start Docker and the pinned local model server first (`make model-serve` in a
 separate terminal). `make release-status` works without inference. All failed
-trials remain in the frozen comparison; this release is explicitly experimental.
+trials remain in the frozen comparison; this historical protocol retains its
+original experimental declaration. The current V1 package has local portfolio scope.
 
 ## Current work: improve utility before release
 
@@ -480,3 +483,19 @@ The comparison does not retroactively select the earlier completion guard.
 Next: make the mutation review protocol unambiguous and investigate deterministic
 calculation over grounded, authorized facts before broader workflow selection.
 The original release remains FAIL; remaining gaps are listed in the system card.
+
+## October 8 operational and packaging follow-up
+
+Configure the opt-in [artifact volume](artifact-storage.md) for bounded SQLite,
+logs and exports. The [measured recovery](evidence/artifact-storage-adapter-2026-10-08/README.md)
+retains authored responses/effects through actual exhaustion and explicit capacity
+growth; the original grading reader is unchanged. Unconfigured deployments do
+not acquire a quota automatically.
+
+`make package-check` builds and verifies a wheel with the console, source archive,
+V1 notes and checksums in a new directory. [Packaging scope](release-packaging.md)
+documents the user-managed hosted CI/publication steps. Current validation passes
+826 Python tests, sixteen browser tests and all 446 retained PC grades without inference.
+The operational live/offline measurements and separately declared candidate
+evaluation are complete. Continue with the [user-managed publication commands](github-release-commands.md).
+The original gate remains FAIL.

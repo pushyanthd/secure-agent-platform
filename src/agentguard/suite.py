@@ -13,6 +13,8 @@ from typing import Any
 from pydantic import ValidationError
 
 from agentguard import benchmark
+from agentguard.artifact_volume import ArtifactVolume
+from agentguard.bounded_storage import BoundedStore
 from agentguard.completion import CompletionPlan
 from agentguard.computation import Computer, ToolFailure
 from agentguard.contracts import Profile, digest
@@ -150,7 +152,10 @@ def run_suite(
     decision_review_tasks: tuple[str, ...] = (),
     decision_review_version: ReviewVersion = "independent-v1",
     completion_plans: dict[str, CompletionPlan] | None = None,
+    artifact_volume: ArtifactVolume | None = None,
 ) -> Path:
+    if artifact_volume is not None:
+        artifact_volume.verify(output_root)
     if max_episodes is not None and max_episodes < 1:
         raise ValueError("Session episode limit must be positive")
     if not variants or len(set(variants)) != len(variants) or not set(variants) <= set(VARIANTS):
@@ -191,7 +196,11 @@ def run_suite(
             raise ValueError("Current execution protocol differs from frozen experiment")
     run_dir = output_root / str(uuid.uuid4())
     run_dir.mkdir(parents=True, exist_ok=False)
-    store = Store(run_dir / "state.sqlite3", computer=computer)
+    store = (
+        BoundedStore(run_dir / "state.sqlite3", computer=computer, artifact_volume=artifact_volume)
+        if artifact_volume is not None
+        else Store(run_dir / "state.sqlite3", computer=computer)
+    )
     budgets = Budgets(context_tokens=model.config.context_tokens) if model else Budgets()
     source = {p.name: p.read_text() for p in sorted(Path(__file__).parent.glob("*.py"))}
     atomic_json(run_dir / "source.json", source)
@@ -288,6 +297,8 @@ def run_suite(
         for task_id, plan in (completion_plans or {}).items():
             treatments.setdefault(task_id, {})["completion_plan"] = plan.model_dump(mode="json")
         manifest["runtime_treatments"] = treatments
+    if artifact_volume is not None:
+        manifest["artifact_volume"] = artifact_volume.model_dump(mode="json")
     atomic_json(run_dir / "manifest.json", manifest)
     with benchmark.exclusive_run(run_dir):
         benchmark.initialize(store, manifest)
@@ -318,6 +329,13 @@ def resume_suite(
         raise ValueError("Session episode limit must be positive")
     with benchmark.exclusive_run(run_dir):
         manifest = json.loads((run_dir / "manifest.json").read_text())
+        volume = (
+            ArtifactVolume.model_validate(manifest["artifact_volume"])
+            if "artifact_volume" in manifest
+            else None
+        )
+        if volume is not None:
+            volume.verify(run_dir)
         suite_path = benchmark.verify_files(run_dir, manifest)
         frozen = manifest.get("release_freeze")
         if manifest.get("release_evidence") or frozen is not None:
@@ -334,7 +352,11 @@ def resume_suite(
         _, fixtures = load_suite(suite_path, allow_held_out=frozen is not None)
         if not (run_dir / "state.sqlite3").is_file():
             raise ValueError("Benchmark state database is missing")
-        store = Store(run_dir / "state.sqlite3", computer=computer)
+        store = (
+            BoundedStore(run_dir / "state.sqlite3", computer=computer, artifact_volume=volume)
+            if volume is not None
+            else Store(run_dir / "state.sqlite3", computer=computer)
+        )
         expected = (
             manifest["fresh_inference"],
             manifest["model"],

@@ -1,0 +1,30 @@
+import json
+import subprocess
+from pathlib import Path
+from agentguard.live import atomic_json
+from agentguard.release import sha
+
+root=Path('artifacts/live-recovery-v1-2026-10-08')
+original=json.loads((root/'report.json').read_text())
+case=next(row for row in original['cases'] if row['case']=='paused-container')
+boundary=json.loads((root/'paused-container/boundary.json').read_text())
+result=subprocess.run(['docker','inspect',boundary['container']],capture_output=True,timeout=5)
+trace=Path('artifacts/live-recovery-network-v1-2026-10-08')/('worker.'+str(boundary['docker_cli_pid']))
+checks={
+    'same_container_recorded_removed':boundary['container'] in case['removed_orphans'],
+    'confirmed_absent':result.returncode==1 and b'no such object' in result.stderr.lower(),
+    'docker_cli_accounted': '+++ exited with 137 +++' in trace.read_text(),
+    'all_other_original_checks_pass':all(value for row in original['cases'] for key,value in row['checks'].items() if key!='orphan_removed'),
+    'only_failed_check_is_original_case_sensitive_observer':[(row['case'],key) for row in original['cases'] for key,value in row['checks'].items() if not value]==[('paused-container','orphan_removed')],
+    'source_unchanged_in_original_measurement':original['source_unchanged'],
+}
+record={'version':'live-recovery-observer-correction-v1','original_report_sha256':sha(root/'report.json'),
+    'original_report_passed':False,'original_report_preserved':True,'new_model_calls':0,
+    'explanation':'Original absence observer searched for uppercase No such; Docker29.8.2 emitted lowercase no such object. No runtime or saved grade was changed.',
+    'docker_inspect':{'exit_code':result.returncode,'stdout':result.stdout.decode(),'stderr':result.stderr.decode()},
+    'container':boundary['container'],'docker_cli_pid':boundary['docker_cli_pid'],
+    'cli_trace_sha256':sha(trace),'cli_trace_last_line':trace.read_text().splitlines()[-1],
+    'checks':checks,'corrected_verification_passed':all(checks.values())}
+atomic_json(root/'observer-correction.json',record)
+print(json.dumps(record,indent=2))
+if not all(checks.values()):raise SystemExit(1)

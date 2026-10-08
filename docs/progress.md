@@ -1,6 +1,39 @@
 # Implementation status
 
-Updated October 7, 2026. The architecture plan remains the target design.
+Updated October 8, 2026. The architecture plan remains the target design.
+
+## V1 release increment
+
+Aggregate opt-in ext4 storage passed real 64 MiB exhaustion and explicit 96 MiB
+recovery without deleting evidence. Linux workers now reconcile pinned-image
+containers owned by dead local processes before claiming jobs; live/foreign owners
+are preserved and unconfirmed cleanup blocks admission. Four fresh CUDA/WSL
+fault cases measured saved-response SIGKILL, committed-effect SIGKILL, real paused
+runner orphan/restart cleanup and cancellation fencing. The original 36/37
+observer report remains failed; its separately verified Docker-message case
+correction passes without new inference.
+
+Joint Windows TCPIP/Linux syscall observation retained zero lost ETW events,
+781 loopback native endpoint lifecycles and no observed public project endpoints.
+Two incorrect ownership-extraction attempts are retained; final attribution uses
+explicit owning PID payloads, with a regression test for kernel context confusion.
+This is finite observation, not permanent enforcement or every-packet attribution.
+
+The separately declared, frozen candidate regression completed all 58 outcomes:
+20/20 clean and 38/38 attacked successes, zero wins/unresolved/noncompleted,
+246 model calls and 8,085 generated tokens. Independent temporary-copy and
+portable grading agree. It is exposed, self-authored, single-seed candidate-only
+evidence; original 400-trial FAIL, prior failed grades and opt-in defaults remain.
+
+The measured runtime snapshot passes 818 tests; final V1 checks include the
+network observer regressions and pass 826 tests plus all sixteen browser tests.
+The installed 1.0.0 wheel/source archive and reviewed 2:46 recording are prepared
+in a checksummed local release bundle. The user reserved all GitHub operations;
+[publication commands](github-release-commands.md) are ready and no push, remote
+tag or release was performed by the agent. Hosted CI now includes the new
+portable regression, storage exhaustion/recovery, Docker, browser and installed
+package checks. See [release packaging](release-packaging.md) for publication.
+The sections below retain earlier increments and their historical next steps.
 
 ## Current PC follow-up and portfolio reproduction
 
@@ -644,3 +677,37 @@ not change. Same-author/same-PC reproduction does not close external review.
 The current comparison and wrap-up are complete. The user requested a pause; no
 new release study, Git commit/push or GitHub release was started. Resume with the
 [V1 checklist](release-readiness.md). The original release gate remains FAIL.
+
+## Aggregate storage and experimental packaging (October 8)
+
+- [x] Add an opt-in persistent ext4 artifact volume with allocated capacity and verified mount/image/UUID/options.
+- [x] Fail closed before Store construction and every connection; pin the boundary in configured suite manifests and verify on resume.
+- [x] Report SQLite capacity exhaustion as HTTP 507 and stop workers without automatic retry.
+- [x] Measure real file/SQLite exhaustion, effect/audit rollback, retained state and exact saved-response recovery after explicit 64-to-96 MiB growth.
+- [x] Pass 18/18 measurement checks and two actual unmount checks, retaining both attempts and original synthetic snapshots.
+- [x] Pass all 808 Python tests, lint, formatting, strict types and UI build/check in WSL.
+- [x] Repair wheel-from-source packaging to include the console and verify a clean installed wheel using locked runtime dependencies.
+- [x] Prepare experimental notes/checksums and define GitHub storage/package CI jobs without publishing a release.
+
+[Storage evidence](evidence/artifact-storage-adapter-2026-10-08/README.md) uses authored
+responses, in-process tools and simulated lease expiry, with zero fresh model
+calls. It does not close live crash/cancellation, orphan cleanup or host-wide
+offline measurement. The quota bounds the configured operational filesystem;
+model/cache/Docker/repository storage remains outside it. Existing configurations
+do not acquire a quota automatically.
+
+The first full validation exposed CRLF introduced by direct file transfer;
+canonical LF sync fixed source-hash discrepancies without changing freeze checks.
+Two incomplete package attempts remain local; verification found the missing
+console and the build now includes it in both archives. [Publication provenance](evidence/artifact-storage-adapter-2026-10-08/publication.json)
+retains these attempts. No old inference study was rerun, historical evidence was
+edited, default promoted, commit/push made or GitHub release published. The
+original 400-trial gate remains FAIL. Continue with the remaining operational
+measurements and a newly declared candidate evaluation.
+
+Strict historical regrading initially rejected the directly modified storage
+module. Mount enforcement now lives in `BoundedStore`, a runtime adapter;
+the original storage reader and verification checks remain unchanged. Earlier
+quota measurements/source snapshots remain separate publications. The adapter
+measurement passed the same 18/18 checks and real unmount checks. All 388 saved
+PC outcomes were regraded without inference against the unchanged reader.

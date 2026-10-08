@@ -22,6 +22,13 @@ ui-check:
 ui-test:
 	cd frontend && npm test
 
+.PHONY: package-check
+PACKAGE_DIR ?= artifacts/v1-package-$(shell date +%Y%m%d-%H%M%S)
+package-check: ui-build
+	test ! -e "$(PACKAGE_DIR)"
+	$(UV) build --out-dir "$(PACKAGE_DIR)"
+	$(UV) run --locked python scripts/check_package.py --dist "$(PACKAGE_DIR)"
+
 .PHONY: eval-suite eval-suite-live eval-tools eval-tools-isolated eval-tools-live
 .PHONY: eval-multi-attack
 .PHONY: eval-development eval-expansion eval-ticket-scope eval-response-scope
@@ -96,7 +103,7 @@ setup:
 check:
 	$(UV) run --locked ruff check .
 	$(UV) run --locked ruff format --check .
-	$(UV) run --locked mypy src scripts/compare_receipt_pilot.py scripts/report_release.py scripts/utility_pilot.py scripts/model_pilot.py scripts/screen_model_pilot.py scripts/completion_pilot.py scripts/completion_broad.py scripts/decision_review.py scripts/decision_structured.py scripts/workflow_comparison.py scripts/resource_completion.py scripts/portfolio_check.py
+	$(UV) run --locked mypy src scripts/compare_receipt_pilot.py scripts/report_release.py scripts/utility_pilot.py scripts/model_pilot.py scripts/screen_model_pilot.py scripts/completion_pilot.py scripts/completion_broad.py scripts/decision_review.py scripts/decision_structured.py scripts/workflow_comparison.py scripts/resource_completion.py scripts/portfolio_check.py scripts/artifact_volume.py scripts/measure_artifact_volume.py scripts/measure_live_recovery.py scripts/candidate_release.py scripts/pc/summarize_native_network.py scripts/check_package.py
 	$(UV) run --locked pytest
 
 doctor:

@@ -14,6 +14,7 @@ from typing import Any
 from pydantic import ValidationError
 
 from agentguard.computation import RESULT_ADAPTER, ToolFailure, ToolRequest, ToolResult
+from agentguard.container_owner import PREFIX, owner_is_dead, owner_labels
 
 MAX_INPUT = 131072
 MAX_OUTPUT = 65536
@@ -198,6 +199,7 @@ class DockerComputer:
     def command(self, name: str, *, probe: bool = False) -> list[str]:
         # Only the trusted smoke harness can select the separately built probe image.
         entry = "/tool/probe.py" if probe else "/tool/runner.py"
+        labels = owner_labels()
         return [
             "docker",
             "run",
@@ -220,11 +222,79 @@ class DockerComputer:
             "--log-driver=none",
             "--workdir=/tool",
             "--entrypoint=/usr/local/bin/python",
+            *[
+                argument
+                for key, value in labels.items()
+                for argument in ("--label", f"{key}={value}")
+            ],
             self.image_id,
             "-I",
             "-B",
             entry,
         ]
+
+    def reconcile_orphans(self) -> list[str]:
+        """Remove only pinned-image containers with a verifiably dead local owner.
+
+        A daemon/query/removal failure aborts worker admission. Unlabelled containers,
+        other hosts/images and live owners are preserved. This runs before claiming
+        a job, so hard-killed workers need no finally handler to recover cleanup.
+        """
+        current = owner_labels()
+        if not current:
+            return []
+        output = bounded_process(
+            [
+                "docker",
+                "ps",
+                "--all",
+                "--quiet",
+                "--no-trunc",
+                "--filter",
+                f"label={PREFIX}version=1",
+            ],
+            b"",
+            timeout=5,
+        )
+        identifiers = output.decode("ascii").splitlines()
+        if len(identifiers) > 64 or any(
+            re.fullmatch(r"[0-9a-f]{64}", item) is None for item in identifiers
+        ):
+            raise ToolFailure("CLEANUP_UNCONFIRMED")
+        removed = []
+        for identifier in identifiers:
+            try:
+                record = json.loads(
+                    bounded_process(["docker", "inspect", identifier], b"", timeout=5)
+                )[0]
+            except ToolFailure:
+                # An active owner's --rm can race with discovery. Absence must
+                # be confirmed; other inspection errors cannot authorize removal.
+                remaining = bounded_process(
+                    [
+                        "docker",
+                        "ps",
+                        "--all",
+                        "--quiet",
+                        "--no-trunc",
+                        "--filter",
+                        f"id={identifier}",
+                    ],
+                    b"",
+                    timeout=5,
+                )
+                if not remaining.strip():
+                    continue
+                raise
+            if (
+                record["Id"] == identifier
+                and record["Image"] == self.image_id
+                and re.fullmatch(r"/agentguard-[0-9a-f]{32}", record["Name"])
+                and owner_is_dead(record["Config"].get("Labels") or {}, current)
+            ):
+                self._remove(identifier)
+                removed.append(identifier)
+        return removed
 
     def run(self, payload: bytes, *, probe: bool = False) -> bytes:
         name = "agentguard-" + uuid.uuid4().hex
